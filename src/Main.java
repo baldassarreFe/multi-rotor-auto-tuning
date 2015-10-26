@@ -20,16 +20,16 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
 		FileWriter file = new FileWriter("test.txt");
 		
+		esc.setTelemetryParameters(new String[] {"RPM", "AMPS AVG", "MOTOR VOLTS"});
 		esc.arm()
 			.sleep(1000)
-			.startTelemetry(10, writer)
+			.startTelemetry(50, file)
 			.start()
-			.sleep(10000)
-			.startTelemetry(10, file)
-			.sleep(10000)
+			.accelerate(4000, 9000, 500)
+			.accelerate(9000, 4000, -300)
+			.sleep(5000)
 			.stopTelemetry()
 			.stop()
 			.disarm();

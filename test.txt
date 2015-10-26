@@ -1,1069 +1,3564 @@
-ESC STATE      RUNNING
-PERCENT IDLE      9.72
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.57
+RPM               0.00
+AMPS AVG         -0.00
+MOTOR VOLTS       0.00
+RPM               0.00
+AMPS AVG         -0.00
+MOTOR VOLTS       0.05
+RPM               0.00
+AMPS AVG         -0.00
+MOTOR VOLTS       0.10
+RPM               0.00
+AMPS AVG         -0.00
+MOTOR VOLTS       0.10
+RPM               0.00
+AMPS AVG          0.00
+MOTOR VOLTS       0.15
+RPM               0.00
+AMPS AVG          0.00
+MOTOR VOLTS       0.20
+RPM               0.00
+AMPS AVG          0.00
+MOTOR VOLTS       0.25
+RPM               0.00
+AMPS AVG          0.00
+MOTOR VOLTS       0.25
+RPM               0.00
+AMPS AVG          0.00
+MOTOR VOLTS       0.30
+RPM               0.00
+AMPS AVG          0.01
+MOTOR VOLTS       0.35
+RPM               0.00
 AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.87
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.34
+MOTOR VOLTS       0.59
+RPM               0.00
+AMPS AVG          0.04
+MOTOR VOLTS       0.64
+RPM               0.00
+AMPS AVG          0.05
+MOTOR VOLTS       0.69
+RPM               0.00
+AMPS AVG          0.05
+MOTOR VOLTS       0.74
+RPM               0.00
+AMPS AVG          0.05
+MOTOR VOLTS       0.74
+RPM               0.00
+AMPS AVG          0.07
+MOTOR VOLTS       0.79
+RPM               0.00
+AMPS AVG          0.08
+MOTOR VOLTS       0.84
+RPM               0.00
+AMPS AVG          0.09
+MOTOR VOLTS       0.89
+RPM               0.00
+AMPS AVG          0.10
+MOTOR VOLTS       0.89
+RPM               0.00
+AMPS AVG          0.11
+MOTOR VOLTS       0.94
+MOTOR VOLTS       1.57
+RPM               0.00
+AMPS AVG          0.47
+MOTOR VOLTS       1.57
+RPM               0.00
+AMPS AVG          0.43
+MOTOR VOLTS       1.57
+RPM               0.00
+AMPS AVG          0.33
+MOTOR VOLTS       1.58
+RPM               0.00
+AMPS AVG          0.08
+MOTOR VOLTS       1.58
+RPM               0.00
 AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.42
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.87
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.50
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.57
+MOTOR VOLTS       1.58
+RPM            1321.66
+AMPS AVG          6.29
+MOTOR VOLTS       6.44
+RPM            4734.48
+AMPS AVG          0.17
+MOTOR VOLTS       0.00
+RPM            4605.69
+AMPS AVG          0.01
+MOTOR VOLTS       0.00
+RPM            4467.07
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.67
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.91
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.77
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.07
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.81
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.11
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.31
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.34
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.58
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.73
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.56
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1944.87
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.80
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.62
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.74
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1944.98
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.43
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.86
+MOTOR VOLTS       3.12
+RPM            4470.71
+MOTOR VOLTS       3.56
+RPM            4523.36
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4532.42
+AMPS AVG          0.04
+MOTOR VOLTS       3.61
+RPM            4544.67
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4542.95
+AMPS AVG          0.04
+MOTOR VOLTS       3.76
+RPM            4558.44
+AMPS AVG          0.04
+MOTOR VOLTS       3.61
+RPM            4566.77
+AMPS AVG          0.05
+MOTOR VOLTS       3.71
+RPM            4572.68
+AMPS AVG          0.05
+MOTOR VOLTS       3.66
+RPM            4588.39
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4604.06
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4664.76
+AMPS AVG          0.05
+MOTOR VOLTS       3.76
+RPM            4670.82
+AMPS AVG          0.05
+MOTOR VOLTS       3.61
+RPM            4676.27
+AMPS AVG          0.05
+MOTOR VOLTS       3.81
+RPM            4692.59
+AMPS AVG          0.05
+MOTOR VOLTS       3.61
+RPM            4698.13
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4705.85
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4724.37
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4728.36
+AMPS AVG          0.04
+MOTOR VOLTS       3.66
+RPM            4744.05
+AMPS AVG          0.05
+MOTOR VOLTS       3.71
+RPM            4810.88
+AMPS AVG          0.05
+MOTOR VOLTS       3.81
+RPM            4808.46
+AMPS AVG          0.05
+MOTOR VOLTS       3.86
+RPM            4829.34
+AMPS AVG          0.05
+MOTOR VOLTS       3.91
+RPM            4829.40
+AMPS AVG          0.05
+MOTOR VOLTS       3.86
+RPM            4841.10
+AMPS AVG          0.05
+MOTOR VOLTS       3.91
+RPM            4852.16
+AMPS AVG          0.04
+MOTOR VOLTS       3.91
+RPM            4863.81
+AMPS AVG          0.05
+MOTOR VOLTS       3.76
+RPM            4868.68
+AMPS AVG          0.05
+MOTOR VOLTS       3.86
+RPM            4882.36
+AMPS AVG          0.04
+MOTOR VOLTS       4.01
+MOTOR VOLTS       3.91
+RPM            4947.71
+AMPS AVG          0.05
+MOTOR VOLTS       3.76
+RPM            4947.61
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            4966.56
+AMPS AVG          0.05
+MOTOR VOLTS       3.81
+RPM            4976.20
+AMPS AVG          0.04
+MOTOR VOLTS       4.01
+RPM            4989.58
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            4998.26
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            5001.88
+AMPS AVG          0.05
+MOTOR VOLTS       3.91
+RPM            5014.34
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            5022.38
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            5079.30
+AMPS AVG          0.05
+MOTOR VOLTS       4.11
+RPM            5083.82
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            5096.84
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5107.46
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5114.04
+AMPS AVG          0.05
+MOTOR VOLTS       4.20
+RPM            5127.87
+AMPS AVG          0.05
+MOTOR VOLTS       4.20
+RPM            5136.45
+AMPS AVG          0.05
+MOTOR VOLTS       4.11
+RPM            5146.10
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5159.21
+AMPS AVG          0.05
+MOTOR VOLTS       4.21
+RPM            5159.26
+MOTOR VOLTS       4.25
+RPM            5228.52
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5229.95
+AMPS AVG          0.05
+MOTOR VOLTS       4.20
+RPM            5245.35
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5253.12
+AMPS AVG          0.05
+MOTOR VOLTS       4.25
+RPM            5262.21
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5263.31
+AMPS AVG          0.05
+MOTOR VOLTS       4.25
+RPM            5282.98
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5290.66
+AMPS AVG          0.05
+MOTOR VOLTS       4.30
+RPM            5294.55
+AMPS AVG          0.05
+MOTOR VOLTS       4.30
+RPM            5358.14
+AMPS AVG          0.05
+MOTOR VOLTS       4.35
+RPM            5373.57
+AMPS AVG          0.05
+MOTOR VOLTS       4.35
+RPM            5382.24
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5396.45
+AMPS AVG          0.05
+MOTOR VOLTS       4.35
+RPM            5402.96
+AMPS AVG          0.05
+MOTOR VOLTS       4.45
+RPM            5400.25
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5418.38
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5426.94
+AMPS AVG          0.05
+MOTOR VOLTS       4.45
+RPM            5436.13
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5503.67
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5512.33
+AMPS AVG          0.05
+MOTOR VOLTS       4.25
+RPM            5518.00
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5522.88
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5534.54
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5546.77
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5556.69
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5562.26
+AMPS AVG          0.05
+MOTOR VOLTS       4.45
+RPM            5574.06
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5643.79
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5654.74
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5655.23
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5662.56
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            5672.78
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5680.32
+AMPS AVG          0.05
+MOTOR VOLTS       4.75
+RPM            5697.65
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            5703.97
+AMPS AVG          0.05
+MOTOR VOLTS       4.90
+RPM            5707.01
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            5714.13
+AMPS AVG          0.05
+MOTOR VOLTS       4.55
+RPM            5772.27
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5777.96
+AMPS AVG          0.05
+MOTOR VOLTS       4.80
+RPM            5794.15
+AMPS AVG          0.05
+MOTOR VOLTS       4.94
+RPM            5793.24
+AMPS AVG          0.05
+MOTOR VOLTS       4.75
+RPM            5813.21
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            5815.22
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5832.37
+AMPS AVG          0.05
+MOTOR VOLTS       4.85
+RPM            5844.75
+AMPS AVG          0.05
+MOTOR VOLTS       4.90
+RPM            5840.15
+AMPS AVG          0.05
+MOTOR VOLTS       4.75
+RPM            5849.98
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            5870.10
+AMPS AVG          0.05
+MOTOR VOLTS       4.
+RPM            5918.72
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            5926.54
+AMPS AVG          0.05
+MOTOR VOLTS       4.85
+RPM            5936.73
+AMPS AVG          0.05
+MOTOR VOLTS       4.99
+RPM            5948.09
+AMPS AVG          0.05
+MOTOR VOLTS       4.95
+RPM            5950.02
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            5967.00
+AMPS AVG          0.05
+MOTOR VOLTS       4.95
+RPM            5964.44
+AMPS AVG          0.05
+MOTOR VOLTS       4.94
+RPM            5985.05
+AMPS AVG          0.05
+MOTOR VOLTS       5.04
+RPM            5991.21
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            5996.78
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            6061.58
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6068.89
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6081.59
+AMPS AVG          0.05
+MOTOR VOLTS       4.94
+RPM            6090.82
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6087.35
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            6097.51
+AMPS AVG          0.05
+MOTOR VOLTS       4.94
+RPM            6114.87
+AMPS AVG          0.05
+MOTOR VOLTS       5.04
+RPM            6121.50
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6133.74
+AMPS AVG          0.05
+MOTOR VOLTS       5.04
+RPM            6144.34
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6196.32
+AMPS AVG          0.05
+MOTOR VOLTS       5.44
+RPM            6194.41
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6214.72
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6222.10
+AMPS AVG          0.05
+MOTOR VOLTS       5.24
+RPM            6223.59
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6243.11
+AMPS AVG          0.05
+MOTOR VOLTS       5.49
+RPM            6250.14
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6266.97
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6268.82
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6274.73
+AMPS AVG          0.06
+MOTOR VOLTS       5.54
+RPM            6344.46
+AMPS AVG          0.05
+MOTOR VOLTS       5.39
+RPM            6338.39
+AMPS AVG          0.05
+MOTOR VOLTS       5.34
+RPM            6354.92
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6353.06
+AMPS AVG          0.05
+MOTOR VOLTS       5.34
+RPM            6373.84
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6380.80
+AMPS AVG          0.05
+MOTOR VOLTS       5.49
+RPM            6392.01
+AMPS AVG          0.05
+MOTOR VOLTS       5.49
+RPM            6408.22
+AMPS AVG          0.05
+MOTOR VOLTS       5.39
+RPM            6411.99
+AMPS AVG          0.05
+MOTOR VOLTS       5.39
+RPM            6418.66
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6472.55
+AMPS AVG          0.05
+MOTOR VOLTS       5.64
+RPM            6495.33
+AMPS AVG          0.05
+MOTOR VOLTS       5.44
+RPM            6505.25
+AMPS AVG          0.05
+MOTOR VOLTS       5.59
+RPM            6495.49
+AMPS AVG          0.06
+MOTOR VOLTS       5.64
+RPM            6520.35
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6515.81
+AMPS AVG          0.05
+MOTOR VOLTS       5.73
+RPM            6539.44
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6547.59
+AMPS AVG          0.05
+MOTOR VOLTS       5.69
+RPM            6550.54
+AMPS AVG          0.05
+MOTOR VOLTS       5.73
+RPM            6619.26
+AMPS AVG          0.06
+MOTOR VOLTS       5.78
+RPM            6632.09
+AMPS AVG          0.06
+MOTOR VOLTS       5.69
+RPM            6638.79
+AMPS AVG          0.05
+MOTOR VOLTS       5.83
+RPM            6642.58
+AMPS AVG          0.06
+MOTOR VOLTS       5.68
+RPM            6651.51
+AMPS AVG          0.06
+MOTOR VOLTS       5.68
+RPM            6664.71
+AMPS AVG          0.06
+MOTOR VOLTS       5.93
+RPM            6681.46
+AMPS AVG          0.06
+MOTOR VOLTS       5.78
+RPM            6696.22
+AMPS AVG          0.06
+MOTOR VOLTS       5.74
+RPM            6692.38
+AMPS AVG          0.07
+MOTOR VOLTS       6.03
+MOTOR VOLTS       5.98
+RPM            6761.69
+AMPS AVG          0.06
+MOTOR VOLTS       5.93
+RPM            6765.42
+AMPS AVG          0.06
+MOTOR VOLTS       6.18
+RPM            6784.65
+AMPS AVG          0.06
+MOTOR VOLTS       6.03
+RPM            6785.03
+AMPS AVG          0.07
+MOTOR VOLTS       6.13
+RPM            6789.66
+AMPS AVG          0.06
+MOTOR VOLTS       6.18
+RPM            6803.01
+AMPS AVG          0.07
+MOTOR VOLTS       6.28
+RPM            6821.41
+AMPS AVG          0.06
+MOTOR VOLTS       5.83
+RPM            6831.59
+AMPS AVG          0.06
+MOTOR VOLTS       5.78
+RPM            6829.81
+AMPS AVG          0.06
+MOTOR VOLTS       6.03
+RPM            6897.46
+AMPS AVG          0.06
+MOTOR VOLTS       6.03
+RPM            6903.65
+AMPS AVG          0.06
+MOTOR VOLTS       6.08
+RPM            6910.20
+AMPS AVG          0.06
+MOTOR VOLTS       6.03
+RPM            6922.38
+AMPS AVG          0.06
+MOTOR VOLTS       6.18
+RPM            6934.37
+AMPS AVG          0.06
+MOTOR VOLTS       6.18
+RPM            6941.10
+AMPS AVG          0.06
+MOTOR VOLTS       6.23
+RPM            6950.22
+AMPS AVG          0.06
+MOTOR VOLTS       6.23
+RPM            6952.44
+AMPS AVG          0.06
+MOTOR VOLTS       6.23
+RPM            6962.42
+AMPS AVG          0.06
+MOTOR VOLTS       6.23
+MOTOR VOLTS       6.28
+RPM            7024.12
+AMPS AVG          0.07
+MOTOR VOLTS       6.23
+RPM            7039.96
+AMPS AVG          0.06
+MOTOR VOLTS       6.23
+RPM            7049.55
+AMPS AVG          0.06
+MOTOR VOLTS       6.18
+RPM            7070.32
+AMPS AVG          0.07
+MOTOR VOLTS       6.33
+RPM            7086.86
+AMPS AVG          0.07
+MOTOR VOLTS       6.33
+RPM            7088.74
+AMPS AVG          0.06
+MOTOR VOLTS       6.18
+RPM            7084.36
+AMPS AVG          0.06
+MOTOR VOLTS       6.28
+RPM            7098.59
+AMPS AVG          0.07
+MOTOR VOLTS       6.28
+RPM            7111.54
+AMPS AVG          0.06
+MOTOR VOLTS       6.43
+RPM            7168.21
+AMPS AVG          0.08
+MOTOR VOLTS       6.57
+RPM            7164.22
+AMPS AVG          0.07
+MOTOR VOLTS       6.67
+RPM            7186.84
+AMPS AVG          0.07
+MOTOR VOLTS       6.82
+RPM            7172.22
+AMPS AVG          0.07
+MOTOR VOLTS       6.28
+RPM            7203.48
+AMPS AVG          0.07
+MOTOR VOLTS       6.52
+RPM            7193.90
+AMPS AVG          0.06
+MOTOR VOLTS       6.52
+RPM            7206.33
+AMPS AVG          0.08
+MOTOR VOLTS       6.67
+RPM            7232.48
+AMPS AVG          0.07
+MOTOR VOLTS       6.67
+RPM            7232.79
+AMPS AVG          0.07
+MOTOR VOLTS       7.02
+RPM            7233.19
+AMPS AVG          0.07
+MOTOR VOLTS       6.62
+RPM            7293.85
+AMPS AVG          0.07
+MOTOR VOLTS       6.87
+RPM            7307.03
+AMPS AVG          0.07
+MOTOR VOLTS       6.77
+RPM            7311.55
+AMPS AVG          0.07
+MOTOR VOLTS       6.72
+RPM            7320.08
+AMPS AVG          0.07
+MOTOR VOLTS       6.62
+RPM            7329.67
+AMPS AVG          0.07
+MOTOR VOLTS       6.82
+RPM            7352.31
+AMPS AVG          0.07
+MOTOR VOLTS       7.12
+RPM            7361.49
+AMPS AVG          0.07
+MOTOR VOLTS       6.82
+RPM            7348.60
+AMPS AVG          0.07
+MOTOR VOLTS       6.67
+RPM            7373.14
+AMPS AVG          0.07
+MOTOR VOLTS       6.87
+RPM            7383.16
+AMPS AVG          0.07
+MOTOR VOLTS       6.72
+RPM            7438.25
+AMPS AVG          0.07
+MOTOR VOLTS       7.02
+RPM            7438.31
+AMPS AVG          0.07
+MOTOR VOLTS       6.77
+RPM            7457.64
+AMPS AVG          0.07
+MOTOR VOLTS       7.26
+RPM            7460.06
+AMPS AVG          0.07
+MOTOR VOLTS       7.16
+RPM            7476.68
+AMPS AVG          0.06
+MOTOR VOLTS       6.92
+RPM            7489.64
+AMPS AVG          0.07
+MOTOR VOLTS       6.97
+RPM            7478.09
+AMPS AVG          0.06
+MOTOR VOLTS       6.92
+RPM            7485.97
+AMPS AVG          0.07
+MOTOR VOLTS       6.92
+RPM            7502.80
+AMPS AVG          0.07
+MOTOR VOLTS       6.87
+RPM            7510.56
+AMPS AVG          0.07
+MOTOR VOLTS       7.02
+RPM            7580.79
+AMPS AVG          0.07
+MOTOR VOLTS       7.26
+RPM            7589.41
+AMPS AVG          0.07
+MOTOR VOLTS       7.12
+RPM            7578.39
+AMPS AVG          0.07
+MOTOR VOLTS       7.26
+RPM            7610.58
+AMPS AVG          0.07
+MOTOR VOLTS       7.46
+RPM            7596.21
+AMPS AVG          0.07
+MOTOR VOLTS       7.26
+RPM            7627.06
+AMPS AVG          0.07
+MOTOR VOLTS       7.31
+RPM            7610.74
+AMPS AVG          0.07
+MOTOR VOLTS       7.01
+RPM            7640.95
+AMPS AVG          0.07
+MOTOR VOLTS       7.46
+RPM            7647.10
+AMPS AVG          0.07
+MOTOR VOLTS       7.36
+RPM            7645.49
+AMPS AVG          0.07
+MOTOR VOLTS       7.26
+RPM            7701.82
+AMPS AVG          0.07
+MOTOR VOLTS       7.51
+RPM            7704.15
+AMPS AVG          0.07
+MOTOR VOLTS       7.51
+RPM            7714.57
+AMPS AVG          0.07
+MOTOR VOLTS       7.21
+RPM            7719.02
+AMPS AVG          0.07
+MOTOR VOLTS       7.26
+RPM            7737.68
+AMPS AVG          0.08
+MOTOR VOLTS       7.61
+RPM            7755.07
+AMPS AVG          0.07
+MOTOR VOLTS       7.71
+RPM            7772.47
+AMPS AVG          0.07
+MOTOR VOLTS       7.66
+RPM            7767.12
+AMPS AVG          0.07
+MOTOR VOLTS       7.51
+RPM            7772.49
+AMPS AVG          0.07
+MOTOR VOLTS       7.61
+RPM            7795.22
+AMPS AVG          0.07
+MOTOR VOLTS       7.51
+RPM            7841.33
+AMPS AVG          0.07
+MOTOR VOLTS       7.51
+RPM            7850.49
+AMPS AVG          0.07
+MOTOR VOLTS       7.61
+RPM            7873.47
+AMPS AVG          0.07
+MOTOR VOLTS       7.71
+RPM            7868.64
+AMPS AVG          0.07
+MOTOR VOLTS       7.51
+RPM            7853.96
+AMPS AVG          0.08
+MOTOR VOLTS       7.90
+RPM            7888.37
+AMPS AVG          0.08
+MOTOR VOLTS       8.20
+RPM            7906.29
+AMPS AVG          0.08
+MOTOR VOLTS       8.00
+RPM            7902.53
+AMPS AVG          0.07
+MOTOR VOLTS       7.66
+RPM            7908.85
+AMPS AVG          0.07
+MOTOR VOLTS       7.81
+RPM            7917.00
+AMPS AVG          0.08
+MOTOR VOLTS       7.71
+RPM            7976.06
+AMPS AVG          0.08
+MOTOR VOLTS       8.15
+RPM            7971.75
+AMPS AVG          0.08
+MOTOR VOLTS       7.90
+RPM            7993.52
+AMPS AVG          0.07
+MOTOR VOLTS       7.81
+RPM            8009.00
+AMPS AVG          0.08
+MOTOR VOLTS       8.40
+RPM            7999.94
+AMPS AVG          0.08
+MOTOR VOLTS       8.10
+RPM            8038.76
+AMPS AVG          0.07
+MOTOR VOLTS       7.76
+RPM            8029.12
+AMPS AVG          0.08
+MOTOR VOLTS       8.05
+RPM            8040.78
+AMPS AVG          0.08
+MOTOR VOLTS       8.05
+RPM            8039.59
+AMPS AVG          0.08
+MOTOR VOLTS       8.54
+RPM            8106.59
+AMPS AVG          0.08
+MOTOR VOLTS       8.60
+RPM            8128.58
+AMPS AVG          0.08
+MOTOR VOLTS       8.50
+RPM            8139.86
+AMPS AVG          0.08
+MOTOR VOLTS       8.15
+RPM            8162.72
+AMPS AVG          0.08
+MOTOR VOLTS       8.20
+RPM            8153.95
+AMPS AVG          0.08
+MOTOR VOLTS       8.15
+RPM            8173.51
+AMPS AVG          0.08
+MOTOR VOLTS       8.30
+RPM            8179.90
+AMPS AVG          0.08
+MOTOR VOLTS       8.55
+RPM            8171.44
+AMPS AVG          0.08
+MOTOR VOLTS       8.74
+RPM            8162.79
+AMPS AVG          0.08
+MOTOR VOLTS       8.44
+RPM            8228.63
+AMPS AVG          0.08
+MOTOR VOLTS       8.64
+RPM            8245.97
+AMPS AVG          0.08
+MOTOR VOLTS       9.09
+RPM            8267.86
+AMPS AVG          0.08
+MOTOR VOLTS       8.60
+RPM            8255.09
+AMPS AVG          0.08
+MOTOR VOLTS       8.94
+RPM            8291.22
+AMPS AVG          0.07
+MOTOR VOLTS       8.45
+RPM            8294.81
+AMPS AVG          0.08
+MOTOR VOLTS       8.69
+RPM            8277.29
+AMPS AVG          0.08
+MOTOR VOLTS       9.04
+RPM            8321.03
+AMPS AVG          0.08
+MOTOR VOLTS       8.45
+RPM            8306.69
+AMPS AVG          0.08
+MOTOR VOLTS       8.35
+RPM            8367.00
+AMPS AVG          0.08
+MOTOR VOLTS       9.04
+RPM            8376.79
+AMPS AVG          0.08
+MOTOR VOLTS       8.94
+RPM            8381.71
+AMPS AVG          0.08
+MOTOR VOLTS       8.89
+RPM            8426.35
+AMPS AVG          0.07
+MOTOR VOLTS       8.45
+RPM            8423.83
+AMPS AVG          0.08
+MOTOR VOLTS       8.84
+RPM            8400.27
+AMPS AVG          0.08
+MOTOR VOLTS       9.58
+RPM            8425.32
+AMPS AVG          0.08
+MOTOR VOLTS       8.84
+RPM            8445.23
+AMPS AVG          0.07
+MOTOR VOLTS       8.65
+RPM            8425.42
+AMPS AVG          0.08
+MOTOR VOLTS       9.18
+RPM            8458.35
+AMPS AVG          0.08
+MOTOR VOLTS       8.64
+RPM            8526.84
+AMPS AVG          0.08
+MOTOR VOLTS       9.04
+RPM            8514.45
+AMPS AVG          0.08
+MOTOR VOLTS       9.43
+RPM            8513.21
+AMPS AVG          0.09
+MOTOR VOLTS       9.58
+RPM            8535.52
+AMPS AVG          0.08
+MOTOR VOLTS       9.23
+RPM            8548.32
+AMPS AVG          0.08
+MOTOR VOLTS       9.58
+RPM            8547.89
+AMPS AVG          0.08
+MOTOR VOLTS       9.63
+RPM            8567.50
+AMPS AVG          0.08
+MOTOR VOLTS       9.48
+RPM            8574.21
+AMPS AVG          0.08
+MOTOR VOLTS       9.88
+RPM            8584.97
+AMPS AVG          0.08
+MOTOR VOLTS       9.38
+RPM            8584.09
+AMPS AVG          0.08
+MOTOR VOLTS       9.33
+MOTOR VOLTS       9.53
+RPM            8657.84
+AMPS AVG          0.08
+MOTOR VOLTS       9.24
+RPM            8641.73
+AMPS AVG          0.08
+MOTOR VOLTS      10.17
+RPM            8667.70
+AMPS AVG          0.08
+MOTOR VOLTS       9.63
+RPM            8684.80
+AMPS AVG          0.08
+MOTOR VOLTS       9.19
+RPM            8684.64
+AMPS AVG          0.08
+MOTOR VOLTS       9.63
+RPM            8695.31
+AMPS AVG          0.08
+MOTOR VOLTS       9.43
+RPM            8695.96
+AMPS AVG          0.08
+MOTOR VOLTS       9.48
+RPM            8690.06
+AMPS AVG          0.08
+MOTOR VOLTS      10.27
+RPM            8737.50
+AMPS AVG          0.08
+MOTOR VOLTS       9.44
+RPM            8721.57
+AMPS AVG          0.08
+MOTOR VOLTS       9.78
+RPM seAX         16.66
+MOTOR VOLTS      10.37
+RPM            8753.23
+AMPS AVG          0.08
+MOTOR VOLTS      10.47
+RPM            8766.62
+AMPS AVG          0.08
+MOTOR VOLTS      10.27
+RPM            8793.24
+AMPS AVG          0.08
+MOTOR VOLTS      10.37
+RPM            8804.32
+AMPS AVG          0.08
+MOTOR VOLTS      10.42
+RPM            8825.93
+AMPS AVG          0.08
+MOTOR VOLTS      10.17
+RPM            8823.40
+AMPS AVG          0.08
+MOTOR VOLTS       9.83
+RPM            8846.35
+AMPS AVG          0.08
+MOTOR VOLTS       9.73
+RPM            8820.17
+AMPS AVG          0.08
+MOTOR VOLTS       9.92
+RPM            8837.32
+AMPS AVG          0.08
+MOTOR VOLTS      10.42
+RPM            8868.22
+AMPS AVG          0.08
+MOTOR VOLTS      10.27
+RPM            8911.98
+AMPS AVG          0.08
+MOTOR VOLTS      10.91
+RPM            8932.61
+AMPS AVG          0.08
+MOTOR VOLTS      10.13
+RPM            8916.49
+AMPS AVG          0.08
+MOTOR VOLTS      10.52
+RPM            8913.97
+AMPS AVG          0.08
+MOTOR VOLTS      10.61
+RPM            8933.67
+AMPS AVG          0.07
+MOTOR VOLTS       9.87
+RPM            8953.19
+AMPS AVG          0.08
+MOTOR VOLTS      10.57
+RPM            8966.01
+AMPS AVG          0.08
+MOTOR VOLTS      10.37
+RPM            8957.13
+AMPS AVG          0.08
+MOTOR VOLTS      10.96
+RPM            8954.55
+AMPS AVG          0.08
+MOTOR VOLTS      10.91
+RPM            8968.06
+AMPS AVG          0.08
+MOTOR VOLTS      10.27
+RPM            8968.47
+AMPS AVG          0.08
+MOTOR VOLTS      10 14.57
+MOTOR VOLTS      10.76
+RPM            8995.01
+AMPS AVG          0.08
+MOTOR VOLTS      10.91
+RPM            9014.78
+AMPS AVG          0.08
+MOTOR VOLTS      10.67
+RPM            8990.06
+AMPS AVG          0.08
+MOTOR VOLTS      10.47
+RPM            8984.00
+AMPS AVG          0.08
+MOTOR VOLTS      10.57
+RPM            8977.25
+AMPS AVG          0.08
+MOTOR VOLTS      10.91
+RPM            8970.25
+AMPS AVG          0.08
+MOTOR VOLTS      10.62
+RPM            8958.24
+AMPS AVG          0.08
+MOTOR VOLTS      10.07
+RPM            8961.02
+AMPS AVG          0.08
+MOTOR VOLTS      10.12
+RPM            8990.49
+AMPS AVG          0.07
+MOTOR VOLTS       9.73
+RPM            8971.18
+AMPS AVG          0.08
+MOTOR VOLTS      10.18
+RPM            8932.50
+AMPS AVG          0.08
+MOTOR VOLTS      10.27
+RPM            8931.36
+AMPS AVG          0.08
+MOTOR VOLTS      10.27
+RPM            8935.56
+AMPS AVG          0.07
+MOTOR VOLTS       9.63
+RPM            8958.03
+AMPS AVG          0.08
+MOTOR VOLTS      10.18
+RPM            8915.74
+AMPS AVG          0.08
+MOTOR VOLTS      10.52
+RPM            8912.21
+AMPS AVG          0.07
+MOTOR VOLTS       9.78
+RPM            8920.61
+AMPS AVG          0.08
+MOTOR VOLTS      10.08
+RPM            8908.56
+AMPS AVG          0.08
+MOTOR VOLTS      10.32
+RPM            8918.70
+AMPS AVG          0.08
+MOTOR VOLTS       9.98
+RPM            8892.29
+AMPS AVG          0.08
+MOTOR VOLTS      10.37
+MOTOR VOLTS       9.97
+RPM           to   8810
+RPM            8842.41
+AMPS AVG          0.08
+MOTOR VOLTS      10.03
+RPM            8861.50
+AMPS AVG          0.08
+MOTOR VOLTS       9.29
+RPM            8825.15
+AMPS AVG          0.08
+MOTOR VOLTS       9.58
+RPM            8832.86
+AMPS AVG          0.08
+MOTOR VOLTS      10.57
+RPM            8819.17
+AMPS AVG          0.08
+MOTOR VOLTS      10.03
+RPM            8831.98
+AMPS AVG          0.08
+MOTOR VOLTS       9.98
+RPM            8836.54
+AMPS AVG          0.07
+MOTOR VOLTS       9.34
+RPM            8822.38
+AMPS AVG          0.07
+MOTOR VOLTS       9.49
+RPM            8777.89
+AMPS AVG          0.07
+MOTOR VOLTS       9.33
+RPM            8774.46
+AMPS AVG          0.08
+MOTOR VOLTS       9.43
+RPM            8761.34
+AMPS AVG          0.08
+MOTOR VOLTS      10.17
+RPM            8759.94
+AMPS AVG          0.08
+MOTOR VOLTS       9.92
+RPM            8761.08
+AMPS AVG          0.08
+MOTOR VOLTS       9.83
+RPM            8753.72
+AMPS AVG          0.08
+MOTOR VOLTS       9.83
+RPM            8769.68
+AMPS AVG          0.07
+MOTOR VOLTS       9.48
+RPM            8761.95
+AMPS AVG          0.08
+MOTOR VOLTS       9.34
+RPM            8772.63
+AMPS AVG          0.08
+MOTOR VOLTS       9.39
+RPM            8745.74
+AMPS AVG          0.08
+MOTOR VOLTS       9.53
+RPM            8752.62
+AMPS AVG          0.08
+MOTOR VOLTS       9.93
+RPM            8705.39
+AMPS AVG          0.10
+MOTOR VOLTS      10.17
+RPM            8713.15
+AMPS AVG          0.08
+MOTOR VOLTS       9.34
+RPM            8701.92
+AMPS AVG          0.08
+MOTOR VOLTS       9.63
+RPM            8667.13
+AMPS AVG          0.08
+MOTOR VOLTS       9.19
+RPM            8689.33
+AMPS AVG          0.08
+MOTOR VOLTS       9.24
+RPM            8668.87
+AMPS AVG          0.09
+MOTOR VOLTS       9.09
+RPM            8666.87
+AMPS AVG          0.08
+MOTOR VOLTS       9.29
+RPM            8655.80
+AMPS AVG          0.08
+MOTOR VOLTS       9.09
+RPM            8648.09
+AMPS AVG          0.08
+MOTOR VOLTS       9.33
+RPM            8656.34
+AMPS AVG          0.08
+MOTOR VOLTS       9.34
+RPM            8648.79
+AMPS AVG          0.08
+MOTOR VOLTS       9.19
+RPM            8629.62
+AMPS AVG          0.08
+MOTOR VOLTS       9.29
+RPM            8637.65
+AMPS AVG          0.07
+MOTOR VOLTS       9.04
+RPM            8632.10
+AMPS AVG          0.07
+MOTOR VOLTS       9.39
+RPM            8584.50
+AMPS AVG          0.08
+MOTOR VOLTS       9.33
+RPM            8603.64
+AMPS AVG          0.08
+MOTOR VOLTS       9.24
+RPM            8608.44
+AMPS AVG          0.07
+MOTOR VOLTS       8.89
+RPM            8595.16
+AMPS AVG          0.07
+MOTOR VOLTS       9.29
+RPM            8585.27
+AMPS AVG          0.07
+MOTOR VOLTS       8.84
+RPM            8577.69
+AMPS AVG          0.08
+MOTOR VOLTS       9.29
+RPM            8573.78
+AMPS AVG          0.07
+MOTOR VOLTS       8.79
+RPM            8573.20
+AMPS AVG          0.08
+RPM            8519.99
+AMPS AVG          0.07
+MOTOR VOLTS       8.84
+RPM            8557.60
+AMPS AVG          0.07
+MOTOR VOLTS       9.04
+RPM            8524.68
+AMPS AVG          0.07
+MOTOR VOLTS       8.94
+RPM            8498.50
+AMPS AVG          0.08
+MOTOR VOLTS       9.29
+RPM            8498.19
+AMPS AVG          0.07
+MOTOR VOLTS       9.09
+RPM            8515.92
+AMPS AVG          0.07
+MOTOR VOLTS       8.60
+RPM            8497.98
+AMPS AVG          0.07
+MOTOR VOLTS       8.79
+RPM            8461.17
+AMPS AVG          0.08
+MOTOR VOLTS       9.08
+RPM            8506.13
+AMPS AVG          0.07
+MOTOR VOLTS       8.50
+RPM            8479.22
+AMPS AVG          0.07
+MOTOR VOLTS       8.79
+RPM            8460.76
+AMPS AVG          0.08
+MOTOR VOLTS       9.33
+RPM            8458.04
+AMPS AVG          0.07
+MOTOR VOLTS       8.99
+RPM            8457.58
+AMPS AVG          0.08
+MOTOR VOLTS       9.29
+RPM            8463.23
+AMPS AVG          0.07
+MOTOR VOLTS       8.74
+RPM            8442.42
+AMPS AVG          0.08
+MOTOR VOLTS       9.04
+RPM            8450.30
+AMPS AVG          0.08
+MOTOR VOLTS       9.09
+RPM            8450.91
+AMPS AVG          0.07
+MOTOR VOLTS       8.30
+RPM            8413.16
+AMPS AVG          0.08
+MOTOR VOLTS       8.99
+RPM            8433.53
+AMPS AVG          0.07
+MOTOR VOLTS       8.79
+RPM            8440.68
+AMPS AVG          0.07
+MOTOR VOLTS       8.60
+RPM            8408.75
+AMPS AVG          0.08
+MOTOR VOLTS       9.24
+MOTOR VOLTS       8.60
+RPM            8410.32
+AMPS AVG  
+RPM            8366.28
+AMPS AVG          0.07
+MOTOR VOLTS       8.54
+RPM            8348.99
+AMPS AVG          0.07
+MOTOR VOLTS       8.55
+RPM            8360.84
+AMPS AVG          0.07
+MOTOR VOLTS       8.40
+RPM            8354.25
+AMPS AVG          0.07
+MOTOR VOLTS       8.60
+RPM            8341.33
+AMPS AVG          0.07
+MOTOR VOLTS       8.45
+RPM            8345.55
+AMPS AVG          0.07
+MOTOR VOLTS       8.60
+RPM            8323.90
+AMPS AVG          0.07
+MOTOR VOLTS       8.25
+RPM            8307.13
+AMPS AVG          0.07
+MOTOR VOLTS       8.59
+RPM            8330.93
+AMPS AVG          0.07
+MOTOR VOLTS       8.74
+RPM            8325.04
+AMPS AVG          0.08
+MOTOR VOLTS       8.75
+RPM            8319.25
+AMPS AVG          0.06
+MOTOR VOLTS       7.76
+RPM            8308.80
+AMPS AVG          0.07
+MOTOR VOLTS       8.65
+RPM            8284.55
+AMPS AVG          0.08
+MOTOR VOLTS       8.69
+RPM            8309.85
+AMPS AVG          0.07
+MOTOR VOLTS       8.55
+RPM            8302.74
+AMPS AVG          0.07
+MOTOR VOLTS       8.20
+RPM            8261.33
+AMPS AVG          0.07
+MOTOR VOLTS       8.55
+RPM            8291.27
+AMPS AVG          0.07
+MOTOR VOLTS       8.55
+RPM            8272.71
+AMPS AVG          0.07
+MOTOR VOLTS       8.20
+RPM            8241.40
+AMPS AVG          0.08
+MOTOR VOLTS       8.59
+RPM            8251.46
+AMPS AVG          0.07
+MOTOR VOLTS       8.50
+RPM            8230.88
+AMPS AVG          0.08
+MOTOR VOLTS       8.54
+RPM            8211.36
+AMPS AVG          0.07
+MOTOR VOLTS       8.70
+RPM            8191.47
+AMPS AVG          0.07
+MOTOR VOLTS       8.10
+RPM            8202.82
+AMPS AVG          0.07
+MOTOR VOLTS       7.95
+RPM            8209.08
+AMPS AVG          0.07
+MOTOR VOLTS       7.91
+RPM            8206.44
+AMPS AVG          0.08
+MOTOR VOLTS       8.60
+RPM            8165.33
+AMPS AVG          0.08
+MOTOR VOLTS       8.20
+RPM            8175.14
+AMPS AVG          0.07
+MOTOR VOLTS       7.91
+RPM            8183.03
+AMPS AVG          0.07
+MOTOR VOLTS       7.86
+RPM            8160.95
+AMPS AVG          0.07
+MOTOR VOLTS       7.91
+RPM            8156.71
+AMPS AVG          0.07
+MOTOR VOLTS       7.95
+RPM            8166.58
+AMPS AVG          0.06
+MOTOR VOLTS       7.91
+RPM            8154.54
+AMPS AVG          0.06
+MOTOR VOLTS       7.91
+RPM            8137.34
+AMPS AVG          0.06
+MOTOR VOLTS       7.66
+RPM            8144.19
+AMPS AVG          0.06
+MOTOR VOLTS       7.81
+RPM            8128.02
+AMPS AVG          0.07
+MOTOR VOLTS       8.00
+RPM            8130.91
+AMPS AVG          0.07
+MOTOR VOLTS       7.51
+RPM            8100.36
+AMPS AVG          0.06
+MOTOR VOLTS       7.70
+RPM            8098.65
+AMPS AVG          0.07
+MOTOR VOLTS       7.95
+RPM            8093.29
+AMPS AVG          0.07
+MOTOR VOLTS       8.10
+RPM            8099.54
+AMPS AVG          0.07
+MOTOR VOLTS       8.20
+RPM            8097.04
+AMPS AVG          0.07
+MOTOR VOLTS       7.81
+RPM            8056.40
+AMPS AVG          0.07
+MOTOR VOLTS       8.30
+RPM            8025.70
+AMPS AVG          0.06
+MOTOR VOLTS       7.66
+RPM            8042.25
+AMPS AVG          0.07
+MOTOR VOLTS       8.15
+RPM            8017.76
+AMPS AVG          0.07
+MOTOR VOLTS       8.00
+RPM            8030.68
+AMPS AVG          0.06
+MOTOR VOLTS       7.66
+RPM            8004.57
+AMPS AVG          0.07
+MOTOR VOLTS       7.71
+RPM            8007.31
+AMPS AVG          0.06
+MOTOR VOLTS       7.46
+RPM            8014.90
+AMPS AVG          0.07
+MOTOR VOLTS       8.20
+RPM            7972.71
+AMPS AVG          0.07
+MOTOR VOLTS       7.76
+RPM            7990.98
+AMPS AVG          0.06
+MOTOR VOLTS       7.46
+RPM            8002.63
+AMPS AVG          0.07
+MOTOR VOLTS       7.76
+RPM            7978.49
+AMPS AVG          0.07
+MOTOR VOLTS       7.76
+RPM            7961.70
+AMPS AVG          0.06
+MOTOR VOLTS       7.71
+RPM            7948.81
+AMPS AVG          0.06
+MOTOR VOLTS       7.56
+RPM            7967.26
+AMPS AVG          0.06
+MOTOR VOLTS       7.26
+RPM            7965.95
+AMPS AVG          0.07
+MOTOR VOLTS       7.66
+RPM            7954.17
+AMPS AVG          0.07
+MOTOR VOLTS       7.51
+RPM            7948.27
+AMPS AVG          0.07
+MOTOR VOLTS       7.86
+RPM            7940.48
+AMPS AVG          0.07
+MOTOR VOLTS       7.91
+RPM            7929.14
+AMPS AVG          0.07
+MOTOR VOLTS       7.81
+AMPS AVG          0.06
+MOTOR VOLTS       7.36
+RPM            7891.99
+AMPS AVG          0.07
+MOTOR VOLTS       7.41
+RPM            7889.65
+AMPS AVG          0.06
+MOTOR VOLTS       7.56
+RPM            7863.55
+AMPS AVG          0.06
+MOTOR VOLTS       7.46
+RPM            7849.24
+AMPS AVG          0.06
+MOTOR VOLTS       7.56
+RPM            7861.39
+AMPS AVG          0.07
+MOTOR VOLTS       7.81
+RPM            7846.09
+AMPS AVG          0.06
+MOTOR VOLTS       7.46
+RPM            7816.08
+AMPS AVG          0.07
+MOTOR VOLTS       7.71
+RPM            7843.58
+AMPS AVG          0.06
+MOTOR VOLTS       7.17
+RPM            7828.55
+AMPS AVG          0.06
+MOTOR VOLTS       7.41
+RPM            7827.03
+AMPS AVG          0.07
+MOTOR VOLTS       7.61
+RPM            7802.04
+AMPS AVG          0.06
+MOTOR VOLTS       7.46
+RPM            7808.45
+AMPS AVG          0.06
+MOTOR VOLTS       7.26
+RPM            7809.88
+AMPS AVG          0.06
+MOTOR VOLTS       7.31
+RPM            7792.87
+AMPS AVG          0.06
+MOTOR VOLTS       7.12
+RPM            7800.37
+AMPS AVG          0.07
+MOTOR VOLTS       7.66
+RPM            7782.38
+AMPS AVG          0.06
+MOTOR VOLTS       7.36
+RPM            7787.39
+AMPS AVG          0.06
+MOTOR VOLTS       7.27
+RPM            7782.54
+AMPS AVG          0.06
+MOTOR VOLTS       7.51
+RPM            7764.16
+AMPS AVG          0.06
+MOTOR VOLTS       7.36
+RPM            7742.19
+AMPS AVG          0.06
+MOTOR VOLTS       7.21
+RPM            7718.63
+AMPS AVG          0.07
+MOTOR VOLTS       7.12
+RPM            7711.57
+AMPS AVG          0.06
+MOTOR VOLTS       7.07
+RPM            7701.92
+AMPS AVG          0.07
+MOTOR VOLTS       7.12
+RPM            7709.05
+AMPS AVG          0.06
+MOTOR VOLTS       7.31
+RPM            7705.23
+AMPS AVG          0.06
+MOTOR VOLTS       7.12
+RPM            7691.67
+AMPS AVG          0.06
+MOTOR VOLTS       7.22
+RPM            7692.35
+AMPS AVG          0.06
+MOTOR VOLTS       7.02
+RPM            7664.80
+AMPS AVG          0.07
+MOTOR VOLTS       7.02
+RPM            7662.69
+AMPS AVG          0.06
+MOTOR VOLTS       7.21
+RPM            7663.69
+AMPS AVG          0.07
+MOTOR VOLTS       7.12
+RPM            7651.21
+AMPS AVG          0.07
+MOTOR VOLTS       7.36
+RPM            7664.65
+AMPS AVG          0.06
+MOTOR VOLTS       7.12
+RPM            7638.27
+AMPS AVG          0.06
+MOTOR VOLTS       6.97
+RPM            7636.44
+AMPS AVG          0.06
+MOTOR VOLTS       7.12
+RPM            7630.83
+AMPS AVG          0.06
+MOTOR VOLTS       6.87
+RPM            7626.99
+AMPS AVG          0.06
+MOTOR VOLTS       6.92
+RPM            7626.72
+AMPS AVG          0.06
+MOTOR VOLTS       7.22
+RPM            7591.80
+AMPS AVG          0.06
+MOTOR VOLTS       6.77
+RPM            7606.62
+AMPS AVG          0.06
+MOTOR VOLTS       7.02
+RPM            7586.41
+AMPS AVG          0.06
+MOTOR VOLTS       6.67
+MOTOR VOLTS       7.07
+RPM            760475
+RPM            7547.95
+AMPS AVG          0.06
+MOTOR VOLTS       7.02
+RPM            7552.27
+AMPS AVG          0.06
+MOTOR VOLTS       6.72
+RPM            7523.31
+AMPS AVG          0.06
+MOTOR VOLTS       6.72
+RPM            7533.43
+AMPS AVG          0.05
+MOTOR VOLTS       6.52
+RPM            7532.50
+AMPS AVG          0.06
+MOTOR VOLTS       7.02
+RPM            7524.32
+AMPS AVG          0.06
+MOTOR VOLTS       7.12
+RPM            7509.31
+AMPS AVG          0.06
+MOTOR VOLTS       6.92
+RPM            7505.39
+AMPS AVG          0.07
+MOTOR VOLTS       7.27
+RPM            7499.73
+AMPS AVG          0.06
+MOTOR VOLTS       6.87
+RPM            7496.80
+AMPS AVG          0.06
+MOTOR VOLTS       6.82
+RPM            7484.24
+AMPS AVG          0.06
+MOTOR VOLTS       6.87
+RPM            7484.32
+AMPS AVG          0.06
+MOTOR VOLTS       6.92
+RPM            7476.45
+AMPS AVG          0.06
+MOTOR VOLTS       6.67
+RPM            7468.30
+AMPS AVG          0.05
+MOTOR VOLTS       6.38
+RPM            7450.75
+AMPS AVG          0.06
+MOTOR VOLTS       6.67
+RPM            7467.50
+AMPS AVG          0.05
+MOTOR VOLTS       6.53
+RPM            7461.36
+AMPS AVG          0.06
+MOTOR VOLTS       7.17
+RPM            7441.34
+AMPS AVG          0.06
+MOTOR VOLTS       6.87
+RPM            7423.78
+AMPS AVG          0.06
+MOTOR VOLTS       6.57
+RPM            7428.76
+AMPS AVG          0.06
+MOTOR VOLTS       6.62
+RPM            7385.90
+AMPS AVG          0.06
+MOTOR VOLTS       6.77
+RPM            7387.14
+AMPS AVG          0.06
+MOTOR VOLTS       6.77
+RPM            7367.86
+AMPS AVG          0.06
+MOTOR VOLTS       6.62
+RPM            7365.98
+AMPS AVG          0.07
+MOTOR VOLTS       7.12
+RPM            7364.02
+AMPS AVG          0.06
+MOTOR VOLTS       6.67
+RPM            7354.91
+AMPS AVG          0.06
+MOTOR VOLTS       6.67
+RPM            7347.70
+AMPS AVG          0.05
+MOTOR VOLTS       6.77
+RPM            7349.96
+AMPS AVG          0.06
+MOTOR VOLTS       6.57
+RPM            7323.57
+AMPS AVG          0.06
+MOTOR VOLTS       6.47
+RPM            7329.61
+AMPS AVG          0.05
+MOTOR VOLTS       6.38
+RPM            7327.41
+AMPS AVG          0.06
+MOTOR VOLTS       6.62
+RPM            7318.29
+AMPS AVG          0.06
+MOTOR VOLTS       6.67
+RPM            7324.06
+AMPS AVG          0.06
+MOTOR VOLTS       6.48
+RPM            7311.40
+AMPS AVG          0.06
+MOTOR VOLTS       6.43
+RPM            7287.82
+AMPS AVG          0.06
+MOTOR VOLTS       6.42
+RPM            7301.48
+AMPS AVG          0.06
+MOTOR VOLTS       6.28
+RPM            7271.21
+AMPS AVG          0.06
+MOTOR VOLTS       6.42
+RPM            7266.77
+AMPS AVG          0.05
+MOTOR VOLTS       6.28
+RPM            7267.29
+AMPS AVG          0.06
+MOTOR VOLTS       6.38
+RPM            7279.07
+AMPS AVG          0.05
+MOTOR VOLTS       6.18
+RPM            7218.99
+AMPS AVG          0.06
+MOTOR VOLTS       6.33
+RPM            7219.69
+AMPS AVG          0.06
+MOTOR VOLTS       6.23
+RPM            7200.90
+AMPS AVG          0.06
+MOTOR VOLTS       6.72
+RPM            7185.47
+AMPS AVG          0.06
+MOTOR VOLTS       6.43
+RPM            7196.01
+AMPS AVG          0.06
+MOTOR VOLTS       6.13
+RPM            7182.45
+AMPS AVG          0.06
+MOTOR VOLTS       6.28
+RPM            7184.81
+AMPS AVG          0.05
+MOTOR VOLTS       5.98
+RPM            7164.40
+AMPS AVG          0.05
+MOTOR VOLTS       6.28
+RPM            7169.56
+AMPS AVG          0.05
+MOTOR VOLTS       6.23
+RPM            7171.49
+AMPS AVG          0.06
+MOTOR VOLTS       6.28
+RPM            7163.21
+AMPS AVG          0.06
+MOTOR VOLTS       6.38
+RPM            7145.19
+AMPS AVG          0.05
+MOTOR VOLTS       6.28
+RPM            7147.44
+AMPS AVG          0.06
+MOTOR VOLTS       6.33
+RPM            7141.70
+AMPS AVG          0.06
+MOTOR VOLTS       6.08
+RPM            7126.19
+AMPS AVG          0.06
+MOTOR VOLTS       6.23
+RPM            7133.31
+AMPS AVG          0.06
+MOTOR VOLTS       6.38
+RPM            7113.68
+AMPS AVG          0.05
+MOTOR VOLTS       6.03
+RPM            7119.60
+AMPS AVG          0.06
+MOTOR VOLTS       6.13
+RPM            7109.68
+AMPS AVG          0.05
+MOTOR VOLTS       6.13
+RPM            7086.33
+AMPS AVG          0.05
+MOTOR VOLTS       6.28
+RPM            7091.05
+AMPS AVG          0.06
+MOTOR VOLTS       6.38
+RPM            7058.88
+AMPS AVG          0.05
+MOTOR VOLTS       6.28
+RPM            7048.24
+AMPS AVG          0.05
+MOTOR VOLTS       6.18
+RPM            7034.88
+AMPS AVG          0.05
+MOTOR VOLTS       5.93
+RPM            7018.72
+AMPS AVG          0.05
+MOTOR VOLTS       6.13
+RPM            7044.94
+AMPS AVG          0.05
+MOTOR VOLTS       5.98
+RPM            7029.58
+AMPS AVG          0.06
+MOTOR VOLTS       5.93
+RPM            7030.22
+AMPS AVG          0.05
+MOTOR VOLTS       6.03
+RPM            7003.59
+AMPS AVG          0.06
+MOTOR VOLTS       6.03
+RPM            7006.81
+AMPS AVG          0.06
+MOTOR VOLTS       5.78
+RPM            7001.59
+AMPS AVG          0.06
+MOTOR VOLTS       5.98
+RPM            6999.14
+AMPS AVG          0.05
+MOTOR VOLTS       6.28
+RPM            6987.34
+AMPS AVG          0.06
+MOTOR VOLTS       6.18
+RPM            6978.36
+AMPS AVG          0.05
+MOTOR VOLTS       5.93
+RPM            6963.77
+AMPS AVG          0.06
+MOTOR VOLTS       5.93
+RPM            6970.45
+AMPS AVG          0.05
+MOTOR VOLTS       5.93
+RPM            6951.60
+AMPS AVG          0.05
+MOTOR VOLTS       5.98
+RPM            6962.73
+AMPS AVG          0.05
+MOTOR VOLTS       5.83
+RPM            6935.43
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6947.28
+AMPS AVG          0.06
+MOTOR VOLTS       6.08
+RPM            6944.44
+AMPS AVG          0.05
+MOTOR VOLTS       5.88
+RPM            6922.26
+AMPS AVG          0.05
+MOTOR VOLTS       5.88
+RPM            6898.31
+AMPS AVG          0.05
+MOTOR VOLTS       5.98
+RPM            6876.79
+AMPS AVG          0.05
+MOTOR VOLTS       5.88
+RPM            6867.95
+AMPS AVG          0.05
+MOTOR VOLTS       5.68
+RPM            6855.34
+AMPS AVG          0.05
+MOTOR VOLTS       5.83
+RPM            6852.56
+AMPS AVG          0.05
+MOTOR VOLTS       5.59
+RPM            6855.92
+AMPS AVG          0.05
+MOTOR VOLTS       5.83
+RPM            6838.93
+AMPS AVG          0.05
+MOTOR VOLTS       5.78
+RPM            6835.14
+AMPS AVG          0.05
+MOTOR VOLTS       5.73
+RPM            6840.86
+AMPS AVG          0.05
+MOTOR VOLTS       5.88
+RPM            6843.33
+AMPS AVG          0.05
+MOTOR VOLTS       5.88
+RPM            6815.30
+AMPS AVG          0.05
+MOTOR VOLTS       5.64
+RPM            6818.32
+AMPS AVG          0.05
+MOTOR VOLTS       5.83
+RPM            6806.39
+AMPS AVG          0.05
+MOTOR VOLTS       5.88
+RPM            6791.87
+AMPS AVG          0.05
+MOTOR VOLTS       5.83
+RPM            6802.80
+AMPS AVG          0.05
+MOTOR VOLTS       5.79
+RPM            6791.72
+AMPS AVG          0.05
+MOTOR VOLTS       5.64
+RPM            6775.96
+AMPS AVG          0.05
+MOTOR VOLTS       5.73
+RPM            6798.10
+AMPS AVG          0.05
+MOTOR VOLTS       5.69
+RPM            6770.69
+AMPS AVG          0.05
+MOTOR VOLTS       5.64
+RPM            6756.11
+AMPS AVG          0.05
+MOTOR VOLTS       5.83
+RPM            6766.98
+AMPS AVG          0.05
+RPM            6710.23
+AMPS AVG          0.05
+MOTOR VOLTS       5.74
+RPM            6711.68
+AMPS AVG          0.05
+MOTOR VOLTS       5.69
+RPM            6698.98
+AMPS AVG          0.05
+MOTOR VOLTS       5.79
+RPM            6696.67
+AMPS AVG          0.05
+MOTOR VOLTS       5.83
+RPM            6685.56
+AMPS AVG          0.05
+MOTOR VOLTS       5.39
+RPM            6676.83
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6660.95
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6672.58
+AMPS AVG          0.05
+MOTOR VOLTS       5.34
+RPM            6670.32
+AMPS AVG          0.05
+MOTOR VOLTS       5.64
+RPM            6659.44
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6655.82
+AMPS AVG          0.05
+MOTOR VOLTS       5.74
+RPM            6640.59
+AMPS AVG          0.05
+MOTOR VOLTS       5.64
+RPM            6636.51
+AMPS AVG          0.05
+MOTOR VOLTS       5.64
+RPM            6640.07
+AMPS AVG          0.05
+MOTOR VOLTS       5.59
+RPM            6620.12
+AMPS AVG          0.05
+MOTOR VOLTS       5.39
+RPM            6617.94
+AMPS AVG          0.05
+MOTOR VOLTS       5.79
+RPM            6615.31
+AMPS AVG          0.05
+MOTOR VOLTS       5.34
+RPM            6607.04
+AMPS AVG          0.05
+MOTOR VOLTS       5.39
+RPM            6602.84
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6593.14
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6590.08
+AMPS AVG          0.05
+RPM            6546.76
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6536.98
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6533.01
+AMPS AVG          0.05
+MOTOR VOLTS       5.44
+RPM            6533.26
+AMPS AVG          0.05
+MOTOR VOLTS       5.34
+RPM            6513.60
+AMPS AVG          0.05
+MOTOR VOLTS       5.59
+RPM            6511.38
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6518.96
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6485.13
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6487.57
+AMPS AVG          0.05
+MOTOR VOLTS       5.44
+RPM            6501.91
+AMPS AVG          0.05
+MOTOR VOLTS       5.49
+RPM            6493.89
+AMPS AVG          0.05
+MOTOR VOLTS       5.24
+RPM            6480.48
+AMPS AVG          0.05
+MOTOR VOLTS       5.24
+RPM            6474.23
+AMPS AVG          0.05
+MOTOR VOLTS       5.34
+RPM            6461.44
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6468.32
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6456.13
+AMPS AVG          0.05
+MOTOR VOLTS       5.24
+RPM            6444.40
+AMPS AVG          0.05
+MOTOR VOLTS       5.24
+RPM            6429.90
+AMPS AVG          0.05
+MOTOR VOLTS       5.34
+RPM            6424.23
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6430.76
+AMPS AVG          0.05
+MOTOR VOLTS       5.54
+RPM            6418.86
+AMPS AVG          0.05
+MOTOR VOLTS       5.39
+RPM            6373.42
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6372.23
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            6360.84
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6350.14
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6358.25
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            6347.57
+AMPS AVG          0.05
+MOTOR VOLTS       5.34
+RPM            6337.92
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6342.23
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6325.36
+AMPS AVG          0.05
+MOTOR VOLTS       5.29
+RPM            6317.29
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6310.62
+AMPS AVG          0.05
+MOTOR VOLTS       5.19
+RPM            6319.90
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6298.02
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            6300.70
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            6294.99
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6284.26
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6275.86
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            6272.16
+AMPS AVG          0.05
+MOTOR VOLTS       4.95
+RPM            6263.87
+AMPS AVG          0.05
+MOTOR VOLTS       5.04
+RPM            6248.16
+AMPS AVG          0.05
+MOTOR VOLTS       4.99
+RPM            6250.80
+AMPS AVG          0.05
+MOTOR VOLTS       4.90
+RPM            6247.14
+AMPS AVG          0.05
+MOTOR VOLTS          3
+RPM            6208.51
+AMPS AVG          0.05
+MOTOR VOLTS       5.00
+RPM            6199.45
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            6197.47
+AMPS AVG          0.05
+MOTOR VOLTS       4.85
+RPM            6189.54
+AMPS AVG          0.05
+MOTOR VOLTS       4.95
+RPM            6183.64
+AMPS AVG          0.05
+MOTOR VOLTS       4.80
+RPM            6168.99
+AMPS AVG          0.05
+MOTOR VOLTS       4.90
+RPM            6161.58
+AMPS AVG          0.05
+MOTOR VOLTS       5.09
+RPM            6161.46
+AMPS AVG          0.05
+MOTOR VOLTS       5.04
+RPM            6150.34
+AMPS AVG          0.05
+MOTOR VOLTS       4.99
+RPM            6149.84
+AMPS AVG          0.05
+MOTOR VOLTS       5.04
+RPM            6137.85
+AMPS AVG          0.05
+MOTOR VOLTS       4.99
+RPM            6147.30
+AMPS AVG          0.05
+MOTOR VOLTS       4.90
+RPM            6127.16
+AMPS AVG          0.05
+MOTOR VOLTS       4.85
+RPM            6121.96
+AMPS AVG          0.05
+MOTOR VOLTS       5.14
+RPM            6118.38
+AMPS AVG          0.05
+MOTOR VOLTS       4.95
+RPM            6111.38
+AMPS AVG          0.05
+MOTOR VOLTS       4.90
+RPM            6102.12
+AMPS AVG          0.05
+MOTOR VOLTS       4.95
+RPM            6103.69
+AMPS AVG          0.05
+MOTOR VOLTS       4.95
+RPM            6094.38
+AMPS AVG          0.05
+MOTOR VOLTS       4.95
+RPM            6090.70
+AMPS AVG          0.05
+MOTOR VOLTS       4.80
+RPM            6079.25
+AMPS AVG          0.05
+MOTOR VOLTS       4.95
+RPM            6077.41
+AMPS AVG          0.06
+RPM            6024.12
+AMPS AVG          0.05
+MOTOR VOLTS       4.75
+RPM            6025.89
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            6024.93
+AMPS AVG          0.05
+MOTOR VOLTS       4.80
+RPM            6019.59
+AMPS AVG          0.05
+MOTOR VOLTS       4.65
+RPM            6000.71
+AMPS AVG          0.05
+MOTOR VOLTS       4.65
+RPM            5998.41
+AMPS AVG          0.05
+MOTOR VOLTS       4.75
+RPM            5990.57
+AMPS AVG          0.05
+MOTOR VOLTS       4.65
+RPM            5988.01
+AMPS AVG          0.05
+MOTOR VOLTS       4.65
+RPM            5981.85
+AMPS AVG          0.05
+MOTOR VOLTS       4.65
+RPM            5970.96
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5965.34
+AMPS AVG          0.05
+MOTOR VOLTS       4.85
+RPM            5962.33
+AMPS AVG          0.05
+MOTOR VOLTS       4.75
+RPM            5961.47
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            5950.26
+AMPS AVG          0.05
+MOTOR VOLTS       4.45
+RPM            5936.31
+AMPS AVG          0.05
+MOTOR VOLTS       4.65
+RPM            5939.34
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            5932.05
+AMPS AVG          0.05
+MOTOR VOLTS       4.75
+RPM            5923.11
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5916.69
+AMPS AVG          0.05
+MOTOR VOLTS       4.80
+RPM            5913.35
+AMPS AVG          0.05
+MOTOR VOLTS       4.55
+MOTOR VOLTS       4.60
+RPM            5856.10
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            5850.17
+AMPS AVG          0.05
+MOTOR VOLTS       4.70
+RPM            5848.53
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5837.57
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5827.52
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5826.56
+AMPS AVG          0.05
+MOTOR VOLTS       4.55
+RPM            5824.31
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5810.85
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5807.28
+AMPS AVG          0.05
+MOTOR VOLTS       4.55
+RPM            5803.66
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5796.57
+AMPS AVG          0.05
+MOTOR VOLTS       4.65
+RPM            5789.92
+AMPS AVG          0.05
+MOTOR VOLTS       4.75
+RPM            5784.81
+AMPS AVG          0.05
+MOTOR VOLTS       4.60
+RPM            5777.42
+AMPS AVG          0.05
+MOTOR VOLTS       4.65
+RPM            5767.88
+AMPS AVG          0.05
+MOTOR VOLTS       4.55
+RPM            5775.16
+AMPS AVG          0.05
+MOTOR VOLTS       4.55
+RPM            5753.69
+AMPS AVG          0.05
+MOTOR VOLTS       4.45
+RPM            5751.11
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5738.44
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5735.28
+AMPS AVG          0.05
+MOTOR VOLTS   7.98
+RPM            5696.09
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5683.37
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5677.42
+AMPS AVG          0.05
+MOTOR VOLTS       4.30
+RPM            5672.05
+AMPS AVG          0.05
+MOTOR VOLTS       4.45
+RPM            5661.22
+AMPS AVG          0.05
+MOTOR VOLTS       4.45
+RPM            5667.06
+AMPS AVG          0.05
+MOTOR VOLTS       4.35
+RPM            5649.11
+AMPS AVG          0.05
+MOTOR VOLTS       4.35
+RPM            5643.13
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5639.12
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5631.82
+AMPS AVG          0.05
+MOTOR VOLTS       4.35
+RPM            5631.65
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5620.86
+AMPS AVG          0.05
+MOTOR VOLTS       4.50
+RPM            5614.94
+AMPS AVG          0.05
+MOTOR VOLTS       4.25
+RPM            5609.61
+AMPS AVG          0.05
+MOTOR VOLTS       4.30
+RPM            5602.64
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5600.52
+AMPS AVG          0.04
+MOTOR VOLTS       4.40
+RPM            5591.27
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5591.96
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5580.42
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5573.08
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5565.47
+AMPS AVG          0.05
+RPM            5518.77
+AMPS AVG          0.05
+MOTOR VOLTS       4.20
+RPM            5515.88
+AMPS AVG          0.05
+MOTOR VOLTS       4.25
+RPM            5515.19
+AMPS AVG          0.05
+MOTOR VOLTS       4.30
+RPM            5509.27
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5495.29
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5494.10
+AMPS AVG          0.05
+MOTOR VOLTS       4.20
+RPM            5484.25
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5483.27
+AMPS AVG          0.05
+MOTOR VOLTS       4.35
+RPM            5472.76
+AMPS AVG          0.05
+MOTOR VOLTS       4.35
+RPM            5460.82
+AMPS AVG          0.05
+MOTOR VOLTS       4.20
+RPM            5460.92
+AMPS AVG          0.05
+MOTOR VOLTS       4.30
+RPM            5449.98
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5451.75
+AMPS AVG          0.04
+MOTOR VOLTS       4.25
+RPM            5437.86
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5435.15
+AMPS AVG          0.05
+MOTOR VOLTS       4.11
+RPM            5420.69
+AMPS AVG          0.05
+MOTOR VOLTS       4.40
+RPM            5416.54
+AMPS AVG          0.04
+MOTOR VOLTS       4.01
+RPM            5415.82
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5403.16
+AMPS AVG          0.05
+MOTOR VOLTS       4.35
+RPM            5397.36
+AMPS AVG          0.05
+MOTOR VOLTS       4.11
+RPM            5390.53
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+MOTOR VOLTS       4.11
+RPM50 Hz
+RPM            5348.05
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5333.02
+AMPS AVG          0.05
+MOTOR VOLTS       4.16
+RPM            5330.33
+AMPS AVG          0.05
+MOTOR VOLTS       3.91
+RPM            5324.14
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5317.34
+AMPS AVG          0.05
+MOTOR VOLTS       4.11
+RPM            5313.13
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5304.25
+AMPS AVG          0.05
+MOTOR VOLTS       4.20
+RPM            5300.18
+AMPS AVG          0.05
+MOTOR VOLTS       4.11
+RPM            5285.44
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5286.10
+AMPS AVG          0.05
+MOTOR VOLTS       4.11
+RPM            5283.51
+AMPS AVG          0.05
+MOTOR VOLTS       4.21
+RPM            5274.99
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5274.42
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5259.83
+AMPS AVG          0.05
+MOTOR VOLTS       3.91
+RPM            5254.87
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5258.17
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            5249.77
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            5240.58
+AMPS AVG          0.05
+MOTOR VOLTS       4.01
+RPM            5233.82
+AMPS AVG          0.04
+MOTOR VOLTS       4.01
+RPM            5226.51
+AMPS AVG          0.05
+MOTOR VOLTS       3.86
+RPM            5225.32
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+AMPS AVG          0.05
+MOTOR VOLTS       3.81
+RPM            5170.60
+AMPS AVG          0.04
+MOTOR VOLTS       3.96
+RPM            5167.62
+AMPS AVG          0.04
+MOTOR VOLTS       4.11
+RPM            5164.67
+AMPS AVG          0.05
+MOTOR VOLTS       4.01
+RPM            5150.03
+AMPS AVG          0.05
+MOTOR VOLTS       4.01
+RPM            5152.17
+AMPS AVG          0.05
+MOTOR VOLTS       4.01
+RPM            5142.08
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            5132.78
+AMPS AVG          0.05
+MOTOR VOLTS       3.91
+RPM            5130.28
+AMPS AVG          0.05
+MOTOR VOLTS       4.06
+RPM            5120.13
+AMPS AVG          0.05
+MOTOR VOLTS       3.91
+RPM            5120.75
+AMPS AVG          0.05
+MOTOR VOLTS       3.86
+RPM            5104.68
+AMPS AVG          0.04
+MOTOR VOLTS       3.81
+RPM            5098.36
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            5090.73
+AMPS AVG          0.04
+MOTOR VOLTS       3.76
+RPM            5087.19
+AMPS AVG          0.05
+MOTOR VOLTS       4.01
+RPM            5081.81
+AMPS AVG          0.04
+MOTOR VOLTS       3.66
+RPM            5068.92
+AMPS AVG          0.05
+MOTOR VOLTS       3.81
+RPM            5070.09
+AMPS AVG          0.05
+MOTOR VOLTS       3.81
+RPM            5060.43
+AMPS AVG          0.05
+MOTOR VOLTS       3.71
+RPM            5051.72
+AMPS AVG          0.05
+MOTOR VOLTS       3.96
+RPM            5048.47
+AMPS AVG          0.05
+MOTOR VOLTS       3.86
+RPM            5007.30
+AMPS AVG          0.04
+MOTOR VOLTS       3.86
+RPM            4997.61
+AMPS AVG          0.05
+MOTOR VOLTS       3.56
+RPM            4990.91
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4984.54
+AMPS AVG          0.04
+MOTOR VOLTS       3.61
+RPM            4985.75
+AMPS AVG          0.04
+MOTOR VOLTS       3.76
+RPM            4972.68
+AMPS AVG          0.04
+MOTOR VOLTS       3.61
+RPM            4963.31
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4957.59
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4956.06
+AMPS AVG          0.04
+MOTOR VOLTS       3.76
+RPM            4946.57
+AMPS AVG          0.04
+MOTOR VOLTS       3.76
+RPM            4938.08
+AMPS AVG          0.04
+MOTOR VOLTS       3.81
+RPM            4937.93
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4930.55
+AMPS AVG          0.04
+MOTOR VOLTS       3.66
+RPM            4915.73
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4917.93
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4907.97
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4902.55
+AMPS AVG          0.04
+MOTOR VOLTS       3.76
+RPM            4894.63
+AMPS AVG          0.04
+MOTOR VOLTS       3.71
+RPM            4886.37
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4892.78
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4837.21
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4832.56
+AMPS AVG          0.08
+MOTOR VOLTS       3.56
+RPM            4824.73
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4820.51
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4807.76
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4807.39
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4798.33
+AMPS AVG          0.04
+MOTOR VOLTS       3.51
+RPM            4791.89
+AMPS AVG          0.05
+MOTOR VOLTS       3.71
+RPM            4784.79
+AMPS AVG          0.04
+MOTOR VOLTS       3.51
+RPM            4778.82
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4778.91
+AMPS AVG          0.05
+MOTOR VOLTS       3.56
+RPM            4763.94
+AMPS AVG          0.06
+MOTOR VOLTS       3.56
+RPM            4762.40
+AMPS AVG          0.04
+MOTOR VOLTS       3.66
+RPM            4751.10
+AMPS AVG          0.04
+MOTOR VOLTS       3.61
+RPM            4748.33
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4737.40
+AMPS AVG          0.04
+MOTOR VOLTS       3.66
+RPM            4740.50
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4721.70
+AMPS AVG          0.04
+MOTOR VOLTS       3.61
+RPM            4719.93
+AMPS AVG          0.04
+MOTOR VOLTS       3.41
+RPM            4709.07
+AMPS AVG          0.04
+MOTOR VOLTS       3.41
+MOTOR VOLTS       3.41
+RPM            4667.23
+AMPS AVG          0.04
+MOTOR VOLTS       3.32
+RPM            4663.38
+AMPS AVG          0.04
+MOTOR VOLTS       3.51
+RPM            4655.55
+AMPS AVG          0.04
+MOTOR VOLTS       3.41
+RPM            4642.87
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4640.09
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4633.42
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4616.07
+AMPS AVG          0.04
+MOTOR VOLTS       3.41
+RPM            4618.59
+AMPS AVG          0.04
+MOTOR VOLTS       3.41
+RPM            4609.38
+AMPS AVG          0.04
+MOTOR VOLTS       3.56
+RPM            4607.40
+AMPS AVG          0.04
+MOTOR VOLTS       3.41
+RPM            4597.77
+AMPS AVG          0.04
+MOTOR VOLTS       3.41
+RPM            4592.17
+AMPS AVG          0.04
+MOTOR VOLTS       3.41
+RPM            4588.62
+AMPS AVG          0.04
+MOTOR VOLTS       3.37
+RPM            4574.05
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4570.65
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4565.56
+AMPS AVG          0.04
+MOTOR VOLTS       3.27
+RPM            4565.11
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            4550.62
+AMPS AVG          0.04
+MOTOR VOLTS       3.32
+RPM            4552.35
+AMPS AVG          0.04
+MOTOR VOLTS       3.37
+RPM            4541.56
+AMPS AVG          0.04
+MOTOR VOLTS       3.32
+AMPS AVG          0.04
+MOTOR VOLTS       3.46
+RPM            453
+RPM            4487.58
+AMPS AVG          0.04
+MOTOR VOLTS       3.32
+RPM            4478.77
+AMPS AVG          0.04
+MOTOR VOLTS       3.27
+RPM            4481.15
+AMPS AVG          0.04
+MOTOR VOLTS       3.27
+RPM            4476.75
+AMPS AVG          0.04
+MOTOR VOLTS       3.42
+RPM            4458.63
+AMPS AVG          0.04
+MOTOR VOLTS       3.37
+RPM            4457.23
+AMPS AVG          0.04
+MOTOR VOLTS       3.37
+RPM            4456.25
+AMPS AVG          0.04
+MOTOR VOLTS       3.27
+RPM            4448.35
+AMPS AVG          0.04
+MOTOR VOLTS       3.37
+RPM            4445.29
+AMPS AVG          0.04
+MOTOR VOLTS       3.37
+RPM            4433.72
+AMPS AVG          0.04
+MOTOR VOLTS       3.32
+RPM            4429.24
+AMPS AVG          0.04
+MOTOR VOLTS       3.32
+RPM            4420.88
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.56
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1944.96
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.64
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.25
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.89
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.69
+MOTOR VOLTS       3.27
+RPM            4417.77
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.62
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.10
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.47
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.02
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.60
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1944.26
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.73
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.97
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.70
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1944.86
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.45
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.47
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.63
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.25
+MOTOR VOLTS       3.22
+RPM            4408.65
+AMPS AVG          0.04
+MOTOR VOLTS       3.27
+RPM            4397.80
+AMPS AVG          0.04
+MOTOR VOLTS       3.22
+RPM            4395.38
+AMPS AVG          0.04
+MOTOR VOLTS       3.22
+RPM            4386.89
+AMPS AVG          0.04
+MOTOR VOLTS       3.37
+RPM            4380.96
+AMPS AVG          0.04
+MOTOR VOLTS       3.37
+RPM            4376.13
+AMPS AVG          0.04
+MOTOR VOLTS       3.32
+RPM            4376.39
+AMPS AVG          0.04
+MOTOR VOLTS       3.17
+MOTOR VOLTS       3.22
+RPM            4371.51
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.70
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.35
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.90
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.39
+RPM            4321.14
+AMPS AVG          0.04
+MOTOR VOLTS       3.17
+RPM            4318.09
+AMPS AVG          0.04
+MOTOR VOLTS       3.17
+RPM            4311.82
+AMPS AVG          0.04
+MOTOR VOLTS       3.22
+RPM            4296.67
+AMPS AVG          0.04
+MOTOR VOLTS       3.22
+RPM            4289.19
+AMPS AVG          0.04
+MOTOR VOLTS       3.22
+RPM            4286.03
+AMPS AVG          0.04
+MOTOR VOLTS       3.27
+RPM            4285.26
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.38
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.80
+MOTOR VOLTS       3.02
+RPM            4275.27
+AMPS AVG          0.04
+MOTOR VOLTS       3.22
+RPM            4271.64
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.56
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.22
+MOTOR VOLTS       3.07
+RPM            4267.05
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.57
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.84
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.96
-COMM PERIOD     735.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1944.72
+MOTOR VOLTS       2.97
+RPM            4262.05
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4249.03
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4242.49
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4233.90
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4226.19
+AMPS AVG          0.04
+MOTOR VOLTS       3.22
+RPM            4227.50
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4223.26
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.49
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.15
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.57
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.08
+MOTOR VOLTS       3.07
+RPM            4207.45
+AMPS AVG          0.04
+MOTOR VOLTS       3.17
+RPM            4205.95
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.62
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.06
+MOTOR VOLTS       3.12
+RPM            4200.03
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.88
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.64
+MOTOR VOLTS       3.02
+RPM            4155.41
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.55
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.00
+MOTOR VOLTS       2.87
+RPM            4150.20
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.43
-COMM PERIOD     732.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.82
+MOTOR VOLTS       3.02
+RPM            4138.40
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4135.96
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4129.69
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4120.60
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.59
-COMM PERIOD     735.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1944.96
+MOTOR VOLTS       2.97
+RPM            4108.68
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4109.00
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4103.92
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.82
-COMM PERIOD     732.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1948.61
+MOTOR VOLTS       2.87
+RPM            4094.76
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4092.23
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4080.71
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4070.78
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4071.64
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.66
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.25
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.49
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.70
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.65
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.66
+MOTOR VOLTS       2.97
+RPM            4060.27
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.88
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.13
+MOTOR VOLTS       2.92
+RPM            4055.14
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4052.38
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.46
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.54
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.57
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.61
+MOTOR VOLTS       3.07
+RPM            4044.96
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.63
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.77
+MOTOR VOLTS       2.82
+RPM            4035.56
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4031.08
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4024.32
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.81
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.01
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.48
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.19
+MOTOR VOLTS       2.87
+RPM            4016.34
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.62
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.08
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.85
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.52
+MOTOR VOLTS       2.92
+RPM            4007.74
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4015.89
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4004.58
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4011.43
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4005.73
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4006.50
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4010.62
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4010.31
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4010.79
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.42
-COMM PERIOD     732.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.00
+MOTOR VOLTS       3.02
+RPM            4013.25
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.58
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.64
+MOTOR VOLTS       3.12
+RPM            4013.49
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4009.94
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.62
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.68
+MOTOR VOLTS       3.07
+RPM            4008.77
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.88
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.72
+MOTOR VOLTS       3.02
+RPM            4009.04
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4009.06
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.43
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.90
+MOTOR VOLTS       2.92
+RPM            4010.18
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.65
-COMM PERIOD     732.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1948.27
+MOTOR VOLTS       2.97
+RPM            4010.99
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.79
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.56
+MOTOR VOLTS       3.02
+RPM            4009.20
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.64
-COMM PERIOD     732.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1948.00
+MOTOR VOLTS       2.97
+RPM            4005.75
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4002.86
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4012.55
+AMPS AVG          0.04
+MOTOR VOLTS       3.17
+RPM            4006.46
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4009.10
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.55
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.59
+MOTOR VOLTS       3.02
+RPM            4011.33
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.60
-COMM PERIOD     732.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.73
+MOTOR VOLTS       2.97
+RPM            4009.88
+AMPS AVG          0.04
+MOTOR VOLTS       2.87
+RPM            4007.19
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4007.05
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.82
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.47
+MOTOR VOLTS       3.07
+RPM            4012.79
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4004.78
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4007.09
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.45
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.75
+MOTOR VOLTS       3.07
+RPM            4013.80
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.62
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.76
+MOTOR VOLTS       2.92
+RPM            4011.47
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.90
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.98
+MOTOR VOLTS       2.87
+RPM            4012.89
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.43
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.55
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.59
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.03
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.68
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1948.06
+MOTOR VOLTS       2.92
+RPM            4003.26
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4011.47
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.68
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1945.96
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.50
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.30
+MOTOR VOLTS       2.92
+RPM            4006.06
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4010.43
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.64
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.34
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.94
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1948.04
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.34
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.56
+MOTOR VOLTS       2.92
+RPM            4010.46
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4008.02
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4012.76
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4004.71
+AMPS AVG          0.07
+MOTOR VOLTS       3.07
+RPM            4012.62
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4012.58
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4013.75
+AMPS AVG          0.05
+MOTOR VOLTS       3.02
+RPM            4012.64
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4007.35
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4008.39
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4007.72
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4008.58
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.62
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.63
+MOTOR VOLTS       2.97
+RPM            4010.25
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4011.25
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.75
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.37
+MOTOR VOLTS       2.97
+RPM            4013.18
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.49
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1948.74
+MOTOR VOLTS       2.92
+RPM            4010.61
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4007.62
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4010.69
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4008.19
+AMPS AVG          0.05
+MOTOR VOLTS       2.97
+RPM            4011.81
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.62
-COMM PERIOD     734.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1946.93
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.74
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.80
-AMPS AVG          0.02
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.67
-COMM PERIOD     733.00
-BAD DETECTS          0
-FET DUTY         10.85
-RPM            1947.41
+MOTOR VOLTS       2.92
+RPM            4011.93
 AMPS AVG          0.03
-AMPS MAX          0.64
-BAT VOLTS        14.62
-MOTOR VOLTS       1.59
-DISARM CODE          5
-CAN NET ID           0
-INPUT MODE        UART
-RUN MODE     OPEN_LOOP
-ESC STATE      RUNNING
-PERCENT IDLE      9.44
-COMM PERIOD     732.00
-BAD DETECTS          0
-FET DUTY    
+MOTOR VOLTS       3.07
+RPM            4009.61
+AMPS AVG          0.03
+MOTOR VOLTS       2.97
+RPM            4004.08
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4007.08
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4006.82
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4009.58
+AMPS AVG          0.03
+MOTOR VOLTS       3.02
+RPM            4008.91
+AMPS AVG          0.03
+MOTOR VOLTS       2.92
+RPM            4007.75
+AMPS AVG          0.03
+MOTOR VOLTS       3.17
+RPM            4008.28
+AMPS AVG          0.03
+MOTOR VOLTS       3.02
+RPM            4006.19
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4007.14
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4011.34
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4012.87
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4005.13
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4005.04
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4009.28
+AMPS AVG          0.03
+MOTOR VOLTS       2.97
+RPM            4006.56
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4010.12
+AMPS AVG          0.03
+MOTOR VOLTS       2.97
+RPM            4008.98
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4005.33
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4005.22
+AMPS AVG          0.03
+MOTOR VOLTS       3.07
+RPM            4009.77
+AMPS AVG          0.03
+MOTOR VOLTS       2.97
+RPM            4006.18
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4006.06
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4003.61
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4009.14
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4012.31
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4007.01
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4008.62
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4004.99
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4010.01
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4007.48
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4011.59
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4009.70
+AMPS AVG          0.03
+MOTOR VOLTS       3.07
+RPM            4004.23
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4011.86
+AMPS AVG          0.03
+MOTOR VOLTS       2.92
+RPM            4007.37
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4008.44
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4008.72
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4010.28
+AMPS AVG          0.03
+MOTOR VOLTS       2.92
+RPM            4005.53
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4007.09
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4012.18
+AMPS AVG          0.03
+MOTOR VOLTS       2.97
+RPM            4011.14
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4011.44
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4013.44
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4005.20
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4013.48
+AMPS AVG          0.03
+MOTOR VOLTS       2.97
+RPM            4012.22
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4007.10
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4010.13
+AMPS AVG          0.03
+MOTOR VOLTS       3.02
+RPM            4007.28
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4010.66
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4010.39
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4008.58
+AMPS AVG          0.07
+MOTOR VOLTS       3.02
+RPM            4006.51
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4009.54
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4010.81
+AMPS AVG          0.03
+MOTOR VOLTS       2.97
+RPM            4008.32
+AMPS AVG          0.07
+MOTOR VOLTS       3.12
+RPM            4008.31
+AMPS AVG          0.03
+MOTOR VOLTS       3.07
+RPM            4009.31
+AMPS AVG          0.03
+MOTOR VOLTS       2.97
+RPM            4006.47
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4009.62
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4000.01
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4013.09
+AMPS AVG          0.03
+MOTOR VOLTS       2.87
+RPM            4014.03
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4007.49
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4008.28
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4008.83
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4009.46
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4007.14
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4003.63
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4014.59
+AMPS AVG          0.04
+MOTOR VOLTS       2.87
+RPM            4006.80
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4006.53
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4014.64
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4005.88
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4008.71
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4002.59
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4006.65
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4006.14
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4003.51
+AMPS AVG          0.05
+MOTOR VOLTS       3.12
+RPM            4007.93
+AMPS AVG          0.05
+MOTOR VOLTS       3.07
+RPM            4001.98
+AMPS AVG          0.05
+MOTOR VOLTS       3.02
+RPM            4007.96
+AMPS AVG          0.05
+MOTOR VOLTS       2.97
+RPM            4006.92
+AMPS AVG          0.05
+MOTOR VOLTS       3.12
+RPM            4010.61
+AMPS AVG          0.05
+MOTOR VOLTS       2.92
+RPM            4005.28
+AMPS AVG          0.05
+MOTOR VOLTS       3.12
+RPM            4004.13
+AMPS AVG          0.05
+MOTOR VOLTS       3.02
+RPM            4007.36
+AMPS AVG          0.05
+MOTOR VOLTS       3.02
+RPM            4003.21
+AMPS AVG          0.05
+MOTOR VOLTS       3.07
+RPM            4007.05
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4014.07
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4006.83
+AMPS AVG          0.04
+MOTOR VOLTS       2.87
+RPM            4005.75
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4004.17
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4007.31
+AMPS AVG          0.04
+MOTOR VOLTS       2.87
+RPM            4001.83
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4006.27
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4015.15
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4004.88
+AMPS AVG          0.05
+MOTOR VOLTS       3.07
+RPM            4012.29
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4011.45
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4005.68
+AMPS AVG          0.05
+MOTOR VOLTS       2.97
+RPM            4009.46
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4006.67
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4014.25
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4009.67
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4011.05
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4013.50
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4008.66
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4006.50
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4009.05
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4006.76
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4007.07
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4006.36
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4013.42
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4014.10
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4003.59
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4013.08
+AMPS AVG          0.05
+MOTOR VOLTS       3.12
+RPM            4008.35
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4004.73
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4004.00
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4010.86
+AMPS AVG          0.04
+MOTOR VOLTS       2.87
+RPM            4012.16
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4005.73
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4012.21
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4005.25
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4007.04
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4006.61
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4007.47
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4008.52
+AMPS AVG          0.04
+MOTOR VOLTS       2.87
+RPM            4005.53
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4007.29
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4009.20
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4005.86
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4008.26
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4012.98
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4004.18
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4009.20
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4006.70
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4006.99
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4006.08
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4008.89
+AMPS AVG          0.04
+MOTOR VOLTS       2.87
+RPM            4002.47
+AMPS AVG          0.05
+MOTOR VOLTS       3.12
+RPM            4008.07
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4009.42
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4003.37
+AMPS AVG          0.05
+MOTOR VOLTS       2.97
+RPM            4006.36
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4008.15
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4001.73
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4012.95
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4003.00
+AMPS AVG          0.04
+MOTOR VOLTS       3.12
+RPM            4008.05
+AMPS AVG          0.04
+MOTOR VOLTS       3.02
+RPM            4011.58
+AMPS AVG          0.04
+MOTOR VOLTS       2.92
+RPM            4003.55
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4007.82
+AMPS AVG          0.04
+MOTOR VOLTS       3.07
+RPM            4007.12
+AMPS AVG          0.04
+MOTOR VOLTS       2.97
+RPM            4003.51
+AMPS

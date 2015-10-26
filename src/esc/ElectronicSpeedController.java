@@ -56,6 +56,48 @@ public class ElectronicSpeedController {
 		return sendCommand("stop");
 	}
 	
+	/**
+	 * @param from starting rpm
+	 * @param to ending rpm
+	 * @param pace acceleration in rpm / s 
+	 * @return
+	 */
+	public ElectronicSpeedController accelerate(int from, int to, double pace) {
+		if (pace == 0 || from == to) {
+			throw new IllegalArgumentException("Cannot accelerate");
+		}
+		
+		int deltaRpm = pace>0 ? 1 : -1;
+		long deltaT = Math.round((deltaRpm / pace) * 1000);
+		
+		if (from < to && pace>0) {
+			setRPM(from);
+			while(from<=to){
+				from+=deltaRpm;
+				setRPM(from);
+				try {
+					Thread.sleep(deltaT);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		} else if (from > to && pace<0) {
+			setRPM(from);
+			while(from>=to){
+				from+=deltaRpm;
+				setRPM(from);
+				try {
+					Thread.sleep(deltaT);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			throw new IllegalArgumentException("from, to, pace not compatible");
+		}
+		return this;
+	}
+	
 	public ElectronicSpeedController sendCommand(String command){
 		try {
 			// l'ESC usa la codifica UTF-8 e ha bisogno dei caratteri di LF e CR
