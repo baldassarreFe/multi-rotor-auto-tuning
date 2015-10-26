@@ -1,29 +1,21 @@
 
 //import javax.comm.*;
-import gnu.io.*;
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.InvalidPropertiesFormatException;
-import java.util.Iterator;
 import java.util.StringTokenizer;
-import java.util.TooManyListenersException;
+
+import gnu.io.CommPortIdentifier;
+import gnu.io.PortInUseException;
+import gnu.io.SerialPort;
 
 public class Communicator {
 	private static FileWriter file;
