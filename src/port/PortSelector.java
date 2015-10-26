@@ -88,5 +88,10 @@ public class PortSelector {
 		
 		return serialPort;
 	}
+	
+	public void disconnect(SerialPort serialPort) {
+		System.out.println("Closing connection");
+		serialPort.close();
+	}
 }
 
