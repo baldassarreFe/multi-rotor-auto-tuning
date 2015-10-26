@@ -1,15 +1,14 @@
-import java.io.FileWriter;
+package esc;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-
 import esc.ElectronicSpeedController;
 import gnu.io.SerialPort;
 import port.PortSelector;
 
-public class Main {
+public class ThreadStart extends Thread {
 
-	public static void main(String[] args) throws IOException {
+	public void run(OutputStream outputArea) {
 		PortSelector sel = new PortSelector();
 		SerialPort serialPort = sel.connect(sel.selectPort(sel.scanPorts()));
 		ElectronicSpeedController esc = null;
@@ -20,22 +19,21 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		FileWriter file = new FileWriter("test.txt");
+		OutputStreamWriter writer = new OutputStreamWriter(outputArea);
 		
 		esc.setTelemetryParameters(new String[] {"RPM", "AMPS AVG", "MOTOR VOLTS"});
 		esc.arm()
 			.sleep(1000)
-			.startTelemetry(50, file)
+			.startTelemetry(50, writer)
 			.start()
-			.accelerate(4000, 9000, 500)
-			.accelerate(9000, 4000, -300)
+			.accelerate(2000, 4000, 500)
+			.accelerate(4000, 2000, -300)
 			.sleep(5000)
 			.stopTelemetry()
 			.stop()
 			.disarm();
 		
 		serialPort.close();
-		System.exit(0);
 	}
 
 }
