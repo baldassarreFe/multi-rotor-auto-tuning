@@ -7,12 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.StringTokenizer;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import gnu.io.SerialPort;
 
@@ -70,7 +68,7 @@ public class ElectronicSpeedController {
 		return this;
 	}
 	
-	public ElectronicSpeedController startTelemetry(int frequency, PrintWriter writer){
+	public ElectronicSpeedController startTelemetry(int frequency, Writer writer){
 		if (frequency<=0 || frequency>60) {
 			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
 		}
@@ -79,21 +77,17 @@ public class ElectronicSpeedController {
 		}
 		sendCommand("telemetry " + frequency);
 		if (reader != null) {
-			reader = new ReaderThread(writer);
-			reader.start();
-		} else {
-			reader.setOutput(writer);
-			if (!reader.isAlive()){
-				reader.start();
-			}
+			reader.shouldRead.set(false);
 		}
+		reader = new ReaderThread(writer);
+		reader.start();
 		return this;
 	}
 	
 	public ElectronicSpeedController stopTelemetry() {
 		sendCommand("telemetry 0");
 		if (reader != null) {
-			reader.interrupt();
+			reader.shouldRead.set(false);
 		}
 		return this;
 	}
@@ -112,31 +106,31 @@ public class ElectronicSpeedController {
 	}
 	
 	private class ReaderThread extends Thread {
-		private PrintWriter writer;
+		private Writer writer;
 		private ByteArrayOutputStream inputBuffer;
-		public ReaderThread(PrintWriter writer){
+		protected AtomicBoolean shouldRead = new AtomicBoolean(true);
+		public ReaderThread(Writer writer){
+			this.setName("ReaderThread");
 			this.writer = writer;
 			this.inputBuffer = new ByteArrayOutputStream();
-		}
-		public void setOutput(PrintWriter writer){
-			this.writer = writer;
 		}
 		public void run() {
 			try {
 				byte singleData;
-				while ((singleData = (byte) input.read()) != -1) {
+				while (shouldRead.get() == true && (singleData = (byte) input.read()) != -1) {
 					inputBuffer.write(singleData);
-					if (singleData == 13) {
+					if (singleData == 10) {
 						ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
 						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
 						String line = reader.readLine();
 						for (String parameter : telemetryParameters) {
 							if (line.startsWith(parameter))
-								writer.write(line);
+								writer.write(line+"\n");
 						}
 						inputBuffer.reset();
 					}
 				}
+				return;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
