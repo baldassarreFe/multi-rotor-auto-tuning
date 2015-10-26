@@ -62,7 +62,7 @@ public class PortSelector {
 			System.exit(1);
 		}
 		while (ports.hasMoreElements()) {
-			CommPortIdentifier curPort = (CommPortIdentifier) ports.nextElement();
+			CommPortIdentifier curPort = ports.nextElement();
 			// get only serial ports
 			if (curPort.getPortType() == CommPortIdentifier.PORT_SERIAL) {
 				portMap.put(curPort.getName(), curPort);

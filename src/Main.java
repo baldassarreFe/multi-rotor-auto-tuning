@@ -27,11 +27,14 @@ public class Main {
 			.sleep(1000)
 			.startTelemetry(50, file)
 			.start()
-			.accelerate(4000, 9000, 500)
-			.accelerate(9000, 4000, -300)
+			//.accelerate(4000, 9000, 1000)
+			//.accelerate(9000, 1000, -3000)
+			.accelerate(1000, 1050, 10)
+			//.accelerate(2000, 5000, 10)
+			//.accelerate(5000, 7000, 100)
+			.stop()
 			.sleep(5000)
 			.stopTelemetry()
-			.stop()
 			.disarm();
 		
 		serialPort.close();
