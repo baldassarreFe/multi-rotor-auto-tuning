@@ -29,40 +29,48 @@ public class ElectronicSpeedController {
 		ElectronicSpeedController.telemetryParameters.addAll(Arrays.asList(allParameters));
 	}
 	
-	public boolean setRPM(int rpm) {
+	public ElectronicSpeedController sleep(long millis){
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return this;
+	}
+	
+	public ElectronicSpeedController setRPM(int rpm) {
 		return sendCommand("rpm " + rpm);
 	}
 	
-	public boolean arm() {
+	public ElectronicSpeedController arm() {
 		return sendCommand("arm");
 	}
 	
-	public boolean disarm() {
+	public ElectronicSpeedController disarm() {
 		return sendCommand("disarm");
 	}
 	
-	public boolean start() {
+	public ElectronicSpeedController start() {
 		return sendCommand("start");
 	}
 	
-	public boolean stop() {
+	public ElectronicSpeedController stop() {
 		return sendCommand("stop");
 	}
 	
-	public boolean sendCommand(String command){
+	public ElectronicSpeedController sendCommand(String command){
 		try {
 			// l'ESC usa la codifica UTF-8 e ha bisogno dei caratteri di LF e CR
 			output.write(command.trim().getBytes("UTF-8"));
 			output.write(13); // LF
 			output.write(10); // CR
-			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
 		}
+		return this;
 	}
 	
-	public void startTelemetry(int frequency, PrintWriter writer){
+	public ElectronicSpeedController startTelemetry(int frequency, PrintWriter writer){
 		sendCommand("telemetry " + frequency);
 		if (reader != null) {
 			reader = new ReaderThread(writer);
@@ -73,13 +81,15 @@ public class ElectronicSpeedController {
 				reader.start();
 			}
 		}
+		return this;
 	}
 	
-	public void stopTelemetry() {
+	public ElectronicSpeedController stopTelemetry() {
 		sendCommand("telemetry 0");
 		if (reader != null) {
 			reader.interrupt();
 		}
+		return this;
 	}
 
 	public void addTelemetryParameter(String parameter){
