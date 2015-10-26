@@ -71,6 +71,12 @@ public class ElectronicSpeedController {
 	}
 	
 	public ElectronicSpeedController startTelemetry(int frequency, PrintWriter writer){
+		if (frequency<=0 || frequency>60) {
+			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
+		}
+		if (writer == null) {
+			throw new IllegalArgumentException("writer nullo");
+		}
 		sendCommand("telemetry " + frequency);
 		if (reader != null) {
 			reader = new ReaderThread(writer);
