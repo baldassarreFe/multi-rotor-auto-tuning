@@ -102,7 +102,8 @@ public class ElectronicSpeedController {
 		telemetryParameters.add(parameter);
 	}
 	
-	public void addTelemetryParameters(String[] parameters){
+	public void setTelemetryParameters(String[] parameters){
+		telemetryParameters.clear();
 		telemetryParameters.addAll(Arrays.asList(parameters));
 	}
 	
