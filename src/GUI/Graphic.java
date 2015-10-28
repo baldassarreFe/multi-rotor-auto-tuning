@@ -1,34 +1,49 @@
 package GUI;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.swing.JButton;
-import javax.swing.JTextPane;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import esc.ThreadStart;
 
-import javax.swing.JTextArea;
-import java.awt.Rectangle;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 
 public class Graphic extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JTextArea display;
+	private ThreadStart ts;
 
 	public Graphic() {
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		try {
+			ts = new ThreadStart();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        if (JOptionPane.showConfirmDialog(null, "Are you sure to close this window?", "Really Closing?", 
+		            JOptionPane.YES_NO_OPTION,
+		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+		            ts.esc.stopTelemetry().stop().disarm();
+		            System.exit(0);
+		        }
+		    }
+		});
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton = new JButton("Start");
@@ -59,7 +74,7 @@ public class Graphic extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		(new ThreadStart()).run(this.getOutputArea());
+		ts.run(this.getOutputArea());
 	}
 
 }

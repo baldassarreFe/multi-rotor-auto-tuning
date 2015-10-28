@@ -8,17 +8,17 @@ import port.PortSelector;
 
 public class ThreadStart extends Thread {
 
-	public void run(OutputStream outputArea) {
+	public ElectronicSpeedController esc;
+	private SerialPort serialPort;
+	
+	public ThreadStart() throws IOException{
 		PortSelector sel = new PortSelector();
-		SerialPort serialPort = sel.connect(sel.selectPort(sel.scanPorts()));
-		ElectronicSpeedController esc = null;
-		try {
-			esc = new ElectronicSpeedController(serialPort);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		serialPort = sel.connect(sel.selectPort(sel.scanPorts()));	
+		esc = new ElectronicSpeedController(serialPort);
+	}
+	
+	public void run(OutputStream outputArea) {
+		
 		OutputStreamWriter writer = new OutputStreamWriter(outputArea);
 
 		esc.setTelemetryParameters(new String[] {"RPM", "AMPS AVG", "MOTOR VOLTS"});
@@ -26,11 +26,12 @@ public class ThreadStart extends Thread {
 			.sleep(1000)
 			.startTelemetry(50, writer)
 			.start()
-			.accelerate(4000, 9000, 1000)
-			.accelerate(9000, 1000, -3000)
-			.accelerate(1000, 1050, 10)
-			.accelerate(2000, 5000, 10)
-			.accelerate(5000, 7000, 100)
+			.sleep(10000)
+			//.accelerate(4000, 9000, 1000)
+			//.accelerate(9000, 1000, -3000)
+			//.accelerate(1000, 1050, 10)
+			//.accelerate(2000, 5000, 10)
+			//.accelerate(5000, 7000, 100)
 			.stop()
 			.sleep(5000)
 			.stopTelemetry()

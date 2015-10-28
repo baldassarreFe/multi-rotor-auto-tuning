@@ -20,6 +20,7 @@ public class CustomOutputStream extends OutputStream {
 	public void write(int arg0) throws IOException {
 		textArea.append(String.valueOf((char)arg0));
 		textArea.setCaretPosition(textArea.getDocument().getLength());
+		textArea.update(textArea.getGraphics());
 	}
 
 }
