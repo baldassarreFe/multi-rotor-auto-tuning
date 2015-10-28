@@ -10,17 +10,16 @@ public class ThreadStart extends Thread {
 
 	public ElectronicSpeedController esc;
 	private SerialPort serialPort;
+	private OutputStreamWriter writer;
 	
-	public ThreadStart() throws IOException{
+	public ThreadStart(OutputStream outputArea) throws IOException{
+		writer = new OutputStreamWriter(outputArea);
 		PortSelector sel = new PortSelector();
 		serialPort = sel.connect(sel.selectPort(sel.scanPorts()));	
 		esc = new ElectronicSpeedController(serialPort);
 	}
 	
-	public void run(OutputStream outputArea) {
-		
-		OutputStreamWriter writer = new OutputStreamWriter(outputArea);
-
+	public void run() {
 		esc.setTelemetryParameters(new String[] {"RPM", "AMPS AVG", "MOTOR VOLTS"});
 		esc.arm()
 			.sleep(1000)
