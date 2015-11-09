@@ -1,4 +1,4 @@
-package port;
+package serialPorts;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import gnu.io.SerialPort;
 
 public class PortSelector {
 	
-	final int TIMEOUT = 2000;
+	static final int TIMEOUT = 2000;
 	
-	public CommPortIdentifier selectPort(Map<String, CommPortIdentifier> portMap ) {
+	public static CommPortIdentifier selectPort(Map<String, CommPortIdentifier> portMap ) {
 		CommPortIdentifier selectedPortIdentifier;
 		for (CommPortIdentifier c : portMap.values()) {
 			System.out.println(c.getName());
@@ -48,7 +48,7 @@ public class PortSelector {
 		return selectedPortIdentifier;
 	}
 
-	public Map<String, CommPortIdentifier> scanPorts() {
+	public static Map<String, CommPortIdentifier> scanPorts() {
 		// for containing the ports that will be found
 		Enumeration<CommPortIdentifier> ports = null;
 		
@@ -59,7 +59,6 @@ public class PortSelector {
 
 		if (!ports.hasMoreElements()) {
 			System.out.println("No Ports Available");
-			System.exit(1);
 		}
 		while (ports.hasMoreElements()) {
 			CommPortIdentifier curPort = ports.nextElement();
@@ -72,7 +71,7 @@ public class PortSelector {
 		return portMap;
 	}
 
-	public SerialPort connect(CommPortIdentifier selectedPortIdentifier) {
+	public static SerialPort connect(CommPortIdentifier selectedPortIdentifier) {
 		SerialPort serialPort = null;
 		try {
 			// the method below returns an object of type SerialPort
@@ -89,7 +88,7 @@ public class PortSelector {
 		return serialPort;
 	}
 	
-	public void disconnect(SerialPort serialPort) {
+	public static void disconnect(SerialPort serialPort) {
 		System.out.println("Closing connection");
 		serialPort.close();
 	}

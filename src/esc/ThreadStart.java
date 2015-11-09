@@ -4,7 +4,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import esc.ElectronicSpeedController;
 import gnu.io.SerialPort;
-import port.PortSelector;
+import serialPorts.PortSelector;
 
 public class ThreadStart extends Thread {
 
