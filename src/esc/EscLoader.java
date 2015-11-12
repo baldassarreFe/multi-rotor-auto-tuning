@@ -4,6 +4,7 @@ import java.util.List;
 
 import gnu.io.SerialPort;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class EscLoader {
@@ -19,7 +20,25 @@ public class EscLoader {
 
 	public AbstractEsc newInstanceOf(Class cls, SerialPort port) {
 		if (AbstractEsc.class.isAssignableFrom(cls)) {
-			cls.getConstructor(SerialPort.class);
-		};
+			try {
+				return (AbstractEsc) cls.getConstructor(SerialPort.class).newInstance(port);
+			} catch (NoSuchMethodException | SecurityException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+
 	}
 }

@@ -1,19 +1,22 @@
 package controller;
 
+import esc.AbstractEsc;
+import esc.Routine;
 import view.EscSelectorGui;
+import view.MainView;
 
 public class Controller {
 	
-	private AbstractEsc aesc;
+	private AbstractEsc esc;
 	
 	public Controller() {
 		EscSelectorGui esg = new EscSelectorGui();
-		aesc= esg.getConnectedEsc();
+		esc = esg.getConnectedEsc();
 		MainView mainView = new MainView(this);
 	}
 	
 	public void startRoutine(Routine routine) {
-		routine.setEsc(aesc);
+		routine.setEsc(esc);
 		routine.start();
 	}
 }

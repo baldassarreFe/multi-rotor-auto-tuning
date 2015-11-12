@@ -9,11 +9,10 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
 
+import esc.AbstractEsc;
 import esc.EscLoader;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
@@ -79,8 +78,8 @@ public class EscSelectorGui extends JFrame {
 			return getConnectedEsc();
 		} else {
 			EscLoader escl = new EscLoader();
-			return escl.newInstanceOf(escs.get(esclist.getSelectedIndex()), result);
 			this.dispose();
+			return escl.newInstanceOf(escs.get(esclist.getSelectedIndex()), result);
 		}
 	}	
 }
