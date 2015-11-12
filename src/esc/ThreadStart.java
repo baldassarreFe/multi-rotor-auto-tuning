@@ -2,13 +2,13 @@ package esc;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import esc.ElectronicSpeedController;
+import esc.AutoQuadEsc32;
 import gnu.io.SerialPort;
 import serialPorts.PortSelector;
 
 public class ThreadStart extends Thread {
 
-	public ElectronicSpeedController esc;
+	public AutoQuadEsc32 esc;
 	private SerialPort serialPort;
 	private OutputStreamWriter writer;
 	
@@ -16,7 +16,7 @@ public class ThreadStart extends Thread {
 		writer = new OutputStreamWriter(outputArea);
 		PortSelector sel = new PortSelector();
 		serialPort = sel.connect(sel.selectPort(sel.scanPorts()));	
-		esc = new ElectronicSpeedController(serialPort);
+		esc = new AutoQuadEsc32(serialPort);
 	}
 	
 	public void run() {

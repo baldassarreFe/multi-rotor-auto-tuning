@@ -3,12 +3,12 @@
 import controller.Controller;
 import gnu.io.SerialPort;
 import view.MainView;
-import view.PortSelectorGui;
+import view.EscSelectorGui;
 
 public class Main {
 
 	public static void main(String[] args) {
-		PortSelectorGui psg = new PortSelectorGui();
+		EscSelectorGui psg = new EscSelectorGui();
 		SerialPort port = psg.getConnectedPort(); 
 		Controller controller = new Controller();
 		MainView mainView = new MainView();
