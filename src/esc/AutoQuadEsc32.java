@@ -14,46 +14,78 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import gnu.io.SerialPort;
 
-public class ElectronicSpeedController {
-	private InputStream input;
-	private OutputStream output;
+public class AutoQuadEsc32 extends AbstractEsc {
 	private ReaderThread reader;
-	private static HashSet<String> telemetryParameters = new HashSet<>();
 	public static String[] allParameters = {"INPUT MODE", "RUN MODE", "ESC STATE", "PERCENT IDLE", "COMM PERIOD", "BAD DETECTS", "FET DUTY", "RPM", "AMPS AVG", "AMPS MAX", "BAT VOLTS", "MOTOR VOLTS", "DISARM CODE", "CAN NET ID"};
 
-	public ElectronicSpeedController(SerialPort port) throws IOException {
-		this.input = port.getInputStream();
-		this.output = port.getOutputStream();
-		ElectronicSpeedController.telemetryParameters.addAll(Arrays.asList(allParameters));
+	public AutoQuadEsc32(SerialPort port) throws IOException {
+		super(port);
+		AutoQuadEsc32.telemetryParameters.addAll(Arrays.asList(allParameters));
 	}
 	
-	public ElectronicSpeedController sleep(long millis){
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	public String toString(){
+		return "AutoQuadEsc32";
+	}
+	
+	public void executeInstruction(Instruction instruction){
+		switch(instruction.type){
+		case ARM:
+			arm();
+			break;
+		case DISARM:
+			disarm();
+			break;
+		case START:
+			start();
+			break;
+		case STOP:
+			stop();
+			break;
+		case SLEEP:
+			long millis = (Long) instruction.parameters.get("millis");
+			sleep(millis);
+			break;
+		case SET_RPM:
+			int rpm = (Integer) instruction.parameters.get("rpm");
+			setRPM(rpm);
+			break;
+		case ACCELERATE:
+			int from = (Integer) instruction.parameters.get("from");
+			int to = (Integer) instruction.parameters.get("to");
+			double pace = (Double) instruction.parameters.get("pace");
+			accelerate(from, to, pace);
+			break;
+		case START_TELEMETRY:
+			int frequency = (Integer) instruction.parameters.get("frequency");
+			Writer writer = (Writer) instruction.parameters.get("writer");
+			startTelemetry(frequency, writer);
+			break;
+		case STOP_TELEMETRY:
+			stopTelemetry();
+			break;
+		default:
+			instruction.parameters.clear();
 		}
-		return this;
 	}
 	
-	public ElectronicSpeedController setRPM(int rpm) {
-		return sendCommand("rpm " + rpm);
+	public AutoQuadEsc32 setRPM(int rpm) {
+		return sendRawCommand("rpm " + rpm);
 	}
 	
-	public ElectronicSpeedController arm() {
-		return sendCommand("arm");
+	public AutoQuadEsc32 arm() {
+		return sendRawCommand("arm");
 	}
 	
-	public ElectronicSpeedController disarm() {
-		return sendCommand("disarm");
+	public AutoQuadEsc32 disarm() {
+		return sendRawCommand("disarm");
 	}
 	
-	public ElectronicSpeedController start() {
-		return sendCommand("start");
+	public AutoQuadEsc32 start() {
+		return sendRawCommand("start");
 	}
 	
-	public ElectronicSpeedController stop() {
-		return sendCommand("stop");
+	public AutoQuadEsc32 stop() {
+		return sendRawCommand("stop");
 	}
 	
 	/**
@@ -62,7 +94,7 @@ public class ElectronicSpeedController {
 	 * @param pace acceleration in rpm / s 
 	 * @return
 	 */
-	public ElectronicSpeedController accelerate(int from, int to, double pace) {
+	public AutoQuadEsc32 accelerate(int from, int to, double pace) {
 		if (pace == 0 || from == to) {
 			throw new IllegalArgumentException("Cannot accelerate");
 		}
@@ -98,7 +130,7 @@ public class ElectronicSpeedController {
 		return this;
 	}
 	
-	public ElectronicSpeedController sendCommand(String command){
+	public AutoQuadEsc32 sendRawCommand(String command){
 		try {
 			// l'ESC usa la codifica UTF-8 e ha bisogno dei caratteri di LF e CR
 			output.write(command.trim().getBytes("UTF-8"));
@@ -110,14 +142,14 @@ public class ElectronicSpeedController {
 		return this;
 	}
 	
-	public ElectronicSpeedController startTelemetry(int frequency, Writer writer){
+	public AutoQuadEsc32 startTelemetry(int frequency, Writer writer){
 		if (frequency<=0 || frequency>60) {
 			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
 		}
 		if (writer == null) {
 			throw new IllegalArgumentException("writer nullo");
 		}
-		sendCommand("telemetry " + frequency);
+		sendRawCommand("telemetry " + frequency);
 		if (reader != null) {
 			reader.shouldRead.set(false);
 		}
@@ -126,8 +158,8 @@ public class ElectronicSpeedController {
 		return this;
 	}
 	
-	public ElectronicSpeedController stopTelemetry() {
-		sendCommand("telemetry 0");
+	public AutoQuadEsc32 stopTelemetry() {
+		sendRawCommand("telemetry 0");
 		if (reader != null) {
 			reader.shouldRead.set(false);
 		}
