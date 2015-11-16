@@ -1,11 +1,5 @@
 package esc;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum TelemetryParameters {
-	ARM, DISARM, START, STOP, SET_RPM, ACCELERATE, START_TELEMETRY, STOP_TELEMETRY;
-
-	// questa map name-value è condivisa tra i singoli comandi (ARM ha la sua, START ha la sua ecc)
-	public Map<String, Object> parameters = new HashMap<>();
+	INPUT_MODE, RUN_MODE, ESC_STATE, PERCENT_IDLE, COMM_PERIOD, BAD_DETECTS, FET_DUTY, RPM, AMPS_AVG, AMPS_MAX, BAT_VOLTS, MOTOR_VOLTS, DISARM_CODE, CAN_NET_ID;
 }

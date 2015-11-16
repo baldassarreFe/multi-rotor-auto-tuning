@@ -5,14 +5,18 @@ import java.util.List;
 
 import gnu.io.SerialPort;
 
-public class Routine extends Thread {
+public class Routine implements Runnable {
 
 	public AbstractEsc esc;
 	protected SerialPort serialPort;
 	protected OutputStreamWriter writer;
+	protected String name;
+	protected List<TelemetryParameters> params;
 	protected List<Instruction> instructions;
 
-	public Routine(List<Instruction> instructions) {
+	public Routine(String name, List<TelemetryParameters> params, List<Instruction> instructions) {
+		this.name = name;
+		this.params = params;
 		this.instructions = instructions;
 	}
 
@@ -22,7 +26,7 @@ public class Routine extends Thread {
 
 	public void run() {
 		if (instructions == null)
-			throw new IllegalStateException("Routine has null ");
+			throw new IllegalStateException("Routine has null set of instructions");
 		if (esc == null)
 			throw new IllegalStateException("Routine has no ESC attached");
 		for (Instruction i : instructions)
@@ -30,6 +34,6 @@ public class Routine extends Thread {
 	}
 
 	public String toString(){
-		return "Routine";
+		return name;
 	}
 }

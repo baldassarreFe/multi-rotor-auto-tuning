@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,7 +19,7 @@ import esc.RoutineLoader;
 
 public class MainView extends JFrame implements ActionListener {
 	private Controller controller;
-	private JComboBox<Class> routines; 
+	private JComboBox<Routine> routines; 
 	private JButton start;
 	
 	public MainView(final Controller controller) {
@@ -39,7 +40,8 @@ public class MainView extends JFrame implements ActionListener {
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Class[1]));
+		RoutineLoader.loadFrom(new File("routines"));
+		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Routine[10]));
 		panel.add(routines, BorderLayout.NORTH);
 		
 		start = new JButton("START");
@@ -53,7 +55,7 @@ public class MainView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (start == e.getSource()) {
-			controller.startRoutine((Class) routines.getSelectedItem());
+			controller.startRoutine((Routine) routines.getSelectedItem());
 		}
 	}
 }

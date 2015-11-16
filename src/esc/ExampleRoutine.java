@@ -1,6 +1,7 @@
 package esc;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class ExampleRoutine extends Routine {
 	public AbstractEsc esc;
 	
 	public ExampleRoutine() {
-		super(null);
+		super(null, Arrays.asList(TelemetryParameters.values()) ,null);
 		List<Instruction> instrs = new ArrayList<>();
 		instrs.add(Instruction.ARM);
 		instrs.add(Instruction.START);
@@ -33,6 +34,6 @@ public class ExampleRoutine extends Routine {
 	}
 	
 	public String toString(){
-		return "Routine base";
+		return "Velocità costante 2000";
 	}
 }
