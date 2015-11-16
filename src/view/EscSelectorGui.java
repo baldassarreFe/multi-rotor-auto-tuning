@@ -22,9 +22,9 @@ public class EscSelectorGui extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private Object selected = new Object();
-	private CommPortIdentifier portId = null;
-	private List<Class> escs= null;
-	private JComboBox<Object> esclist = null;
+	private CommPortIdentifier portId;
+	private List<Class> escs;
+	private JComboBox<Object> esclist;
 
 	
 	public EscSelectorGui() {
@@ -39,12 +39,12 @@ public class EscSelectorGui extends JFrame {
 		panel.add(portList, BorderLayout.NORTH);
 		
 		EscLoader escload = new EscLoader();
-		escload.getEscList();
+		escs = escload.getEscList();
 		esclist = new JComboBox<>(escs.toArray());
 		esclist.setVisible(true);
 		panel.add(esclist, BorderLayout.NORTH);
 		
-		JButton okButton = new JButton("Select port");
+		JButton okButton = new JButton("Select ESC");
 		okButton.addActionListener(new ActionListener() {
 
 			@Override

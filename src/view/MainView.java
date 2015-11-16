@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,14 +14,22 @@ import javax.swing.JPanel;
 
 import controller.Controller;
 import esc.Routine;
+import esc.RoutineLoader;
 
 public class MainView extends JFrame implements ActionListener {
 	private Controller controller;
-	private JComboBox<Object> routines;
+	private JComboBox<Class> routines; 
 	private JButton start;
 	
-	public MainView(Controller controller) {
+	public MainView(final Controller controller) {
 		this.controller = controller;
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e){
+				controller.exitEsc();
+				System.exit(0);
+			}
+		});
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -29,10 +39,10 @@ public class MainView extends JFrame implements ActionListener {
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JComboBox<Routine> routines = new JComboBox<>(RoutineLoader.getRoutines.toArray());
+		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Class[1]));
 		panel.add(routines, BorderLayout.NORTH);
 		
-		JButton start = new JButton("START");
+		start = new JButton("START");
 		start.addActionListener(this);
 		panel.add(start, BorderLayout.SOUTH);
 		
@@ -43,7 +53,7 @@ public class MainView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (start == e.getSource()) {
-			controller.startRoutine((Routine)routines.getSelectedItem());
+			controller.startRoutine((Class) routines.getSelectedItem());
 		}
 	}
 }

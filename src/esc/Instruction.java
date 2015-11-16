@@ -1,5 +1,6 @@
 package esc;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Instruction {
@@ -9,6 +10,29 @@ public class Instruction {
 	public static final Instruction START = new Instruction(InstructionType.START, null);
 	public static final Instruction STOP = new Instruction(InstructionType.STOP, null);
 	public static final Instruction STOP_TELEMETRY = new Instruction(InstructionType.STOP_TELEMETRY, null);
+	public static final Instruction newAcceleration(int from, int to, double pace){
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("from", from);
+		map.put("to", to);
+		map.put("pace", pace);
+		return new Instruction(InstructionType.ACCELERATE, map);
+	}
+	public static final Instruction newSleep(long millis){
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("millis", millis);
+		return new Instruction(InstructionType.SLEEP, map);
+	}
+	public static final Instruction newSetRpm(int rpm){
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("rpm", rpm);
+		return new Instruction(InstructionType.SET_RPM, map);
+	}
+	public static final Instruction newSetTelemetry(int frequency){
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("frequency", frequency);
+		return new Instruction(InstructionType.START_TELEMETRY, map);
+	}
+	
 	
 	public final InstructionType type;
 	public final Map<String, Object> parameters;

@@ -11,9 +11,11 @@ import gnu.io.SerialPort;
 public abstract class AbstractEsc {
 	protected InputStream input;
 	protected OutputStream output;
+	private SerialPort port;
 	protected static HashSet<String> telemetryParameters = new HashSet<>();
 
 	public AbstractEsc(SerialPort port) throws IOException {
+		this.port = port;
 		this.input = port.getInputStream();
 		this.output = port.getOutputStream();
 	}
@@ -29,6 +31,11 @@ public abstract class AbstractEsc {
 	
 	public String toString(){
 		return "AbstractEsc";
+	}
+	
+	public void disconnect(){
+		stop().disarm();
+		port.close();
 	}
 	
 	public abstract void executeInstruction(Instruction instruction);

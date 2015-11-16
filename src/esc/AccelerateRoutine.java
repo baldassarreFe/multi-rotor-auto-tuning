@@ -10,23 +10,17 @@ import gnu.io.SerialPort;
 /**used only for test purposes, custom routines can be created passing
  *  a list of {@link Instruction} to {@link Routine#Routine(List)} 
 */
-public class ExampleRoutine extends Routine {
+public class AccelerateRoutine extends Routine {
 
 	public AbstractEsc esc;
 	
-	public ExampleRoutine() {
+	public AccelerateRoutine() {
 		super(null);
 		List<Instruction> instrs = new ArrayList<>();
 		instrs.add(Instruction.ARM);
 		instrs.add(Instruction.START);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("rpm", 2000);
-		Instruction uno = new Instruction(InstructionType.SET_RPM, map); 
-		instrs.add(uno);
-		map = new HashMap<String, Object>();
-		map.put("millis", 10000L);
-		Instruction sleep = new Instruction(InstructionType.SLEEP, map);
-		instrs.add(sleep);
+		instrs.add(Instruction.newAcceleration(1000, 2000, 50));
+		instrs.add(Instruction.newSleep(3000));
 		instrs.add(Instruction.STOP);
 		instrs.add(Instruction.DISARM);
 		this.instructions = instrs;

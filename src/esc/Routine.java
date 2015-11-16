@@ -18,7 +18,6 @@ public class Routine extends Thread {
 
 	public void setEsc(AbstractEsc esc) {
 		this.esc = esc;
-		this.run();
 	}
 
 	public void run() {
@@ -30,4 +29,7 @@ public class Routine extends Thread {
 			esc.executeInstruction(i);
 	}
 
+	public String toString(){
+		return "Routine";
+	}
 }
