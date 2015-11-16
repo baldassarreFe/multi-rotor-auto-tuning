@@ -1,15 +1,16 @@
-package esc;
+package routine;
 
-import java.io.OutputStreamWriter;
+import java.io.PipedOutputStream;
 import java.util.List;
 
+import esc.AbstractEsc;
+import esc.TelemetryParameters;
 import gnu.io.SerialPort;
 
 public class Routine implements Runnable {
 
 	public AbstractEsc esc;
 	protected SerialPort serialPort;
-	protected OutputStreamWriter writer;
 	protected String name;
 	protected List<TelemetryParameters> params;
 	protected List<Instruction> instructions;
@@ -35,5 +36,9 @@ public class Routine implements Runnable {
 
 	public String toString(){
 		return name;
+	}
+	
+	public PipedOutputStream getOutput() {
+		return esc.getPipedOutput();
 	}
 }

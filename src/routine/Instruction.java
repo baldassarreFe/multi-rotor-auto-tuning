@@ -1,4 +1,4 @@
-package esc;
+package routine;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,6 @@ public class Instruction {
 	public static final Instruction START = new Instruction(InstructionType.START, null);
 	public static final Instruction STOP = new Instruction(InstructionType.STOP, null);
 	public static final Instruction STOP_TELEMETRY = new Instruction(InstructionType.STOP_TELEMETRY, null);
-
 	public static final Instruction newAcceleration(int from, int to, double pace) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("from", from);

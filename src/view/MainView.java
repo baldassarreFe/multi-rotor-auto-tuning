@@ -1,26 +1,32 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import controller.Controller;
-import esc.Routine;
-import esc.RoutineLoader;
+import routine.Routine;
+import routine.RoutineLoader;
 
 public class MainView extends JFrame implements ActionListener {
 	private Controller controller;
 	private JComboBox<Routine> routines; 
 	private JButton start;
+	private JTextArea textarea;
 	
 	public MainView(final Controller controller) {
 		this.controller = controller;
@@ -36,17 +42,21 @@ public class MainView extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	public void initGraphic() {
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		this.setLayout(new BorderLayout());
 		
 		RoutineLoader.loadFrom(new File("routines"));
 		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Routine[10]));
-		panel.add(routines, BorderLayout.NORTH);
+		this.add(routines, BorderLayout.NORTH);
 		
 		start = new JButton("START");
 		start.addActionListener(this);
-		panel.add(start, BorderLayout.SOUTH);
+		this.add(start, BorderLayout.CENTER);
+		
+		textarea = new JTextArea();
+		textarea.setVisible(true);
+		JScrollPane scrollPane = new JScrollPane(textarea);
+		scrollPane.setPreferredSize(new Dimension(640, 480));
+		this.add(scrollPane, BorderLayout.SOUTH);
 		
 		this.pack();
 		this.setVisible(true);
@@ -56,6 +66,30 @@ public class MainView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (start == e.getSource()) {
 			controller.startRoutine((Routine) routines.getSelectedItem());
+			(new ReaderThread(textarea, controller.getInput())).start();
+		}
+	}
+	
+	private class ReaderThread extends Thread {
+		private JTextArea area;
+		private InputStream in;
+		
+		public ReaderThread(JTextArea area, InputStream in) {
+			this.area=area;
+			this.in=in;
+		}
+		
+		public void run() {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			String buf;
+			try {
+				while ((buf=reader.readLine())!=null) {
+					area.append(buf+"\n");
+					area.setCaretPosition(area.getDocument().getLength());
+					area.update(area.getGraphics());				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
