@@ -3,14 +3,17 @@ package esc;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Writer;
+import java.io.PipedOutputStream;
 import java.util.HashSet;
 
 import gnu.io.SerialPort;
+import routine.Instruction;
 
 public abstract class AbstractEsc {
 	protected InputStream input;
 	protected OutputStream output;
+	protected PipedOutputStream pipedOutput;
+
 	private SerialPort port;
 	protected static HashSet<String> telemetryParameters = new HashSet<>();
 
@@ -18,6 +21,7 @@ public abstract class AbstractEsc {
 		this.port = port;
 		this.input = port.getInputStream();
 		this.output = port.getOutputStream();
+		this.pipedOutput = new PipedOutputStream();
 	}
 	
 	public final AbstractEsc sleep(long millis){
@@ -34,10 +38,14 @@ public abstract class AbstractEsc {
 	}
 	
 	public void disconnect(){
-		stop().disarm();
+		stopTelemetry().stop().disarm();
 		port.close();
 	}
-	
+
+	public PipedOutputStream getPipedOutput() {
+		return pipedOutput;
+	}
+
 	public abstract void executeInstruction(Instruction instruction);
 	
 	public abstract AbstractEsc setRPM(int rpm);
@@ -60,7 +68,7 @@ public abstract class AbstractEsc {
 	
 	public abstract AbstractEsc sendRawCommand(String command);
 	
-	public abstract AbstractEsc startTelemetry(int frequency, Writer writer);
+	public abstract AbstractEsc startTelemetry(int frequency);
 	
 	public abstract AbstractEsc stopTelemetry();
 

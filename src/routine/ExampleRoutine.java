@@ -1,11 +1,10 @@
-package esc;
-import java.io.OutputStreamWriter;
+package routine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import gnu.io.SerialPort;
+import esc.AbstractEsc;
 
 /**used only for test purposes, custom routines can be created passing
  *  a list of {@link Instruction} to {@link Routine#Routine(List)} 

@@ -1,15 +1,15 @@
-package esc;
+package routine;
 
-import java.io.OutputStreamWriter;
+import java.io.PipedOutputStream;
 import java.util.List;
 
+import esc.AbstractEsc;
 import gnu.io.SerialPort;
 
 public class Routine extends Thread {
 
 	public AbstractEsc esc;
 	protected SerialPort serialPort;
-	protected OutputStreamWriter writer;
 	protected List<Instruction> instructions;
 
 	public Routine(List<Instruction> instructions) {
@@ -31,5 +31,9 @@ public class Routine extends Thread {
 
 	public String toString(){
 		return "Routine";
+	}
+	
+	public PipedOutputStream getOutput() {
+		return esc.getPipedOutput();
 	}
 }
