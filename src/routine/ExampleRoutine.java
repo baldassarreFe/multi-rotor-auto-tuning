@@ -2,11 +2,12 @@ package routine;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import esc.AbstractEsc;
-import esc.TelemetryParameters;
+import esc.TelemetryParameter;
 
 /**used only for test purposes, custom routines can be created passing
  *  a list of {@link Instruction} to {@link Routine#Routine(List)} 
@@ -16,7 +17,7 @@ public class ExampleRoutine extends Routine {
 	public AbstractEsc esc;
 	
 	public ExampleRoutine() {
-		super(null, Arrays.asList(TelemetryParameters.values()) ,null);
+		super("Velocità costante 2000", new HashSet<>(Arrays.asList(TelemetryParameter.values())) ,null);
 		List<Instruction> instrs = new ArrayList<>();
 		instrs.add(Instruction.ARM);
 		instrs.add(Instruction.START);
@@ -31,9 +32,5 @@ public class ExampleRoutine extends Routine {
 		instrs.add(Instruction.STOP);
 		instrs.add(Instruction.DISARM);
 		this.instructions = instrs;
-	}
-	
-	public String toString(){
-		return "Velocità costante 2000";
 	}
 }

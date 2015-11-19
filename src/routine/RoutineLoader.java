@@ -7,11 +7,13 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import esc.FileFormatException;
-import esc.TelemetryParameters;
+import esc.TelemetryParameter;
 
 public class RoutineLoader {
 	private static List<Routine> list = new ArrayList<>();
@@ -39,7 +41,7 @@ public class RoutineLoader {
 			String name = r.readLine();
 			if (name == null)
 				throw new FileFormatException("Non c'è nome");
-			List<TelemetryParameters> params = new ArrayList<>();
+			Set<TelemetryParameter> params = new HashSet<>();
 
 			String paramsLine = r.readLine();
 			if (paramsLine == null)
@@ -48,7 +50,7 @@ public class RoutineLoader {
 			while (st.hasMoreTokens()) {
 				try {
 					String paramName = st.nextToken().trim().toUpperCase();
-					TelemetryParameters p = TelemetryParameters.valueOf(paramName);
+					TelemetryParameter p = TelemetryParameter.valueOf(paramName);
 					params.add(p);
 				} catch (IllegalArgumentException e) {
 					throw new FileFormatException("Errore nei parametri", e);

@@ -5,23 +5,19 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.Arrays;
+import java.io.ObjectOutputStream;
+import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import gnu.io.SerialPort;
 import routine.Instruction;
 
 public class AutoQuadEsc32 extends AbstractEsc {
-	private ReaderThread reader; 
-	public static String[] allParameters = { "INPUT MODE", "RUN MODE", "ESC STATE", "PERCENT IDLE", "COMM PERIOD",
-			"BAD DETECTS", "FET DUTY", "RPM", "AMPS AVG", "AMPS MAX", "BAT VOLTS", "MOTOR VOLTS", "DISARM CODE",
-			"CAN NET ID" };
+	private ReaderThread reader;
 
 	public AutoQuadEsc32(SerialPort port) throws IOException {
 		super(port);
-		AutoQuadEsc32.telemetryParameters.addAll(Arrays.asList(allParameters));
 	}
 
 	public String toString() {
@@ -169,27 +165,31 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		return this;
 	}
 
-	public void addTelemetryParameter(String parameter) {
+	public void addTelemetryParameter(TelemetryParameter parameter) {
 		telemetryParameters.add(parameter);
 	}
 
-	public void setTelemetryParameters(String[] parameters) {
+	public void setTelemetryParameters(Set<TelemetryParameter> parameters) {
 		telemetryParameters.clear();
-		telemetryParameters.addAll(Arrays.asList(parameters));
+		telemetryParameters.addAll(parameters);
 	}
 
-	public void removeTelemetryParameter(String parameter) {
+	public void removeTelemetryParameter(TelemetryParameter parameter) {
 		telemetryParameters.remove(parameter);
 	}
 
 	private class ReaderThread extends Thread {
-		private Writer writer;
+		private ObjectOutputStream writer;
 		private ByteArrayOutputStream inputBuffer;
 		protected AtomicBoolean shouldRead = new AtomicBoolean(true);
 
 		public ReaderThread() {
 			this.setName("ReaderThread");
-			this.writer = new PrintWriter(pipedOutput);
+			try {
+				this.writer = new ObjectOutputStream(pipedOutput);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			this.inputBuffer = new ByteArrayOutputStream();
 		}
 
@@ -201,11 +201,26 @@ public class AutoQuadEsc32 extends AbstractEsc {
 					if (singleData == 10) {
 						ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
 						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
-						String line = reader.readLine();
-						for (String parameter : telemetryParameters) {
-							if (line.startsWith(parameter))
-								writer.write(line + "\n");
+						String[] tokens = reader.readLine().split("\\s{2,}");
+						TelemetryParameter p = TelemetryParameter.valoreDi(tokens[0]);
+						if (p != null && telemetryParameters.contains(p)) {
+							Object value = null;
+							try {
+								if (p.c == String.class) {
+									value = tokens[1];
+								} else if (p.c == Integer.class) {
+
+									value = Integer.parseInt(tokens[1]);
+
+								} else if (p.c == Double.class) {
+									value = Double.parseDouble(tokens[1]);
+								}
+								writer.writeObject(p);
+								writer.writeObject(value);
+							} catch (NumberFormatException ignore) {
+							}
 						}
+
 						inputBuffer.reset();
 					}
 				}

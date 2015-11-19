@@ -8,6 +8,7 @@ import esc.AbstractEsc;
 import routine.Routine;
 import view.EscSelectorGui;
 import view.MainView;
+import view.SimpleTelemetryView;
 
 public class Controller {
 
@@ -23,17 +24,13 @@ public class Controller {
 
 	public void startRoutine(Routine routine) {
 		routine.setEsc(esc);
-		try {
-			this.in = new PipedInputStream(routine.getOutput());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		new Thread(routine).start();
+		new SimpleTelemetryView(routine);
 	}
 
-	public void exitEsc() {
-		esc.disconnect();
+	public void disconnectEsc() {
+		esc.stopAndDisconnect();;
 	}
 
 	public InputStream getInput() {

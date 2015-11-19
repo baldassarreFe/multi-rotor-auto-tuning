@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PipedOutputStream;
 import java.util.HashSet;
+import java.util.Set;
 
 import gnu.io.SerialPort;
 import routine.Instruction;
@@ -13,9 +14,8 @@ public abstract class AbstractEsc {
 	protected InputStream input;
 	protected OutputStream output;
 	protected PipedOutputStream pipedOutput;
-
 	private SerialPort port;
-	protected static HashSet<String> telemetryParameters = new HashSet<>();
+	protected static HashSet<TelemetryParameter> telemetryParameters = new HashSet<>();
 
 	public AbstractEsc(SerialPort port) throws IOException {
 		this.port = port;
@@ -37,8 +37,10 @@ public abstract class AbstractEsc {
 		return "AbstractEsc";
 	}
 	
-	public void disconnect(){
-		stopTelemetry().stop().disarm();
+	public void stopAndDisconnect(){
+		executeInstruction(Instruction.STOP);
+		executeInstruction(Instruction.STOP_TELEMETRY);
+		executeInstruction(Instruction.DISARM);
 		port.close();
 	}
 
@@ -47,34 +49,10 @@ public abstract class AbstractEsc {
 	}
 
 	public abstract void executeInstruction(Instruction instruction);
-	
-	public abstract AbstractEsc setRPM(int rpm);
-	
-	public abstract AbstractEsc arm();
-	
-	public abstract AbstractEsc disarm();
-	
-	public abstract AbstractEsc start();
-	
-	public abstract AbstractEsc stop();
-	
-	/**
-	 * @param from starting rpm
-	 * @param to ending rpm
-	 * @param pace acceleration in rpm / s 
-	 * @return
-	 */
-	public abstract AbstractEsc accelerate(int from, int to, double pace);
-	
-	public abstract AbstractEsc sendRawCommand(String command);
-	
-	public abstract AbstractEsc startTelemetry(int frequency);
-	
-	public abstract AbstractEsc stopTelemetry();
 
-	public abstract void addTelemetryParameter(String parameter);
+	public abstract void addTelemetryParameter(TelemetryParameter parameter);
 	
-	public abstract void setTelemetryParameters(String[] parameters);
+	public abstract void setTelemetryParameters(Set<TelemetryParameter> parameters);
 	
-	public abstract void removeTelemetryParameter(String parameter);
+	public abstract void removeTelemetryParameter(TelemetryParameter parameter);
 }

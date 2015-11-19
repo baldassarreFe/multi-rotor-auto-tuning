@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import controller.Controller;
 import routine.Routine;
@@ -26,14 +25,13 @@ public class MainView extends JFrame implements ActionListener {
 	private Controller controller;
 	private JComboBox<Routine> routines; 
 	private JButton start;
-	private JTextArea textarea;
 	
 	public MainView(final Controller controller) {
 		this.controller = controller;
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e){
-				controller.exitEsc();
+				controller.disconnectEsc();
 				System.exit(0);
 			}
 		});
@@ -52,12 +50,6 @@ public class MainView extends JFrame implements ActionListener {
 		start.addActionListener(this);
 		this.add(start, BorderLayout.CENTER);
 		
-		textarea = new JTextArea();
-		textarea.setVisible(true);
-		JScrollPane scrollPane = new JScrollPane(textarea);
-		scrollPane.setPreferredSize(new Dimension(640, 480));
-		this.add(scrollPane, BorderLayout.SOUTH);
-		
 		this.pack();
 		this.setVisible(true);
 	}
@@ -65,31 +57,7 @@ public class MainView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (start == e.getSource()) {
-			controller.startRoutine((Routine) routines.getSelectedItem());
-			(new ReaderThread(textarea, controller.getInput())).start();
-		}
-	}
-	
-	private class ReaderThread extends Thread {
-		private JTextArea area;
-		private InputStream in;
-		
-		public ReaderThread(JTextArea area, InputStream in) {
-			this.area=area;
-			this.in=in;
-		}
-		
-		public void run() {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			String buf;
-			try {
-				while ((buf=reader.readLine())!=null) {
-					area.append(buf+"\n");
-					area.setCaretPosition(area.getDocument().getLength());
-					area.update(area.getGraphics());				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			controller.startRoutine((Routine) routines.getSelectedItem());			
 		}
 	}
 }
