@@ -40,20 +40,20 @@ public class RoutineLoader {
 
 			String name = r.readLine();
 			if (name == null)
-				throw new FileFormatException("Non c'è nome");
+				throw new FileFormatException("Non c'è nome nel file" + f.getName());
 			Set<TelemetryParameter> params = new HashSet<>();
 
 			String paramsLine = r.readLine();
 			if (paramsLine == null)
-				throw new FileFormatException("Non ci sono parametri");
+				throw new FileFormatException("Non ci sono parametri nel file" + f.getName());
 			StringTokenizer st = new StringTokenizer(paramsLine, ",");
 			while (st.hasMoreTokens()) {
 				try {
 					String paramName = st.nextToken().trim().toUpperCase();
-					TelemetryParameter p = TelemetryParameter.valueOf(paramName);
+					TelemetryParameter p = TelemetryParameter.valoreDi(paramName);
 					params.add(p);
 				} catch (IllegalArgumentException e) {
-					throw new FileFormatException("Errore nei parametri", e);
+					throw new FileFormatException("Errore nei parametri nel file" + f.getName(), e);
 				}
 			}
 
@@ -74,8 +74,19 @@ public class RoutineLoader {
 								throw new FileFormatException("Errore alla linea: " + command, e);
 							}
 							break;
+						case SLEEP:
+							st = new StringTokenizer(command);
+							try {
+								st.nextToken();
+								int millis = Integer.parseInt(st.nextToken());
+								instructions.add(Instruction.newSleep(millis));
+							} catch (NumberFormatException e) {
+								throw new FileFormatException("Errore alla linea: " + command, e);
+							}
+							break;
 						case STOP_TELEMETRY:
 							instructions.add(Instruction.STOP_TELEMETRY);
+							break;
 						case START_TELEMETRY:
 							st = new StringTokenizer(command);
 							try {

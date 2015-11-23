@@ -142,9 +142,11 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	}
 
 	public AutoQuadEsc32 startTelemetry(int frequency) {
-		if (frequency <= 0 || frequency > 60) {
+		if (frequency < 0 || frequency > 60) {
 			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
 		}
+		if (frequency==0)
+			return stopTelemetry();
 		if (output == null) {
 			throw new IllegalArgumentException("writer nullo");
 		}
