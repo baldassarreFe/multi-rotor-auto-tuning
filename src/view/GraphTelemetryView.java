@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.GridLayout;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -11,7 +10,16 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import esc.TelemetryParameter;
 import routine.Routine;
@@ -19,32 +27,44 @@ import routine.Routine;
 public class GraphTelemetryView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Set<TelemetryParameter> parameters;
-	private Map<TelemetryParameter, JTextField> binding;
+	private Map<TelemetryParameter, XYSeries> dataSeries;
 	private PipedInputStream pis;
 
 	public GraphTelemetryView(Routine routine) {
-		this.parameters = routine.getParameters();
-		this.binding = new HashMap<>(parameters.size());
 		try {
 			this.pis = new PipedInputStream(routine.getOutput());
+			synchronized (routine.getOutput()) {
+				routine.getOutput().notify();
+			}
 		} catch (IOException e) {
-			// speriamo che vada bene
 			e.printStackTrace();
 		}
+		this.parameters = routine.getParameters();
+		this.dataSeries = new HashMap<>(parameters.size());
+		for(TelemetryParameter p : parameters) {
+			dataSeries.put(p, new XYSeries(p.name));
+		}
 		initGraphics();
-		new Updater(pis, binding).start();
+		new Updater(pis).start();
 	}
 	
 	private void initGraphics(){
-		this.setLayout(new GridLayout(parameters.size(), 2));
-		for(TelemetryParameter p : parameters){
-			this.add(new JTextField(p.name));
-			JTextField field = new JTextField();
-			binding.put(p, field);
-			this.add(field);
+		this.setLayout(new GridLayout(2, (int) Math.ceil(parameters.size()/2.0)));
+		for(XYSeries xys : dataSeries.values()) {
+			JFreeChart chart = ChartFactory.createXYLineChart(xys.getDescription(), null, null, new XYSeriesCollection(xys),
+					PlotOrientation.VERTICAL, true, true, false);
+			XYItemRenderer r = ((XYPlot) chart.getPlot()).getRenderer();
+			if (r instanceof XYLineAndShapeRenderer) {
+				XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
+				renderer.setBaseShapesVisible(true);
+				renderer.setBaseShapesFilled(true);
+			}
+			ChartPanel panel = new ChartPanel(chart);
+			panel.setSize(300,150);
+			add(panel);
 		}
-		setSize(640, 480);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		pack();
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 		
 	}
@@ -52,10 +72,7 @@ public class GraphTelemetryView extends JFrame {
 	private class Updater extends Thread {
 
 		private ObjectInputStream dis;
-		private Map<TelemetryParameter, JTextField> binding;
-
-		public Updater(InputStream is, Map<TelemetryParameter, JTextField> binding) {
-			this.binding = binding;
+		public Updater(InputStream is) {
 			try {
 				this.dis = new ObjectInputStream(is);
 			} catch (IOException e) {
@@ -65,24 +82,19 @@ public class GraphTelemetryView extends JFrame {
 
 		public void run() {
 			try {
+				Map<TelemetryParameter, Long> counters = new HashMap<TelemetryParameter, Long>(parameters.size());
+				for(TelemetryParameter p : parameters) {
+					counters.put(p, 0L);
+				}
 				TelemetryParameter p;
 				while ((p = (TelemetryParameter) dis.readObject()) != null) {
-					Object value = null;
-//					if (p.c == String.class){
-//						value = (String) dis.readObject();
-//					} else if (p.c == Integer.class) {
-//						value = dis.readInt();
-//					} else if (p.c == Double.class) {
-//						value = dis.readDouble();
-//					}
-					value = dis.readObject();
-					binding.get(p).setText(value.toString());
-					binding.get(p).repaint();
+					Object value = dis.readObject();
+					counters.put(p, counters.get(p) + 1);
+					dataSeries.get(p).add(counters.get(p), (Number) value);  // non passare parametri non Number
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				// succede quando la telemetry viene fermata, non è una cosa negativa
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

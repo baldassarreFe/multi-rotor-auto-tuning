@@ -1,13 +1,24 @@
-Routine del file uno.rou
+Accelera, decelera, fatti un giro
 RPM, AMPS AVG, MOTOR VOLTS
 arm
 start
-telemetry 10
-set rpm 2000
-sleep 3000
-accelerate 2000 3000 100
-accelerate 3000 1000 -100
-sleep 2000
+rpm 1000
+sleep 5000
+telemetry 60
+sleep 1000
+
+accelerate 1000 3000 2000
+accelerate 3000 1000 -2000
+accelerate 1000 3000 2000
+accelerate 3000 1000 -2000
+accelerate 1000 3000 2000
+accelerate 3000 1000 -2000
+accelerate 1000 3000 2000
+accelerate 3000 1000 -2000
+
+accelerate 1000 6000 1000
+accelerate 6000 1000 -1000
+sleep 5000
 telemetry 0
 stop
 disarm

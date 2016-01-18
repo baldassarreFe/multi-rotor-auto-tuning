@@ -142,10 +142,10 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	}
 
 	public AutoQuadEsc32 startTelemetry(int frequency) {
-		if (frequency < 0 || frequency > 60) {
+		if (frequency < 0 || frequency > 100) {
 			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
 		}
-		if (frequency==0)
+		if (frequency == 0)
 			return stopTelemetry();
 		if (output == null) {
 			throw new IllegalArgumentException("writer nullo");
@@ -190,46 +190,56 @@ public class AutoQuadEsc32 extends AbstractEsc {
 			try {
 				this.writer = new ObjectOutputStream(pipedOutput);
 			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			this.inputBuffer = new ByteArrayOutputStream();
-		}
-
-		public void run() {
-			try {
-				byte singleData;
-				while (shouldRead.get() == true && (singleData = (byte) input.read()) != -1) {
-					inputBuffer.write(singleData);
-					if (singleData == 10) {
-						ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
-						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
-						String[] tokens = reader.readLine().split("\\s{2,}");
-						TelemetryParameter p = TelemetryParameter.valoreDi(tokens[0]);
-						if (p != null && telemetryParameters.contains(p)) {
-							Object value = null;
-							try {
-								if (p.c == String.class) {
-									value = tokens[1];
-								} else if (p.c == Integer.class) {
-
-									value = Integer.parseInt(tokens[1]);
-
-								} else if (p.c == Double.class) {
-									value = Double.parseDouble(tokens[1]);
-								}
-								writer.writeObject(p);
-								writer.writeObject(value);
-							} catch (NumberFormatException ignore) {
-							}
-						}
-
-						inputBuffer.reset();
+				synchronized (pipedOutput) {
+					try {
+						pipedOutput.wait();
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
 					}
 				}
-				return;
-			} catch (Exception e) {
-				e.printStackTrace();
+				try {
+					this.writer = new ObjectOutputStream(pipedOutput);
+				} catch (IOException nonFallisce) {
+					nonFallisce.printStackTrace();
+				}
 			}
+			this.inputBuffer=new ByteArrayOutputStream();
+		}
+
+	public void run() {
+		try {
+			byte singleData;
+			while (shouldRead.get() == true && (singleData = (byte) input.read()) != -1) {
+				inputBuffer.write(singleData);
+				if (singleData == 10) {
+					ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
+					BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
+					String[] tokens = reader.readLine().split("\\s{2,}");
+					TelemetryParameter p = TelemetryParameter.valoreDi(tokens[0]);
+					if (p != null && telemetryParameters.contains(p)) {
+						Object value = null;
+						try {
+							if (p.c == String.class) {
+								value = tokens[1];
+							} else if (p.c == Integer.class) {
+
+								value = Integer.parseInt(tokens[1]);
+
+							} else if (p.c == Double.class) {
+								value = Double.parseDouble(tokens[1]);
+							}
+							writer.writeObject(p);
+							writer.writeObject(value);
+						} catch (NumberFormatException | ArrayIndexOutOfBoundsException ignore) {
+						}
+					}
+
+					inputBuffer.reset();
+				}
+			}
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
-}
+}}

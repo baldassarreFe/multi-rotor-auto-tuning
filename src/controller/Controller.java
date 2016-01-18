@@ -1,12 +1,12 @@
 package controller;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.PipedInputStream;
 
 import esc.AbstractEsc;
 import routine.Routine;
 import view.EscSelectorGui;
+import view.GraphTelemetryView;
 import view.MainView;
 import view.SimpleTelemetryView;
 
@@ -26,7 +26,8 @@ public class Controller {
 		routine.setEsc(esc);
 		
 		new Thread(routine).start();
-		new SimpleTelemetryView(routine);
+		new GraphTelemetryView(routine);
+		//new SimpleTelemetryView(routine);
 	}
 
 	public void disconnectEsc() {

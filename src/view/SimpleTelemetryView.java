@@ -27,12 +27,15 @@ public class SimpleTelemetryView extends JFrame {
 		this.binding = new HashMap<>(parameters.size());
 		try {
 			this.pis = new PipedInputStream(routine.getOutput());
+			synchronized (routine.getOutput()) {
+				routine.getOutput().notify();
+			}
 		} catch (IOException e) {
 			// speriamo che vada bene
 			e.printStackTrace();
 		}
 		initGraphics();
-		new Updater(pis, binding).start();
+		new Updater(pis).start();
 	}
 	
 	private void initGraphics(){
@@ -44,7 +47,7 @@ public class SimpleTelemetryView extends JFrame {
 			this.add(field);
 		}
 		setSize(640, 480);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 		
 	}
@@ -52,10 +55,10 @@ public class SimpleTelemetryView extends JFrame {
 	private class Updater extends Thread {
 
 		private ObjectInputStream dis;
-		private Map<TelemetryParameter, JTextField> binding;
+		
 
-		public Updater(InputStream is, Map<TelemetryParameter, JTextField> binding) {
-			this.binding = binding;
+		public Updater(InputStream is) {
+		
 			try {
 				this.dis = new ObjectInputStream(is);
 			} catch (IOException e) {
