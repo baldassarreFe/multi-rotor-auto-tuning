@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -70,7 +71,7 @@ public class GraphTelemetryView extends JFrame {
 				renderer.setBaseShapesFilled(true);
 			}
 			ChartPanel panel = new ChartPanel(chart);
-			panel.setSize(300, 150);
+			panel.setSize(200, 100);
 			graphPanel.add(panel);
 		}
 		this.add(graphPanel, BorderLayout.NORTH);
@@ -97,11 +98,14 @@ public class GraphTelemetryView extends JFrame {
 			panel.add(valueFields[i]);
 			parameterPanel.add(panel);
 		}
-
+		
+		add(parameterPanel,BorderLayout.SOUTH);
 		pack();
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 
+		
+		// ASPETTO FINCHE' NON TERMINO LE LETTURE
 		while (!terminated.get())
 			;
 
