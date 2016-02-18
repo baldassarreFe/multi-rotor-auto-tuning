@@ -15,7 +15,7 @@ public class AccelerateRoutine extends Routine {
 	public AbstractEsc esc;
 	
 	public AccelerateRoutine() {
-		super(null,new HashSet<>(Arrays.asList(TelemetryParameter.values())),null);
+		super(null,Arrays.asList(TelemetryParameter.values()),null);
 		List<Instruction> instrs = new ArrayList<>();
 		instrs.add(Instruction.ARM);
 		instrs.add(Instruction.START);

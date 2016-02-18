@@ -13,17 +13,19 @@ import gnu.io.SerialPort;
 
 public class Routine implements Runnable {
 	
-	public final static Routine stopAll = new Routine("Stop", new HashSet<TelemetryParameter>(), new ArrayList<Instruction>(Arrays.asList(new Instruction[] {Instruction.STOP,Instruction.STOP_TELEMETRY,Instruction.DISARM})));
+	@Deprecated
+	public final static Routine stopAll = new Routine("Stop", new ArrayList<TelemetryParameter>(), new ArrayList<Instruction>(Arrays.asList(new Instruction[] {Instruction.STOP,Instruction.STOP_TELEMETRY,Instruction.DISARM})));
+	
 	public final static Routine exampleRoutine = new ExampleRoutine();
 	public final static Routine accelerateRoutine = new AccelerateRoutine();
 	
 	public AbstractEsc esc;
 	protected SerialPort serialPort;
 	protected String name;
-	protected Set<TelemetryParameter> params;
+	protected List<TelemetryParameter> params;
 	protected List<Instruction> instructions;
 
-	public Routine(String name, Set<TelemetryParameter> params, List<Instruction> instructions) {
+	public Routine(String name, List<TelemetryParameter> params, List<Instruction> instructions) {
 		this.name = name;
 		this.params = params;
 		this.instructions = instructions;
@@ -43,7 +45,7 @@ public class Routine implements Runnable {
 			esc.executeInstruction(i);
 	}
 	
-	public Set<TelemetryParameter> getParameters(){
+	public List<TelemetryParameter> getParameters(){
 		return params;
 	}
 

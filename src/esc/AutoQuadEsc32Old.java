@@ -6,18 +6,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import gnu.io.SerialPort;
 import routine.Instruction;
 
-public class AutoQuadEsc32 extends AbstractEsc {
+public class AutoQuadEsc32Old extends AbstractEsc {
 	private ReaderThread reader;
 
-	public AutoQuadEsc32(SerialPort port) throws IOException {
+	public AutoQuadEsc32Old(SerialPort port) throws IOException {
 		super(port);
 	}
 
@@ -65,23 +64,23 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		}
 	}
 
-	public AutoQuadEsc32 setRPM(int rpm) {
+	public AutoQuadEsc32Old setRPM(int rpm) {
 		return sendRawCommand("rpm " + rpm);
 	}
 
-	public AutoQuadEsc32 arm() {
+	public AutoQuadEsc32Old arm() {
 		return sendRawCommand("arm");
 	}
 
-	public AutoQuadEsc32 disarm() {
+	public AutoQuadEsc32Old disarm() {
 		return sendRawCommand("disarm");
 	}
 
-	public AutoQuadEsc32 start() {
+	public AutoQuadEsc32Old start() {
 		return sendRawCommand("start");
 	}
 
-	public AutoQuadEsc32 stop() {
+	public AutoQuadEsc32Old stop() {
 		return sendRawCommand("stop");
 	}
 
@@ -94,13 +93,10 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	 *            acceleration in rpm / s
 	 * @return
 	 */
-	public AutoQuadEsc32 accelerate(int from, int to, double pace) {
+	public AutoQuadEsc32Old accelerate(int from, int to, double pace) {
 		if (pace == 0 || from == to) {
 			throw new IllegalArgumentException("Cannot accelerate");
 		}
-
-		if (pace < -400)
-			System.out.println("WARNING: deceleration with a rate greater than 400 rpm/s cannot be achieved");
 
 		int deltaRpm = pace > 0 ? 1 : -1;
 		long deltaT = Math.round((deltaRpm / pace) * 1000);
@@ -133,7 +129,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		return this;
 	}
 
-	public AutoQuadEsc32 sendRawCommand(String command) {
+	public AutoQuadEsc32Old sendRawCommand(String command) {
 		try {
 			// l'ESC usa la codifica UTF-8 e ha bisogno dei caratteri di LF e CR
 			output.write(command.trim().getBytes("UTF-8"));
@@ -145,7 +141,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		return this;
 	}
 
-	public AutoQuadEsc32 startTelemetry(int frequency) {
+	public AutoQuadEsc32Old startTelemetry(int frequency) {
 		if (frequency < 0 || frequency > 100) {
 			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
 		}
@@ -164,7 +160,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		return this;
 	}
 
-	public AutoQuadEsc32 stopTelemetry() {
+	public AutoQuadEsc32Old stopTelemetry() {
 		sendRawCommand("telemetry 0");
 		if (reader != null) {
 			reader.shouldRead.set(false);
@@ -172,34 +168,28 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		return this;
 	}
 
-	@Deprecated
-	@Override
 	public void addTelemetryParameter(TelemetryParameter parameter) {
 		telemetryParameters.add(parameter);
 	}
 
-	@Override
-	public void setTelemetryParameters(List<TelemetryParameter> parameters) {
+	public void setTelemetryParameters(Set<TelemetryParameter> parameters) {
 		telemetryParameters.clear();
 		telemetryParameters.addAll(parameters);
 	}
 
-	@Deprecated
-	@Override
 	public void removeTelemetryParameter(TelemetryParameter parameter) {
 		telemetryParameters.remove(parameter);
 	}
 
 	private class ReaderThread extends Thread {
-		private double period;
+		private int telemetry;
 		private ObjectOutputStream writer;
 		private ByteArrayOutputStream inputBuffer;
 		protected AtomicBoolean shouldRead = new AtomicBoolean(true);
-		private HashMap<TelemetryParameter, Object> bundle;
 
-		public ReaderThread(int telemetryFrequency) {
+		public ReaderThread(int telemetry) {
 			this.setName("ReaderThread");
-			this.period = 1.0 / telemetryFrequency;
+			this.telemetry = telemetry;
 			try {
 				this.writer = new ObjectOutputStream(pipedOutput);
 			} catch (IOException e) {
@@ -217,57 +207,39 @@ public class AutoQuadEsc32 extends AbstractEsc {
 				}
 			}
 			this.inputBuffer = new ByteArrayOutputStream();
-			bundle = new HashMap<>();
 		}
 
 		public void run() {
 			try {
-				Double time = 0.0;
-
+				writer.writeInt(telemetry); // Per prima cosa mando il tempo
+												// di telemetria per tener
+												// traccia della scala dei tempi
 				byte singleData;
 				while (shouldRead.get() == true && (singleData = (byte) input.read()) != -1) {
 					inputBuffer.write(singleData);
-					// letto fine riga -> classe'è un dato da parsare
-					if (singleData == '\n') {
+					if (singleData == 10) {
 						ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
 						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
-						String line = reader.readLine();
-						String[] tokens = line.split("\\s{2,}");
+						String[] tokens = reader.readLine().split("\\s{2,}");
 						TelemetryParameter p = TelemetryParameter.valoreDi(tokens[0]);
-						// se ha parsato la prima parte della stringa come
-						// parametro e questo parametro ci interessa
 						if (p != null && telemetryParameters.contains(p)) {
 							Object value = null;
 							try {
 								if (p.classe == String.class) {
 									value = tokens[1];
 								} else if (p.classe == Integer.class) {
+
 									value = Integer.parseInt(tokens[1]);
+
 								} else if (p.classe == Double.class) {
 									value = Double.parseDouble(tokens[1]);
 								}
+								writer.writeObject(p);
+								writer.writeObject(value);
 							} catch (NumberFormatException | ArrayIndexOutOfBoundsException ignore) {
-								// c'è stato un errore di lettura, succede
-								// spesso con valori alti di telemetria
-								// metto comunque null nel bundle
-								System.out.println(line + " " + Arrays.toString(tokens));
-								ignore.printStackTrace();
-							} finally {
-								bundle.put(p, value);
-							}
-
-							// il bundle è riempito, lo mando insieme al
-							// timestamp
-							if (bundle.size() == telemetryParameters.size()) {
-								writer.writeDouble(time);
-								writer.writeObject(bundle);
-								// bundle.clear(); NON FUNZIONA, IL BUNDLE
-								// AGGIORNA I VALORI, MA CON WRITEOBJECT INVIA
-								// SEMPRE I VALORI VECCHI (CACHE?)
-								bundle = new HashMap<>();
-								time += period;
 							}
 						}
+
 						inputBuffer.reset();
 					}
 				}

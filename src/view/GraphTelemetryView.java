@@ -1,22 +1,21 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.Panel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.PipedInputStream;
+import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Map.Entry;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -29,18 +28,16 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import esc.TelemetryParameter;
-import procedure.MathProcedure;
 import routine.Routine;
 
 public class GraphTelemetryView extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private Set<TelemetryParameter> parameters;
+	private List<TelemetryParameter> parameters;
 	private Map<TelemetryParameter, XYSeries> dataSeries;
 	private PipedInputStream pis;
-	protected AtomicBoolean terminated;
+	private PrintWriter fileWriter;
 
 	public GraphTelemetryView(Routine routine) {
-		this.terminated = new AtomicBoolean(false);
 		try {
 			this.pis = new PipedInputStream(routine.getOutput());
 			synchronized (routine.getOutput()) {
@@ -51,16 +48,23 @@ public class GraphTelemetryView extends JFrame {
 		}
 		this.parameters = routine.getParameters();
 		this.dataSeries = new HashMap<>(parameters.size());
-		for (TelemetryParameter p : parameters) {
+		try {
+			fileWriter = new PrintWriter("Log-" + new Date().getTime() + ".csv");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		fileWriter.print("TIME,");
+		for (int i = 0; i < parameters.size(); i++) {
+			TelemetryParameter p = parameters.get(i);
 			dataSeries.put(p, new XYSeries(p.name));
+			fileWriter.print(p.name + (i == parameters.size() - 1 ? "\n" : ","));
 		}
 		initGraphics();
 		new Updater(pis).start();
 	}
 
 	private void initGraphics() {
-		JPanel graphPanel = new JPanel();
-		graphPanel.setLayout(new GridLayout(2, (int) Math.ceil(parameters.size() / 2.0)));
+		this.setLayout(new GridLayout(2, (int) Math.ceil(parameters.size() / 2.0)));
 		for (XYSeries xys : dataSeries.values()) {
 			JFreeChart chart = ChartFactory.createXYLineChart(xys.getDescription(), null, null,
 					new XYSeriesCollection(xys), PlotOrientation.VERTICAL, true, true, false);
@@ -72,58 +76,26 @@ public class GraphTelemetryView extends JFrame {
 			}
 			ChartPanel panel = new ChartPanel(chart);
 			panel.setSize(200, 100);
-			graphPanel.add(panel);
+			this.add(panel);
 		}
-		this.add(graphPanel, BorderLayout.NORTH);
 
-		JPanel parameterPanel = new JPanel();
-		JTextField[] valueFields = new JTextField[3];
-
-		parameterPanel.setLayout(new GridLayout(3, 1));
-		for (int i = 0; i < 3; i++) {
-			JPanel panel = new JPanel();
-			String title = null;
-			switch (i) {
-			case 0:
-				title = "Kq";
-				break;
-			case 1:
-				title = "Ke";
-				break;
-			case 2:
-				title = "Ra";
-				break;
-			}
-			panel.add(new JLabel(title));
-			panel.add(valueFields[i]);
-			parameterPanel.add(panel);
-		}
-		
-		add(parameterPanel,BorderLayout.SOUTH);
 		pack();
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				try {
+					pis.close();
+				} catch (IOException ignore) {
+					// Se ci sono errori nella chiusura (non ce ne saranno mai)
+					// far partire un'altra routine causerà problemi nelle
+					// finestre grafiche
+					// che si vogliono connetere al piped stream del esc
+					ignore.printStackTrace();
+				}
+				dispose();
+			}
+		});
 		setVisible(true);
-
-		
-		// ASPETTO FINCHE' NON TERMINO LE LETTURE
-		while (!terminated.get())
-			;
-
-		// TODO: non farlo cablato
-		double I = 5.148 * Math.pow(10, -5);
-
-		// TODO: RISOLVERE LA QUESTIONE TEMPO --> NON SO SE FUNZIONA
-		valueFields[0].setText("" + MathProcedure.calculateKq(dataSeries.get(TelemetryParameter.RPM).toArray()[1],
-				dataSeries.get(TelemetryParameter.AMPS_AVG).toArray()[1], I,
-				dataSeries.get(TelemetryParameter.RPM).toArray()[0]));
-		valueFields[1]
-				.setText("" + MathProcedure.calculateKe(dataSeries.get(TelemetryParameter.MOTOR_VOLTS).toArray()[1],
-						dataSeries.get(TelemetryParameter.RPM).toArray()[1]));
-		valueFields[2]
-				.setText("" + MathProcedure.calculateRa(dataSeries.get(TelemetryParameter.MOTOR_VOLTS).toArray()[1],
-						dataSeries.get(TelemetryParameter.RPM).toArray()[1],
-						dataSeries.get(TelemetryParameter.AMPS_AVG).toArray()[1]));
-
 	}
 
 	private class Updater extends Thread {
@@ -138,28 +110,46 @@ public class GraphTelemetryView extends JFrame {
 			}
 		}
 
+		@SuppressWarnings("unchecked") // da un lato invio una map di
+										// <TelemeryParameter, Object>, da qua
+										// la leggo senza problemi
 		public void run() {
 			try {
-				int telemetry = dis.readInt();
-				// PER PRIMA COSA LEGGO LA FREQUENZA
-				Map<TelemetryParameter, Long> counters = new HashMap<TelemetryParameter, Long>(parameters.size());
-				// perchè abbiamo usato un long?
-				for (TelemetryParameter p : parameters) {
-					counters.put(p, 0L);
-				}
-				TelemetryParameter p;
-				while ((p = (TelemetryParameter) dis.readObject()) != null) {
-					Object value = dis.readObject();
-					counters.put(p, counters.get(p) + 1 / telemetry);
-					dataSeries.get(p).add(counters.get(p), (Number) value); 
-					// non passare parametri non number
+				Map<TelemetryParameter, Object> bundle;
+				Double timestamp;
+				while ((timestamp = dis.readDouble()) != null
+						&& (bundle = (Map<TelemetryParameter, Object>) dis.readObject()) != null) {
+					// letto un bundle, aggiungo ogni valore non null al grafico
+					// corrispondente
+					for (Entry<TelemetryParameter, Object> entry : bundle.entrySet()) {
+						if (entry.getValue() != null) {
+							if (Number.class.isAssignableFrom(entry.getValue().getClass())) {
+								dataSeries.get(entry.getKey()).add(timestamp, (Number) entry.getValue());
+							} else {
+								// TODO: Mettere delle text box per i valori di
+								// telemetria non numerici
+							}
+						}
+					}
+
+					// scrittura ordinata anche nel file
+					StringBuilder sb = new StringBuilder(timestamp.toString() + ",");
+					for (int i = 0; i < parameters.size(); i++) {
+						TelemetryParameter p = parameters.get(i);
+						Object value = bundle.get(p);
+						sb.append((value == null ? "" : value) + (i == parameters.size() - 1 ? "\n" : ","));
+					}
+					fileWriter.print(sb.toString());
 				}
 			} catch (IOException e) {
 				// succede quando la telemetry viene fermata, non è una cosa
 				// negativa
-				terminated.set(true);
 			} catch (ClassNotFoundException e) {
+				// non succederà mai perchè siamo in locale
 				e.printStackTrace();
+			} finally {
+				fileWriter.flush();
+				fileWriter.close();
 			}
 		}
 	}

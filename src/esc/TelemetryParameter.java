@@ -16,12 +16,12 @@ public enum TelemetryParameter {
 	DISARM_CODE("DISARM CODE", Integer.class), 
 	CAN_NET_ID("CAN NET ID", Integer.class);
 	
-	public final Class<?> c;
+	public final Class<?> classe;
 	public final String name;
 
 	private TelemetryParameter(String name, Class<?> c) {
 		this.name = name;
-		this.c = c;
+		this.classe = c;
 	}
 	
 	public static TelemetryParameter valoreDi(String string) {

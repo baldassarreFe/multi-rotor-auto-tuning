@@ -8,7 +8,7 @@ import routine.Routine;
 import view.EscSelectorGui;
 import view.GraphTelemetryView;
 import view.MainView;
-import view.SimpleTelemetryView;
+//import view.SimpleTelemetryView;
 
 public class Controller {
 

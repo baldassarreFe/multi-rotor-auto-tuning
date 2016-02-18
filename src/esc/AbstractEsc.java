@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PipedOutputStream;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import gnu.io.SerialPort;
@@ -15,7 +16,7 @@ public abstract class AbstractEsc {
 	protected OutputStream output;
 	protected PipedOutputStream pipedOutput;
 	private SerialPort port;
-	protected static HashSet<TelemetryParameter> telemetryParameters = new HashSet<>();
+	protected static ArrayList<TelemetryParameter> telemetryParameters = new ArrayList<>();
 
 	public AbstractEsc(SerialPort port) throws IOException {
 		this.port = port;
@@ -52,7 +53,7 @@ public abstract class AbstractEsc {
 
 	public abstract void addTelemetryParameter(TelemetryParameter parameter);
 	
-	public abstract void setTelemetryParameters(Set<TelemetryParameter> parameters);
+	public abstract void setTelemetryParameters(List<TelemetryParameter> params);
 	
 	public abstract void removeTelemetryParameter(TelemetryParameter parameter);
 }

@@ -7,9 +7,7 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 import esc.FileFormatException;
@@ -35,13 +33,12 @@ public class RoutineLoader {
 	}
 
 	private static Routine parseFile(File f) {
-		try {
-			BufferedReader r = new BufferedReader(new FileReader(f));
+		try (BufferedReader r = new BufferedReader(new FileReader(f))) {
 
 			String name = r.readLine();
 			if (name == null)
 				throw new FileFormatException("Non c'è nome nel file" + f.getName());
-			Set<TelemetryParameter> params = new HashSet<>();
+			ArrayList<TelemetryParameter> params = new ArrayList<>();
 
 			String paramsLine = r.readLine();
 			if (paramsLine == null)
@@ -116,29 +113,16 @@ public class RoutineLoader {
 				}
 			}
 			return new Routine(name, params, instructions);
-		} catch (
-
-		FileNotFoundException e)
-
-		{
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;
-		} catch (
-
-		FileFormatException e)
-
-		{
+		} catch (FileFormatException e) {
 			e.printStackTrace();
 			return null;
-		} catch (
-
-		IOException e)
-
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 
 	public static List<Routine> getRoutines() {

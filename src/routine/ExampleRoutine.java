@@ -17,7 +17,7 @@ public class ExampleRoutine extends Routine {
 	public AbstractEsc esc;
 	
 	public ExampleRoutine() {
-		super("Velocità costante 2000", new HashSet<>(Arrays.asList(TelemetryParameter.values())) ,null);
+		super("Velocità costante 2000", Arrays.asList(TelemetryParameter.values()) ,null);
 		List<Instruction> instrs = new ArrayList<>();
 		instrs.add(Instruction.ARM);
 		instrs.add(Instruction.START);

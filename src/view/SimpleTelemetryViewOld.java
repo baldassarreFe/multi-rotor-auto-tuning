@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.GridLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,15 +16,13 @@ import javax.swing.JTextField;
 import esc.TelemetryParameter;
 import routine.Routine;
 
-// TODO: riadattare in modo che legga dei bundle
-@Deprecated
-public class SimpleTelemetryView extends JFrame {
+public class SimpleTelemetryViewOld extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Set<TelemetryParameter> parameters;
 	private Map<TelemetryParameter, JTextField> binding;
 	private PipedInputStream pis;
 
-	public SimpleTelemetryView(Routine routine) {
+	public SimpleTelemetryViewOld(Routine routine) {
 		this.parameters = routine.getParameters();
 		this.binding = new HashMap<>(parameters.size());
 		try {
@@ -51,13 +47,7 @@ public class SimpleTelemetryView extends JFrame {
 			this.add(field);
 		}
 		setSize(640, 480);
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e){
-				pis.close();
-				dispose();
-			}
-		});
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 		
 	}
