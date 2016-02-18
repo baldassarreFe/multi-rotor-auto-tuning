@@ -8,6 +8,7 @@ import routine.Routine;
 import view.EscSelectorGui;
 import view.GraphTelemetryView;
 import view.MainView;
+import view.SimpleTelemetryView;
 //import view.SimpleTelemetryView;
 
 public class Controller {
@@ -27,7 +28,8 @@ public class Controller {
 		
 		new Thread(routine).start();
 		new GraphTelemetryView(routine);
-		//new SimpleTelemetryView(routine);
+		// Si poteva usare anche questa volendo
+		// new SimpleTelemetryView(routine);
 	}
 
 	public void disconnectEsc() {

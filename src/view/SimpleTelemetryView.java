@@ -3,14 +3,17 @@ package view;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.DataInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.PipedInputStream;
+import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -18,13 +21,12 @@ import javax.swing.JTextField;
 import esc.TelemetryParameter;
 import routine.Routine;
 
-// TODO: riadattare in modo che legga dei bundle
-@Deprecated
 public class SimpleTelemetryView extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private Set<TelemetryParameter> parameters;
+	private List<TelemetryParameter> parameters;
 	private Map<TelemetryParameter, JTextField> binding;
 	private PipedInputStream pis;
+	private PrintWriter fileWriter;
 
 	public SimpleTelemetryView(Routine routine) {
 		this.parameters = routine.getParameters();
@@ -38,13 +40,23 @@ public class SimpleTelemetryView extends JFrame {
 			// speriamo che vada bene
 			e.printStackTrace();
 		}
+		try {
+			fileWriter = new PrintWriter("Log-" + new Date().getTime() + ".csv");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		fileWriter.print("TIME,");
+		for (int i = 0; i < parameters.size(); i++) {
+			TelemetryParameter p = parameters.get(i);
+			fileWriter.print(p.name + (i == parameters.size() - 1 ? "\n" : ","));
+		}
 		initGraphics();
 		new Updater(pis).start();
 	}
-	
-	private void initGraphics(){
+
+	private void initGraphics() {
 		this.setLayout(new GridLayout(parameters.size(), 2));
-		for(TelemetryParameter p : parameters){
+		for (TelemetryParameter p : parameters) {
 			this.add(new JTextField(p.name));
 			JTextField field = new JTextField();
 			binding.put(p, field);
@@ -53,22 +65,25 @@ public class SimpleTelemetryView extends JFrame {
 		setSize(640, 480);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e){
-				pis.close();
+			public void windowClosing(WindowEvent e) {
+				try {
+					pis.close();
+				} catch (IOException ignore) {
+					ignore.printStackTrace();
+				}
 				dispose();
 			}
 		});
 		setVisible(true);
-		
+
 	}
-	
+
 	private class Updater extends Thread {
 
 		private ObjectInputStream dis;
-		
 
 		public Updater(InputStream is) {
-		
+
 			try {
 				this.dis = new ObjectInputStream(is);
 			} catch (IOException e) {
@@ -76,27 +91,40 @@ public class SimpleTelemetryView extends JFrame {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		public void run() {
 			try {
-				TelemetryParameter p;
-				while ((p = (TelemetryParameter) dis.readObject()) != null) {
-					Object value = null;
-//					if (p.c == String.class){
-//						value = (String) dis.readObject();
-//					} else if (p.c == Integer.class) {
-//						value = dis.readInt();
-//					} else if (p.c == Double.class) {
-//						value = dis.readDouble();
-//					}
-					value = dis.readObject();
-					binding.get(p).setText(value.toString());
-					binding.get(p).repaint();
+				Map<TelemetryParameter, Object> bundle;
+				Double timestamp;
+				while ((timestamp = dis.readDouble()) != null
+						&& (bundle = (Map<TelemetryParameter, Object>) dis.readObject()) != null) {
+					// letto un bundle, aggiungo ogni valore non null al grafico
+					// corrispondente
+					for (Entry<TelemetryParameter, Object> entry : bundle.entrySet()) {
+						if (entry.getValue() != null) {
+							binding.get(entry.getKey()).setText(entry.getValue().toString());
+							binding.get(entry.getKey()).repaint();
+						}
+					}
+
+					// scrittura ordinata anche nel file
+					StringBuilder sb = new StringBuilder(timestamp.toString() + ",");
+					for (int i = 0; i < parameters.size(); i++) {
+						TelemetryParameter p = parameters.get(i);
+						Object value = bundle.get(p);
+						sb.append((value == null ? "" : value) + (i == parameters.size() - 1 ? "\n" : ","));
+					}
+					fileWriter.print(sb.toString());
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				// succede quando la telemetry viene fermata, non è una cosa
+				// negativa
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				// non succederà mai perchè siamo in locale
 				e.printStackTrace();
+			} finally {
+				fileWriter.flush();
+				fileWriter.close();
 			}
 		}
 	}
