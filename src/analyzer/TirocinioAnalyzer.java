@@ -35,8 +35,14 @@ public class TirocinioAnalyzer {
 	double[] Kq = new double[2];
 	double[] Ke = new double[2];
 	double[] Ra = new double[2];
-
-	public TirocinioAnalyzer(File file, double I, double deltaI) throws IOException {
+	double[] Kqs;
+	double[] Kes;
+	double[] Ras;
+	double[] deltaKqs;
+	double[] deltaKes;
+	double[] deltaRas;
+	
+	public TirocinioAnalyzer(File file) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 
 		// mappa parametro - lista di dati
@@ -105,13 +111,12 @@ public class TirocinioAnalyzer {
 			KesAndDelta.add(calculateKe(volts, rpms));
 			RasAndDelta.add(calculateRa(volts, rpms, currents));
 		}
-
-		double[] Kqs = new double[KqsAndDelta.size()];
-		double[] Kes = new double[KesAndDelta.size()];
-		double[] Ras = new double[RasAndDelta.size()];
-		double[] deltaKqs = new double[KqsAndDelta.size()];
-		double[] deltaKes = new double[KesAndDelta.size()];
-		double[] deltaRas = new double[RasAndDelta.size()];
+		Kqs = new double[KqsAndDelta.size()];
+		Kes = new double[KesAndDelta.size()];
+		Ras = new double[RasAndDelta.size()];
+		deltaKqs = new double[KqsAndDelta.size()];
+		deltaKes = new double[KesAndDelta.size()];
+		deltaRas = new double[RasAndDelta.size()];
 
 		for (int i = 0; i < KqsAndDelta.size(); i++) {
 			Kqs[i] = KqsAndDelta.get(i)[0];
@@ -120,8 +125,8 @@ public class TirocinioAnalyzer {
 			deltaKqs[i] = KqsAndDelta.get(i)[1];
 			deltaKes[i] = KesAndDelta.get(i)[1];
 			deltaRas[i] = RasAndDelta.get(i)[1];
-
 		}
+		
 		Mean mean = new Mean();
 		Kq[0] = mean.evaluate(Kqs);
 		Ke[0] = mean.evaluate(Kes);
@@ -234,6 +239,30 @@ public class TirocinioAnalyzer {
 
 	public double getRaError() {
 		return Ra[1];
+	}
+
+	public double[] getKqs() {
+		return Kqs;
+	}
+
+	public double[] getKes() {
+		return Kes;
+	}
+
+	public double[] getRas() {
+		return Ras;
+	}
+
+	public double[] getDeltaKqs() {
+		return deltaKqs;
+	}
+
+	public double[] getDeltaKes() {
+		return deltaKes;
+	}
+
+	public double[] getDeltaRas() {
+		return deltaRas;
 	}
 
 	private double[] toPrimitiveType(List<Double> list) {
