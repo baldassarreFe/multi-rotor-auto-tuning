@@ -43,27 +43,40 @@ public class LeftPanel extends JPanel {
 		this.add(esclist);
 		
 		RoutineLoader.loadFrom(new File("routines"));
-		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Routine[10]));
+		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Routine[] {}));
 		this.add(routines);
 		
 		JButton start = new JButton("START");
 		start.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.startRoutine((Routine) routines.getSelectedItem());			
+				Routine r = (Routine) routines.getSelectedItem();
+				AbstractEsc esc = getConnectedEsc();
+				if (esc == null)
+					return;
+				controller.setEsc(esc);
+				controller.startRoutine(r);			
 			}
 		});
 		this.add(start);
 	}
 
-	public AbstractEsc getConnectedEsc() {	
+	public AbstractEsc getConnectedEsc() {
 		portId = ports.get(portList.getSelectedItem());
+		if (portId == null) {
+			JOptionPane.showMessageDialog(this, "Porta non selezionata");
+			return null;
+		}
 		SerialPort result = PortSelector.connect(portId);
-		if (result==null){
+		if (result == null) {
 			JOptionPane.showMessageDialog(this, "Impossibile collegarsi alla porta " + portId);
 			return null;
-		} else {
-			return EscFactory.newInstanceOf(escs.get(esclist.getSelectedItem()), result);
+		} 
+		AbstractEsc esc = EscFactory.newInstanceOf(escs.get(esclist.getSelectedItem()), result); 
+		if (esc == null) {
+			JOptionPane.showMessageDialog(this, "Impossibile collegarsi all'esc alla porta " + portId);
+			return null;
 		}
-	}	
+		return esc;
+	}
 }

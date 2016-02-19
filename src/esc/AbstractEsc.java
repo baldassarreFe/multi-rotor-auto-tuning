@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import gnu.io.SerialPort;
 import routine.Instruction;

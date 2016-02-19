@@ -8,8 +8,6 @@ import java.util.Set;
 
 import org.reflections.Reflections;
 
-import gnu.io.SerialPort;
-
 public class AnalyzersFactory {
 
 	public static Map<String, Class<? extends Analyzer>> getAnalyzersMap() {

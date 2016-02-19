@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.PipedInputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +51,9 @@ public class GraphTelemetryView extends JFrame {
 		this.parameters = routine.getParameters();
 		this.dataSeries = new HashMap<>(parameters.size());
 		try {
-			fileWriter = new PrintWriter("Log-" + new Date().getTime() + ".csv");
+			Date date = new Date();
+			DateFormat df = new SimpleDateFormat("yyyy-MM-DD_HH-mm-ss");
+			fileWriter = new PrintWriter("Motor_data_" + df.format(date) + ".csv");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -1,7 +1,6 @@
 package routine;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import esc.AbstractEsc;
@@ -10,6 +9,7 @@ import esc.TelemetryParameter;
 /**used only for test purposes, custom routines can be created passing
  *  a list of {@link Instruction} to {@link Routine#Routine(List)} 
 */
+@Deprecated
 public class AccelerateRoutine extends Routine {
 
 	public AbstractEsc esc;

@@ -31,7 +31,7 @@ public class RightPanel extends JPanel {
 		analyzers = AnalyzersFactory.getAnalyzersMap();
 		analyzersList = new JComboBox<>(analyzers.keySet().toArray(new String[] {}));
 
-		analyze = new JButton("Analyze");
+		analyze = new JButton("Start");
 		analyze.setEnabled(false);
 		analyze.addActionListener(new ActionListener() {
 			@Override
@@ -42,14 +42,14 @@ public class RightPanel extends JPanel {
 
 		JButton browse = new JButton("Browse");
 		final JLabel l = new JLabel("Choose file");
-		final JFileChooser fc = new JFileChooser();
+		final JFileChooser fc = new JFileChooser(new File("."));
 		browse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (fc.showDialog(getParent(), "Select") == JFileChooser.APPROVE_OPTION) {
 					try {
 						logFile = fc.getSelectedFile();
-						l.setText(logFile.getCanonicalPath());
+						l.setText(logFile.getName());
 						analyze.setEnabled(true);
 					} catch (Exception e1) {
 						e1.printStackTrace();

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,12 +28,9 @@ import esc.TelemetryParameter;
  * 3e. calcolare Ke e Ra come coefficienti (risp slope e intercept/corrente
  * media) della regressione lineare tra tensione e velocità angolare<br>
  */
-public class TirocinioAnalyzer implements Analyzer {
+public class TirocinioAnalyzer extends Analyzer {
 
 	Map<String, ArrayList<Double>> table;
-	double[] Kq = new double[2];
-	double[] Ke = new double[2];
-	double[] Ra = new double[2];
 	double[] Kqs;
 	double[] Kes;
 	double[] Ras;
@@ -43,7 +39,61 @@ public class TirocinioAnalyzer implements Analyzer {
 	double[] deltaRas;
 	
 	public TirocinioAnalyzer(File file) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(file));
+		super(file);
+		parametersRequired.put("I", null);
+		parametersRequired.put("deltaI", null);
+		results.put("Kq", null);
+		results.put("Ke", null);
+		results.put("Ra", null);
+		results.put("delta Kq", null);
+		results.put("delta Ke", null);
+		results.put("delta Ra", null);
+		
+		readDataFromFile();
+	}
+	
+	public void calcola() {
+		ArrayList<double[]> KqsAndDelta = new ArrayList<>();
+		ArrayList<double[]> KesAndDelta = new ArrayList<>();
+		ArrayList<double[]> RasAndDelta = new ArrayList<>();
+		for (Integer[] set : findSubsets()) {
+			int first = set[0];
+			int last = set[1];
+			double[] times = toPrimitiveType(table.get("TIME").subList(first, last + 1));
+			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last + 1));
+			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
+			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
+			KqsAndDelta.add(calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("delta I"), times));
+			KesAndDelta.add(calculateKe(volts, rpms));
+			RasAndDelta.add(calculateRa(volts, rpms, currents));
+		}
+		Kqs = new double[KqsAndDelta.size()];
+		Kes = new double[KesAndDelta.size()];
+		Ras = new double[RasAndDelta.size()];
+		deltaKqs = new double[KqsAndDelta.size()];
+		deltaKes = new double[KesAndDelta.size()];
+		deltaRas = new double[RasAndDelta.size()];
+
+		for (int i = 0; i < KqsAndDelta.size(); i++) {
+			Kqs[i] = KqsAndDelta.get(i)[0];
+			Kes[i] = KesAndDelta.get(i)[0];
+			Ras[i] = RasAndDelta.get(i)[0];
+			deltaKqs[i] = KqsAndDelta.get(i)[1];
+			deltaKes[i] = KesAndDelta.get(i)[1];
+			deltaRas[i] = RasAndDelta.get(i)[1];
+		}
+		
+		Mean mean = new Mean();
+		results.put("Kq", mean.evaluate(Kqs));
+		results.put("Ke", mean.evaluate(Kes));
+		results.put("Ra", mean.evaluate(Ras));
+		results.put("delta Kq", mean.evaluate(deltaKqs));
+		results.put("delta Ke", mean.evaluate(deltaKes));
+		results.put("delta Ra", mean.evaluate(deltaRas));
+	}
+
+	private void readDataFromFile() throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(logFile));
 
 		// mappa parametro - lista di dati
 		table = new HashMap<>();
@@ -96,46 +146,6 @@ public class TirocinioAnalyzer implements Analyzer {
 			}
 		}
 		reader.close();
-
-		ArrayList<double[]> KqsAndDelta = new ArrayList<>();
-		ArrayList<double[]> KesAndDelta = new ArrayList<>();
-		ArrayList<double[]> RasAndDelta = new ArrayList<>();
-		for (Integer[] set : findSubsets()) {
-			int first = set[0];
-			int last = set[1];
-			double[] times = toPrimitiveType(table.get("TIME").subList(first, last + 1));
-			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last + 1));
-			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
-			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
-			KqsAndDelta.add(calculateKq(rpms, currents, I, deltaI, times));
-			KesAndDelta.add(calculateKe(volts, rpms));
-			RasAndDelta.add(calculateRa(volts, rpms, currents));
-		}
-		Kqs = new double[KqsAndDelta.size()];
-		Kes = new double[KesAndDelta.size()];
-		Ras = new double[RasAndDelta.size()];
-		deltaKqs = new double[KqsAndDelta.size()];
-		deltaKes = new double[KesAndDelta.size()];
-		deltaRas = new double[RasAndDelta.size()];
-
-		for (int i = 0; i < KqsAndDelta.size(); i++) {
-			Kqs[i] = KqsAndDelta.get(i)[0];
-			Kes[i] = KesAndDelta.get(i)[0];
-			Ras[i] = RasAndDelta.get(i)[0];
-			deltaKqs[i] = KqsAndDelta.get(i)[1];
-			deltaKes[i] = KesAndDelta.get(i)[1];
-			deltaRas[i] = RasAndDelta.get(i)[1];
-		}
-		
-		Mean mean = new Mean();
-		Kq[0] = mean.evaluate(Kqs);
-		Ke[0] = mean.evaluate(Kes);
-		Ra[0] = mean.evaluate(Ras);
-		Kq[1] = mean.evaluate(deltaKqs);
-		Ke[1] = mean.evaluate(deltaKes);
-		Ra[1] = mean.evaluate(deltaRas);
-
-		// TODO: capire come gestire gli errori
 	}
 
 	private ArrayList<Integer[]> findSubsets() {
@@ -217,30 +227,6 @@ public class TirocinioAnalyzer implements Analyzer {
 				(intercept / current_mean) * (delta_current_mean / current_mean + delta_intercept / intercept) };
 	}
 
-	public double getKq() {
-		return Kq[0];
-	}
-
-	public double getKe() {
-		return Ke[0];
-	}
-
-	public double getRa() {
-		return Ra[0];
-	}
-
-	public double getKqError() {
-		return Kq[1];
-	}
-
-	public double getKeError() {
-		return Ke[1];
-	}
-
-	public double getRaError() {
-		return Ra[1];
-	}
-
 	public double[] getKqs() {
 		return Kqs;
 	}
@@ -271,12 +257,5 @@ public class TirocinioAnalyzer implements Analyzer {
 			result[i] = list.get(i);
 		}
 		return result;
-	}
-
-	public static void main(String[] args) throws IOException {
-		TirocinioAnalyzer t = new TirocinioAnalyzer(new File("Log-1455879733091.csv"), 5.148 * 0.00001, 0);
-		System.out.println(t.getKq() + " ± " + t.getKqError());
-		System.out.println(t.getKe() + " ± " + t.getKeError());
-		System.out.println(t.getRa() + " ± " + t.getRaError());
 	}
 }
