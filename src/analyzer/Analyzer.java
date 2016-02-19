@@ -16,5 +16,4 @@ public abstract class Analyzer {
 	}
 
 	public abstract void calcola();
-	
 }
