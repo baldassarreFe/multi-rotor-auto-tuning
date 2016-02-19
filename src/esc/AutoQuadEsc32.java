@@ -240,10 +240,12 @@ public class AutoQuadEsc32 extends AbstractEsc {
 						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
 						String line = reader.readLine();
 						String[] tokens = line.split("\\s{2,}");
-						TelemetryParameter p = TelemetryParameter.valoreDi(tokens[0]);
+						TelemetryParameter p = null;
+						// se c'è almeno un token e 
 						// se ha parsato la prima parte della stringa come
 						// parametro e questo parametro ci interessa
-						if (p != null && telemetryParameters.contains(p)) {
+						if (tokens.length != 0 && (p = TelemetryParameter.valoreDi(tokens[0])) != null
+								&& telemetryParameters.contains(p)) {
 							Object value = null;
 							try {
 								if (p.classe == String.class) {
