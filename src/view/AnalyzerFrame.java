@@ -3,17 +3,16 @@ package view;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import analyzer.Analyzer;
 
@@ -22,20 +21,21 @@ public class AnalyzerFrame extends JFrame {
 	private Analyzer analyzer;
 	private JPanel parametersPanel;
 	private JPanel resultsPanel;
-	private Map<String, JLabel> resultMap;
-	private Map<String, JFormattedTextField> parametersMap;
+	private Map<String, JTextField> resultMap;
+	private Map<String, JTextField> parametersMap;
 
 	public AnalyzerFrame(Analyzer analyzer) {
 		this.analyzer = analyzer;
+		resultMap = new HashMap<>();
+		parametersMap = new HashMap<>();
 		initGraphic();
 	}
 
 	public void initGraphic() {
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 		this.parametersPanel = new JPanel(new GridLayout(analyzer.parametersRequired.size(), 2));
-		DecimalFormat format = (DecimalFormat) NumberFormat.getNumberInstance();
 		for (String s : analyzer.parametersRequired.keySet()) {
-			JFormattedTextField field = new JFormattedTextField(format);
+			JTextField field = new JTextField();
 			field.setEditable(true);
 			parametersMap.put(s, field);
 			parametersPanel.add(new JLabel(s));
@@ -58,20 +58,26 @@ public class AnalyzerFrame extends JFrame {
 					JOptionPane.showMessageDialog(getParent(), "Errore nei parametri");
 				}
 				analyzer.calcola();
+				for (String s : resultMap.keySet()) {
+					resultMap.get(s).setText(""+analyzer.results.get(s));
+				}
+
 			}
 		});
+		this.add(analyze);
 
-		this.parametersPanel = new JPanel(new GridLayout(analyzer.results.size(), 2));
-		for (String s : analyzer.parametersRequired.keySet()) {
+		this.resultsPanel = new JPanel(new GridLayout(analyzer.results.size(), 2));
+		for (String s : analyzer.results.keySet()) {
 			resultsPanel.add(new JLabel(s));
-			JLabel value = new JLabel();
+			JTextField value = new JTextField();
+			value.setEditable(false);
 			resultMap.put(s, value);
 			resultsPanel.add(value);
 
 		}
 		this.add(resultsPanel);
 
-		this.pack();
+		this.setSize(450, 200);
 		this.setVisible(true);
 	}
 }

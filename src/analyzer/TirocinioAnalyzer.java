@@ -63,7 +63,7 @@ public class TirocinioAnalyzer extends Analyzer {
 			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last + 1));
 			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
 			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
-			KqsAndDelta.add(calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("delta I"), times));
+			KqsAndDelta.add(calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("deltaI"), times));
 			KesAndDelta.add(calculateKe(volts, rpms));
 			RasAndDelta.add(calculateRa(volts, rpms, currents));
 		}

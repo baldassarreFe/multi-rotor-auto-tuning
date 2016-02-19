@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 		this.setLayout(new BorderLayout());
 		this.add(new LeftPanel(controller), BorderLayout.WEST);
 		this.add(new RightPanel(controller), BorderLayout.EAST);
-		this.pack();
+		this.setSize(600, 300);
 		this.setVisible(true);
 	}
 }
