@@ -68,7 +68,7 @@ public class TirocinioAnalyzer {
 				break;
 			}
 		}
-		if (rpmColumn == -1 || ampsColumn == -1 || voltsColumn == -1){
+		if (rpmColumn == -1 || ampsColumn == -1 || voltsColumn == -1) {
 			reader.close();
 			throw new IOException("File formatting problem");
 		}
@@ -97,10 +97,10 @@ public class TirocinioAnalyzer {
 		for (Integer[] set : findSubsets()) {
 			int first = set[0];
 			int last = set[1];
-			double[] times = toPrimitiveType(table.get("TIME").subList(first, last+1));
-			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last+1));
-			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last+1));
-			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last+1));
+			double[] times = toPrimitiveType(table.get("TIME").subList(first, last + 1));
+			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last + 1));
+			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
+			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
 			KqsAndDelta.add(calculateKq(rpms, currents, I, deltaI, times));
 			KesAndDelta.add(calculateKe(volts, rpms));
 			RasAndDelta.add(calculateRa(volts, rpms, currents));
@@ -109,26 +109,45 @@ public class TirocinioAnalyzer {
 		double[] Kqs = new double[KqsAndDelta.size()];
 		double[] Kes = new double[KesAndDelta.size()];
 		double[] Ras = new double[RasAndDelta.size()];
+		double[] deltaKqs = new double[KqsAndDelta.size()];
+		double[] deltaKes = new double[KesAndDelta.size()];
+		double[] deltaRas = new double[RasAndDelta.size()];
+
 		for (int i = 0; i < KqsAndDelta.size(); i++) {
 			Kqs[i] = KqsAndDelta.get(i)[0];
 			Kes[i] = KesAndDelta.get(i)[0];
 			Ras[i] = RasAndDelta.get(i)[0];
+			deltaKqs[i] = KqsAndDelta.get(i)[1];
+			deltaKes[i] = KesAndDelta.get(i)[1];
+			deltaRas[i] = RasAndDelta.get(i)[1];
+
 		}
 		Mean mean = new Mean();
 		Kq[0] = mean.evaluate(Kqs);
 		Ke[0] = mean.evaluate(Kes);
 		Ra[0] = mean.evaluate(Ras);
+		Kq[1] = mean.evaluate(deltaKqs);
+		Ke[1] = mean.evaluate(deltaKes);
+		Ra[1] = mean.evaluate(deltaRas);
+
 		// TODO: capire come gestire gli errori
 	}
-	
+
 	private ArrayList<Integer[]> findSubsets() {
 		ArrayList<Integer[]> result = new ArrayList<>();
 		int initial = 0;
-		for (int i = 1; i < table.get("TIME").size(); i++) {
-			// derivata negativa
-			if (table.get("RPM").get(i) - table.get("RPM").get(i - 1) <= 0) {
-				// la derivata di prima era positiva e il set ha dimensione significativa per fare delle statistiche
-				if (initial != i - 1 && i - initial > 50)
+		for (int i = 2; i < table.get("TIME").size() - 2; i++) {
+			double oldDerivative = table.get("RPM").get(i - 1) - table.get("RPM").get(i - 2);
+			double nextDerivative = table.get("RPM").get(i + 1) - table.get("RPM").get(i);
+			double derivative = table.get("RPM").get(i) - table.get("RPM").get(i - 1);
+			// se questa derivata e quella successiva sono negative ho due
+			// condizioni: o punto di massimo (e quindi devo aggiungere il
+			// subset) oppure sono in discesa
+			if (derivative <= 0 && nextDerivative <= 0) {
+				// la derivata di prima era positiva (quindi sono in un punto di
+				// massimo) e il set ha dimensione
+				// significativa per fare delle statistiche
+				if (oldDerivative > 0 && i - initial > 50)
 					result.add(new Integer[] { initial, i - 1 });
 				initial = i;
 			}
@@ -154,7 +173,7 @@ public class TirocinioAnalyzer {
 
 		// calcolare la coppia applicata dal motore come acc. per inerzia
 		double torque = I * alfa;
-		double delta_torque = torque * (delta_alfa / alfa + I / deltaI);
+		double delta_torque = torque * (delta_alfa / alfa + deltaI / I);
 
 		// calcolare la corrente media con media sui valori della corrente
 		Mean mean = new Mean();
@@ -190,30 +209,30 @@ public class TirocinioAnalyzer {
 		double delta_current_mean = sd.evaluate(currents, current_mean);
 
 		return new double[] { intercept / current_mean,
-				intercept / current_mean * (delta_current_mean / current_mean + delta_intercept / intercept) };
+				(intercept / current_mean) * (delta_current_mean / current_mean + delta_intercept / intercept) };
 	}
 
-	public double getKq(){
+	public double getKq() {
 		return Kq[0];
 	}
 
-	public double getKe(){
+	public double getKe() {
 		return Ke[0];
 	}
 
-	public double getRa(){
+	public double getRa() {
 		return Ra[0];
 	}
 
-	public double getKqError(){
+	public double getKqError() {
 		return Kq[1];
 	}
 
-	public double getKeError(){
+	public double getKeError() {
 		return Ke[1];
 	}
 
-	public double getRaError(){
+	public double getRaError() {
 		return Ra[1];
 	}
 
@@ -224,11 +243,11 @@ public class TirocinioAnalyzer {
 		}
 		return result;
 	}
-	
+
 	public static void main(String[] args) throws IOException {
-		TirocinioAnalyzer t = new TirocinioAnalyzer(new File("Log-1455815592445.csv"), 5.148 * 0.00001, 0);
-		System.out.println(t.getKq());
-		System.out.println(t.getKe());
-		System.out.println(t.getRa());
+		TirocinioAnalyzer t = new TirocinioAnalyzer(new File("Log-1455879733091.csv"), 5.148 * 0.00001, 0);
+		System.out.println(t.getKq() + " ± " + t.getKqError());
+		System.out.println(t.getKe() + " ± " + t.getKeError());
+		System.out.println(t.getRa() + " ± " + t.getRaError());
 	}
 }
