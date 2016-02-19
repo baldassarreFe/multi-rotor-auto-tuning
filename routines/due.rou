@@ -1,6 +1,7 @@
 Prova stampe timestampi
 RPM, AMPS AVG, MOTOR VOLTS
 arm
+direction backward
 start
 rpm 1000
 sleep 5000

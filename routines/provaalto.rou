@@ -1,0 +1,23 @@
+Profili di accelerazione alto
+RPM, AMPS AVG, MOTOR VOLTS
+arm
+direction backward
+start
+rpm 1000
+sleep 5000
+telemetry 60
+sleep 1000
+
+accelerate 5000 7000 500
+accelerate 7000 5000 -400
+accelerate 5000 7000 200
+accelerate 7000 5000 -400
+accelerate 5000 7000 100
+accelerate 7000 5000 -400
+accelerate 5000 7000 1000
+accelerate 7000 5000 -400
+
+telemetry 0
+sleep 5000
+stop
+disarm
