@@ -13,10 +13,17 @@ import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
 
 public class PortSelector {
-	
+
 	static final int TIMEOUT = 2000;
-	
-	public static CommPortIdentifier selectPort(Map<String, CommPortIdentifier> portMap ) {
+
+	/**
+	 * Usato nell'interfaccia a riga di comando
+	 * 
+	 * @param portMap
+	 * @return
+	 */
+	@Deprecated
+	public static CommPortIdentifier selectPort(Map<String, CommPortIdentifier> portMap) {
 		CommPortIdentifier selectedPortIdentifier;
 		for (CommPortIdentifier c : portMap.values()) {
 			System.out.println(c.getName());
@@ -30,13 +37,11 @@ public class PortSelector {
 		try {
 			console = new BufferedReader(new InputStreamReader(System.in, "CP850"));
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		do {
 			try {
-				
 				System.out.print("Choose a port: ");
 				String choice = console.readLine();
 				selectedPortIdentifier = portMap.get(choice);
@@ -48,13 +53,14 @@ public class PortSelector {
 		return selectedPortIdentifier;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Map<String, CommPortIdentifier> scanPorts() {
 		// for containing the ports that will be found
 		Enumeration<CommPortIdentifier> ports = null;
-		
+
 		// map the port names to CommPortIdentifiers
 		HashMap<String, CommPortIdentifier> portMap = new HashMap<>();
-		
+
 		ports = CommPortIdentifier.getPortIdentifiers();
 
 		if (!ports.hasMoreElements()) {
@@ -67,7 +73,6 @@ public class PortSelector {
 				portMap.put(curPort.getName(), curPort);
 			}
 		}
-		
 		return portMap;
 	}
 
@@ -84,13 +89,11 @@ public class PortSelector {
 		} catch (Exception e) {
 			System.out.println("Failed to open " + selectedPortIdentifier.getName() + "(" + e.toString() + ")");
 		}
-		
 		return serialPort;
 	}
-	
+
 	public static void disconnect(SerialPort serialPort) {
 		System.out.println("Closing connection");
 		serialPort.close();
 	}
 }
-

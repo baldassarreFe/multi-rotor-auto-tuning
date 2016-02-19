@@ -3,9 +3,11 @@ package controller;
 import java.io.InputStream;
 import java.io.PipedInputStream;
 
+import analyzer.Analyzer;
 import esc.AbstractEsc;
 import routine.Routine;
-import view.EscModelAndPortFrame;
+import view.LeftPanel;
+import view.AnalyzerFrame;
 import view.GraphTelemetryView;
 import view.MainFrame;
 import view.SimpleTelemetryView;
@@ -16,13 +18,6 @@ public class Controller {
 	private AbstractEsc esc;
 	private PipedInputStream in;
 
-	public Controller() {
-		EscModelAndPortFrame esg = new EscModelAndPortFrame();
-		esc = esg.getConnectedEsc();
-		MainFrame mainView = new MainFrame(this);
-		mainView.initGraphic();
-	}
-
 	public void startRoutine(Routine routine) {
 		routine.setEsc(esc);
 		
@@ -31,6 +26,10 @@ public class Controller {
 		// Si poteva usare anche questa volendo
 		// new SimpleTelemetryView(routine);
 	}
+	
+	public void startAnalysis(Analyzer analyzer){
+		new AnalyzerFrame(analyzer);
+	}
 
 	public void disconnectEsc() {
 		esc.stopAndDisconnect();;
@@ -38,5 +37,10 @@ public class Controller {
 
 	public InputStream getInput() {
 		return in;
+	}
+	
+	public static void main(String[] args) {
+		MainFrame mainView = new MainFrame(new Controller());
+		mainView.initGraphic();
 	}
 }

@@ -29,7 +29,7 @@ import esc.TelemetryParameter;
  * 3e. calcolare Ke e Ra come coefficienti (risp slope e intercept/corrente
  * media) della regressione lineare tra tensione e velocità angolare<br>
  */
-public class TirocinioAnalyzer {
+public class TirocinioAnalyzer implements Analyzer {
 
 	Map<String, ArrayList<Double>> table;
 	double[] Kq = new double[2];

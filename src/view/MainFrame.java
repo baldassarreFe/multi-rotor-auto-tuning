@@ -21,10 +21,9 @@ import controller.Controller;
 import routine.Routine;
 import routine.RoutineLoader;
 
-public class MainFrame extends JFrame implements ActionListener {
+public class MainFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private Controller controller;
-	private JComboBox<Routine> routines; 
-	private JButton start;
 	
 	public MainFrame(final Controller controller) {
 		this.controller = controller;
@@ -37,27 +36,11 @@ public class MainFrame extends JFrame implements ActionListener {
 		});
 	}
 
-	private static final long serialVersionUID = 1L;
-
 	public void initGraphic() {
 		this.setLayout(new BorderLayout());
-		
-		RoutineLoader.loadFrom(new File("routines"));
-		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Routine[10]));
-		this.add(routines, BorderLayout.NORTH);
-		
-		start = new JButton("START");
-		start.addActionListener(this);
-		this.add(start, BorderLayout.CENTER);
-		
+		this.add(new LeftPanel(controller), BorderLayout.WEST);
+		this.add(new RightPanel(controller), BorderLayout.EAST);
 		this.pack();
 		this.setVisible(true);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (start == e.getSource()) {
-			controller.startRoutine((Routine) routines.getSelectedItem());			
-		}
 	}
 }
