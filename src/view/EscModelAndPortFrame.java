@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -19,7 +17,7 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import serialPorts.PortSelector;
 
-public class EscSelectorGui extends JFrame {
+public class EscModelAndPortFrame extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private Object selected = new Object();
@@ -27,22 +25,20 @@ public class EscSelectorGui extends JFrame {
 	private List<Class<? extends AbstractEsc>> escs;
 	private JComboBox<Object> esclist;
 
-	public EscSelectorGui() {
+	public EscModelAndPortFrame() {
 		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		final Map<String, CommPortIdentifier> ports = PortSelector.scanPorts();
 		final JComboBox<Object> portList = new JComboBox<>(ports.keySet().toArray());
 		portList.setVisible(true);
-		panel.add(portList);
+		this.add(portList);
 		
 		EscLoader escload = new EscLoader();
 		escs = escload.getEscList();
 		esclist = new JComboBox<>(escs.toArray());
 		esclist.setVisible(true);
-		panel.add(esclist);
+		this.add(esclist);
 		
 		JButton okButton = new JButton("Select ESC");
 		okButton.addActionListener(new ActionListener() {
@@ -56,10 +52,7 @@ public class EscSelectorGui extends JFrame {
 			}
 			
 		});
-		panel.add(okButton);
-		
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.pack();
+		this.add(okButton);
 		this.setVisible(true);
 	}
 
@@ -68,17 +61,15 @@ public class EscSelectorGui extends JFrame {
 			try {
 				selected.wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
 		}		
 		SerialPort result = PortSelector.connect(portId);
 		if (result==null){
-			JOptionPane.showMessageDialog(this, "NON SI PUò");
+			JOptionPane.showMessageDialog(this, "Impossibile collegarsi alla porta " + portId);
 			return getConnectedEsc();
 		} else {
 			EscLoader escl = new EscLoader();
-			this.dispose();
 			return escl.newInstanceOf(escs.get(esclist.getSelectedIndex()), result);
 		}
 	}	

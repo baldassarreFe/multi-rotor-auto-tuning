@@ -5,7 +5,7 @@ import java.io.PipedInputStream;
 
 import esc.AbstractEsc;
 import routine.Routine;
-import view.EscSelectorGui;
+import view.EscModelAndPortFrame;
 import view.GraphTelemetryView;
 import view.MainFrame;
 import view.SimpleTelemetryView;
@@ -17,7 +17,7 @@ public class Controller {
 	private PipedInputStream in;
 
 	public Controller() {
-		EscSelectorGui esg = new EscSelectorGui();
+		EscModelAndPortFrame esg = new EscModelAndPortFrame();
 		esc = esg.getConnectedEsc();
 		MainFrame mainView = new MainFrame(this);
 		mainView.initGraphic();
