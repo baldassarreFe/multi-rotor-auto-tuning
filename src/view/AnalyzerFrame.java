@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -27,6 +28,8 @@ public class AnalyzerFrame extends JFrame {
 
 	public AnalyzerFrame(Analyzer analyzer) {
 		this.analyzer = analyzer;
+		resultMap = new HashMap<>();
+		parametersMap = new HashMap<>();
 		initGraphic();
 	}
 

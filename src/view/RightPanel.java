@@ -36,7 +36,8 @@ public class RightPanel extends JPanel {
 		analyze.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.startAnalysis(AnalyzersFactory.newInstanceOf(analyzers.get(analyzersList.getSelectedItem()), logFile));
+				Analyzer analyzer = AnalyzersFactory.newInstanceOf(analyzers.get(analyzersList.getSelectedItem()), logFile);
+				controller.startAnalysis(analyzer);
 			}
 		});
 
