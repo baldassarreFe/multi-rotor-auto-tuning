@@ -60,9 +60,16 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		case STOP_TELEMETRY:
 			stopTelemetry();
 			break;
+		case DIRECTION:
+			int direction = ((String) instruction.parameters.get("direction")).equals("forward") ? 1 : -1;
+			setDirection(direction);
 		default:
 			instruction.parameters.clear();
 		}
+	}
+
+	private AutoQuadEsc32 setDirection(int direction) {
+		return sendRawCommand("set DIRECTION " + direction);
 	}
 
 	public AutoQuadEsc32 setRPM(int rpm) {

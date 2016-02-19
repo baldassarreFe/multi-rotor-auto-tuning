@@ -7,7 +7,7 @@ import esc.AbstractEsc;
 import routine.Routine;
 import view.EscSelectorGui;
 import view.GraphTelemetryView;
-import view.MainView;
+import view.MainFrame;
 import view.SimpleTelemetryView;
 //import view.SimpleTelemetryView;
 
@@ -19,7 +19,7 @@ public class Controller {
 	public Controller() {
 		EscSelectorGui esg = new EscSelectorGui();
 		esc = esg.getConnectedEsc();
-		MainView mainView = new MainView(this);
+		MainFrame mainView = new MainFrame(this);
 		mainView.initGraphic();
 	}
 
