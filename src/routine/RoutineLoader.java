@@ -106,6 +106,16 @@ public class RoutineLoader {
 								throw new FileFormatException("Errore alla linea: " + command, e);
 							}
 							break;
+						case DIRECTION:
+							st = new StringTokenizer(command);
+							try {
+								st.nextToken();
+								String direction = st.nextToken();
+								instructions.add(Instruction.newDirection(direction));
+							} catch (NumberFormatException e) {
+								throw new FileFormatException("Errore alla linea: " + command, e);
+							}
+							break;
 						default:
 							instructions.add(new Instruction(t, null));
 						}

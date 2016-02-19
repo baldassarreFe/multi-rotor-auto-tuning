@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,26 +24,25 @@ public class EscSelectorGui extends JFrame {
 
 	private Object selected = new Object();
 	private CommPortIdentifier portId;
-	private List<Class> escs;
+	private List<Class<? extends AbstractEsc>> escs;
 	private JComboBox<Object> esclist;
 
-	
 	public EscSelectorGui() {
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BorderLayout(10, 10));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		
 		final Map<String, CommPortIdentifier> ports = PortSelector.scanPorts();
 		final JComboBox<Object> portList = new JComboBox<>(ports.keySet().toArray());
 		portList.setVisible(true);
-		panel.add(portList, BorderLayout.NORTH);
+		panel.add(portList);
 		
 		EscLoader escload = new EscLoader();
 		escs = escload.getEscList();
 		esclist = new JComboBox<>(escs.toArray());
 		esclist.setVisible(true);
-		panel.add(esclist, BorderLayout.NORTH);
+		panel.add(esclist);
 		
 		JButton okButton = new JButton("Select ESC");
 		okButton.addActionListener(new ActionListener() {
@@ -56,7 +56,7 @@ public class EscSelectorGui extends JFrame {
 			}
 			
 		});
-		panel.add(okButton, BorderLayout.SOUTH);
+		panel.add(okButton);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();

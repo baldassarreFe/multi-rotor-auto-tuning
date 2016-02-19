@@ -21,12 +21,12 @@ import controller.Controller;
 import routine.Routine;
 import routine.RoutineLoader;
 
-public class MainView extends JFrame implements ActionListener {
+public class MainFrame extends JFrame implements ActionListener {
 	private Controller controller;
 	private JComboBox<Routine> routines; 
 	private JButton start;
 	
-	public MainView(final Controller controller) {
+	public MainFrame(final Controller controller) {
 		this.controller = controller;
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {

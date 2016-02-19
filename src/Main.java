@@ -2,7 +2,7 @@
 
 import controller.Controller;
 import gnu.io.SerialPort;
-import view.MainView;
+import view.MainFrame;
 import view.EscSelectorGui;
 
 public class Main {

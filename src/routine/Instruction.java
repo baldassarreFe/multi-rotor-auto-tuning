@@ -36,6 +36,12 @@ public class Instruction {
 		map.put("frequency", frequency);
 		return new Instruction(InstructionType.START_TELEMETRY, map);
 	}
+	
+	public static final Instruction newDirection(String direction) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("direction", direction);
+		return new Instruction(InstructionType.DIRECTION, map);
+	}
 
 	public final InstructionType type;
 	public final Map<String, Object> parameters;
