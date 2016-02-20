@@ -1,16 +1,20 @@
 package view;
 
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import analyzer.Analyzer;
 import analyzer.AnalyzersFactory;
@@ -34,8 +38,10 @@ public class RightPanel extends JPanel {
 			analyzersList.addItem(c);
 		}
 		analyzersList.setRenderer(new CustomClassRenderer());
+		analyzersList.setMaximumSize(new Dimension(400,(int)analyzersList.getPreferredSize().getHeight()+10));
 
-		analyze = new JButton("Start");
+
+		analyze = new JButton("OPEN");
 		analyze.setEnabled(false);
 		analyze.addActionListener(new ActionListener() {
 			@Override
@@ -46,9 +52,16 @@ public class RightPanel extends JPanel {
 				controller.startAnalysis(analyzer);
 			}
 		});
+		analyze.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
 		JButton browse = new JButton("Browse");
-		final JLabel l = new JLabel("Choose file");
+		final JTextField l = new JTextField("Choose file");
+		l.setEditable(false);
+		l.setMinimumSize(new Dimension(200, (int) browse.getPreferredSize().getHeight()));
+		l.setMaximumSize(new Dimension(400, (int) browse.getPreferredSize().getHeight()));
+		l.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
+
 		final JFileChooser fc = new JFileChooser(new File("."));
 		browse.addActionListener(new ActionListener() {
 			@Override
@@ -70,7 +83,11 @@ public class RightPanel extends JPanel {
 		chooser.add(browse);
 
 		this.add(chooser);
+		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.add(analyzersList);
+		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.add(analyze);
+		this.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
+
 	}
 }

@@ -11,7 +11,7 @@ public class CustomClassRenderer extends JLabel implements ListCellRenderer<Clas
 
 	public CustomClassRenderer() {
 		setOpaque(true);
-		setHorizontalAlignment(CENTER);
+		setHorizontalAlignment(LEFT);
 		setVerticalAlignment(CENTER);
 	}
 

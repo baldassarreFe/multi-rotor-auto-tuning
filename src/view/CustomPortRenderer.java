@@ -13,7 +13,7 @@ public class CustomPortRenderer extends JLabel implements ListCellRenderer<CommP
 
 	public CustomPortRenderer() {
 		setOpaque(true);
-		setHorizontalAlignment(CENTER);
+		setHorizontalAlignment(LEFT);
 		setVerticalAlignment(CENTER);
 	}
 

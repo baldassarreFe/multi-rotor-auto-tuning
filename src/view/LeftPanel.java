@@ -1,15 +1,20 @@
 package view;
 
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import controller.Controller;
 import esc.AbstractEsc;
@@ -24,7 +29,7 @@ public class LeftPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private CommPortIdentifier portId;
 	private List<Class<? extends AbstractEsc>> escs;
-	private JComboBox<Class<? extends AbstractEsc>> esclist;
+	private JComboBox<Class<? extends AbstractEsc>> escList;
 	private JComboBox<CommPortIdentifier> portList;
 	private List<CommPortIdentifier> ports;
 	private JComboBox<Routine> routines;
@@ -33,24 +38,34 @@ public class LeftPanel extends JPanel {
 	public LeftPanel(Controller cont) {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.controller = cont;
-		
+
 		ports = PortSelector.scanPorts();
 		portList = new JComboBox<>(ports.toArray(new CommPortIdentifier[] {}));
 		portList.setRenderer(new CustomPortRenderer());
+		portList.setMaximumSize(new Dimension(400,(int)portList.getPreferredSize().getHeight()+10));
 		this.add(portList);
 		
+		this.add(Box.createRigidArea(new Dimension(0,20)));
+
 		escs = EscFactory.getEscsList();
-		esclist = new JComboBox<>();
+		escList = new JComboBox<>();
 		for (Class<? extends AbstractEsc> c : escs) {
-			esclist.addItem(c);
+			escList.addItem(c);
 		}
-		esclist.setRenderer(new CustomClassRenderer());
-		this.add(esclist);
+		escList.setRenderer(new CustomClassRenderer());
+		escList.setMaximumSize(new Dimension(400,(int)escList.getPreferredSize().getHeight()+10));
+		this.add(escList);
 		
+		this.add(Box.createRigidArea(new Dimension(0,20)));
+
+
 		RoutineLoader.loadFrom(new File("routines"));
 		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Routine[] {}));
+		routines.setMaximumSize(new Dimension(400,(int)routines.getPreferredSize().getHeight()+10));
 		this.add(routines);
-		
+
+		this.add(Box.createRigidArea(new Dimension(0,20)));
+
 		JButton start = new JButton("START");
 		start.addActionListener(new ActionListener() {
 			@Override
@@ -60,10 +75,13 @@ public class LeftPanel extends JPanel {
 				if (esc == null)
 					return;
 				controller.setEsc(esc);
-				controller.startRoutine(r);			
+				controller.startRoutine(r);
 			}
 		});
+		
+		start.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.add(start);
+		this.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
 	}
 
 	public AbstractEsc getConnectedEsc() {
@@ -76,9 +94,9 @@ public class LeftPanel extends JPanel {
 		if (result == null) {
 			JOptionPane.showMessageDialog(this, "Impossibile collegarsi alla porta " + portId);
 			return null;
-		} 
+		}
 		@SuppressWarnings("unchecked")
-		AbstractEsc esc = EscFactory.newInstanceOf((Class<? extends AbstractEsc>) esclist.getSelectedItem(), result); 
+		AbstractEsc esc = EscFactory.newInstanceOf((Class<? extends AbstractEsc>) escList.getSelectedItem(), result);
 		if (esc == null) {
 			JOptionPane.showMessageDialog(this, "Impossibile collegarsi all'esc alla porta " + portId);
 			return null;
