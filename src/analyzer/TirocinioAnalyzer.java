@@ -38,8 +38,8 @@ public class TirocinioAnalyzer extends Analyzer {
 	double[] deltaKes;
 	double[] deltaRas;
 	
-	public TirocinioAnalyzer(File file) throws IOException {
-		super(file);
+	public TirocinioAnalyzer(File file, File propertyFile) throws IOException {
+		super(file, propertyFile);
 		parametersRequired.put("I", null);
 		parametersRequired.put("deltaI", null);
 		results.put("Kq", null);
@@ -49,6 +49,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		results.put("delta Ke", null);
 		results.put("delta Ra", null);
 		
+		loadParameters();
 		readDataFromFile();
 	}
 	

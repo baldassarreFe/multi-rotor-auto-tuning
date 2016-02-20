@@ -48,7 +48,7 @@ public class RightPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				@SuppressWarnings("unchecked")
 				Analyzer analyzer = AnalyzersFactory
-						.newInstanceOf((Class<? extends Analyzer>) analyzersList.getSelectedItem(), logFile);
+						.newInstanceOf((Class<? extends Analyzer>) analyzersList.getSelectedItem(), logFile, propertyFile);
 				controller.startAnalysis(analyzer);
 			}
 		});
