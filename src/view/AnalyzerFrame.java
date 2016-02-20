@@ -1,12 +1,14 @@
 package view;
 
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,21 +37,40 @@ public class AnalyzerFrame extends JFrame {
 
 	public void initGraphic() {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-		this.parametersPanel = new JPanel(new GridLayout(analyzer.parametersRequired.size(), 2));
+		this.parametersPanel = new JPanel(new GridLayout(analyzer.parametersRequired.size(), 2, 20, 10));
 		for (String s : analyzer.parametersRequired.keySet()) {
 			JTextField field = new JTextField();
+			Double value = analyzer.parametersRequired.get(s);
+			if (value != null) {
+				field.setText("" + value);
+			}
 			field.setEditable(true);
-			JLabel label = new JLabel(s);
-			label.setHorizontalTextPosition(SwingConstants.RIGHT);
-			label.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
-			field.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-			
+			JLabel label = new JLabel(s, SwingConstants.RIGHT);
+			label.setSize(new Dimension(50, field.getPreferredSize().height));
+			field.setPreferredSize(new Dimension(300, field.getPreferredSize().height));
 			parametersMap.put(s, field);
 			parametersPanel.add(label);
 			parametersPanel.add(field);
 		}
 		this.add(parametersPanel);
 
+		this.resultsPanel = new JPanel(new GridLayout(analyzer.results.size(), 2, 20, 10));
+		for (String s : analyzer.results.keySet()) {
+			JLabel label = new JLabel(s, SwingConstants.RIGHT);
+			JTextField value = new JTextField();
+			value.setEditable(false);
+			label.setSize(new Dimension(50, value.getPreferredSize().height));
+			value.setPreferredSize(new Dimension(300, value.getPreferredSize().height));
+
+			resultMap.put(s, value);
+			resultsPanel.add(label);
+			resultsPanel.add(value);
+
+		}
+
+		this.add(Box.createRigidArea(new Dimension(0, 35)));
+		this.add(resultsPanel);
+		
 		JButton analyze = new JButton("Analyze");
 		analyze.addActionListener(new ActionListener() {
 
@@ -62,6 +83,7 @@ public class AnalyzerFrame extends JFrame {
 					}
 				} catch (NumberFormatException e1) {
 					// si verifica solo se uno dei campi è vuoto
+					e1.printStackTrace();
 					JOptionPane.showMessageDialog(getParent(), "Errore nei parametri");
 				}
 				analyzer.calcola();
@@ -71,25 +93,12 @@ public class AnalyzerFrame extends JFrame {
 
 			}
 		});
+		analyze.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		this.add(Box.createRigidArea(new Dimension(0, 30)));
 		this.add(analyze);
 
-		this.resultsPanel = new JPanel(new GridLayout(analyzer.results.size(), 2));
-		for (String s : analyzer.results.keySet()) {
-			JLabel label = new JLabel(s);
-			label.setHorizontalTextPosition(SwingConstants.RIGHT);
-			JTextField value = new JTextField();
-			value.setEditable(false);
-			label.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
-			value.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-
-			resultMap.put(s, value);
-			resultsPanel.add(label);
-			resultsPanel.add(value);
-
-		}
-		this.add(resultsPanel);
-
-		this.setSize(450, 200);
+		this.pack();
 		this.setVisible(true);
 	}
 }

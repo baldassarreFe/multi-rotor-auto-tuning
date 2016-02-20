@@ -54,6 +54,7 @@ public class RightPanel extends JPanel {
 						.newInstanceOf((Class<? extends Analyzer>) analyzersList.getSelectedItem(), logFile, parametersFile);
 				controller.startAnalysis(analyzer);
 				} catch (Exception e1) {
+					e1.printStackTrace();
 					JOptionPane.showMessageDialog(getParent(), "Problema nel parsing del file");
 				}
 			}
@@ -116,6 +117,7 @@ public class RightPanel extends JPanel {
 
 
 		this.add(chooser);
+		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.add(chooser2);
 		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.add(analyzersList);
