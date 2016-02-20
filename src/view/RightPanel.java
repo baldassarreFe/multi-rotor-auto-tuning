@@ -13,6 +13,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -24,6 +25,7 @@ public class RightPanel extends JPanel {
 	private static final long serialVersionUID = 2486037060223064661L;
 	private JComboBox<Class<? extends Analyzer>> analyzersList;
 	private File logFile;
+	private File parametersFile;
 	private JButton analyze;
 	List<Class<? extends Analyzer>> analyzers;
 	private final Controller controller;
@@ -46,10 +48,14 @@ public class RightPanel extends JPanel {
 		analyze.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
 				@SuppressWarnings("unchecked")
 				Analyzer analyzer = AnalyzersFactory
-						.newInstanceOf((Class<? extends Analyzer>) analyzersList.getSelectedItem(), logFile);
+						.newInstanceOf((Class<? extends Analyzer>) analyzersList.getSelectedItem(), logFile, parametersFile);
 				controller.startAnalysis(analyzer);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(getParent(), "Problema nel parsing del file");
+				}
 			}
 		});
 		analyze.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -81,8 +87,36 @@ public class RightPanel extends JPanel {
 		chooser.setLayout(new BoxLayout(chooser, BoxLayout.LINE_AXIS));
 		chooser.add(l);
 		chooser.add(browse);
+		
+		JButton browse2 = new JButton("Browse");
+		final JTextField l2 = new JTextField("Choose parameters file");
+		l2.setEditable(false);
+		l2.setMinimumSize(new Dimension(200, (int) browse.getPreferredSize().getHeight()));
+		l2.setMaximumSize(new Dimension(400, (int) browse.getPreferredSize().getHeight()));
+		l2.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
+
+		final JFileChooser fc2 = new JFileChooser(new File("."));
+		browse2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fc2.showDialog(getParent(), "Select") == JFileChooser.APPROVE_OPTION) {
+					try {
+						parametersFile = fc2.getSelectedFile();
+						l2.setText(parametersFile.getName());
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		JPanel chooser2 = new JPanel();
+		chooser2.setLayout(new BoxLayout(chooser2, BoxLayout.LINE_AXIS));
+		chooser2.add(l2);
+		chooser2.add(browse2);
+
 
 		this.add(chooser);
+		this.add(chooser2);
 		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.add(analyzersList);
 		this.add(Box.createRigidArea(new Dimension(0,20)));

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import analyzer.Analyzer;
 
@@ -37,8 +39,13 @@ public class AnalyzerFrame extends JFrame {
 		for (String s : analyzer.parametersRequired.keySet()) {
 			JTextField field = new JTextField();
 			field.setEditable(true);
+			JLabel label = new JLabel(s);
+			label.setHorizontalTextPosition(SwingConstants.RIGHT);
+			label.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
+			field.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+			
 			parametersMap.put(s, field);
-			parametersPanel.add(new JLabel(s));
+			parametersPanel.add(label);
 			parametersPanel.add(field);
 		}
 		this.add(parametersPanel);
@@ -59,7 +66,7 @@ public class AnalyzerFrame extends JFrame {
 				}
 				analyzer.calcola();
 				for (String s : resultMap.keySet()) {
-					resultMap.get(s).setText(""+analyzer.results.get(s));
+					resultMap.get(s).setText("" + analyzer.results.get(s));
 				}
 
 			}
@@ -68,10 +75,15 @@ public class AnalyzerFrame extends JFrame {
 
 		this.resultsPanel = new JPanel(new GridLayout(analyzer.results.size(), 2));
 		for (String s : analyzer.results.keySet()) {
-			resultsPanel.add(new JLabel(s));
+			JLabel label = new JLabel(s);
+			label.setHorizontalTextPosition(SwingConstants.RIGHT);
 			JTextField value = new JTextField();
 			value.setEditable(false);
+			label.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
+			value.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+
 			resultMap.put(s, value);
+			resultsPanel.add(label);
 			resultsPanel.add(value);
 
 		}
