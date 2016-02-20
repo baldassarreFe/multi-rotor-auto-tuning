@@ -17,20 +17,9 @@ public class AnalyzersFactory {
 		return new ArrayList<>(subTypes);
 	}
 
-	public static Analyzer newInstanceOf(Class<? extends Analyzer> cls, File logFile) {
-		try {
-			return (Analyzer) cls.getConstructor(File.class).newInstance(logFile);
-		} catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public static Analyzer newInstanceOf(Class<? extends Analyzer> cls, File logFile)
+			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException {
+		return (Analyzer) cls.getConstructor(File.class).newInstance(logFile);
 	}
 }

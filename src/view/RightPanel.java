@@ -13,6 +13,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -46,10 +47,14 @@ public class RightPanel extends JPanel {
 		analyze.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
 				@SuppressWarnings("unchecked")
 				Analyzer analyzer = AnalyzersFactory
 						.newInstanceOf((Class<? extends Analyzer>) analyzersList.getSelectedItem(), logFile);
 				controller.startAnalysis(analyzer);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(getParent(), "Problema nel parsing del file");
+				}
 			}
 		});
 		analyze.setAlignmentX(Component.CENTER_ALIGNMENT);

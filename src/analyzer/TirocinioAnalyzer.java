@@ -34,28 +34,28 @@ public class TirocinioAnalyzer extends Analyzer {
 	double[] Kqs;
 	double[] Kes;
 	double[] Ras;
-	double[] deltaKqs;
-	double[] deltaKes;
-	double[] deltaRas;
+	double[] ΔKqs;
+	double[] ΔKes;
+	double[] ΔRas;
 	
 	public TirocinioAnalyzer(File file) throws IOException {
 		super(file);
 		parametersRequired.put("I", null);
-		parametersRequired.put("deltaI", null);
+		parametersRequired.put("ΔI", null);
 		results.put("Kq", null);
 		results.put("Ke", null);
 		results.put("Ra", null);
-		results.put("delta Kq", null);
-		results.put("delta Ke", null);
-		results.put("delta Ra", null);
+		results.put("ΔKq", null);
+		results.put("ΔKe", null);
+		results.put("ΔRa", null);
 		
 		readDataFromFile();
 	}
 	
 	public void calcola() {
-		ArrayList<double[]> KqsAndDelta = new ArrayList<>();
-		ArrayList<double[]> KesAndDelta = new ArrayList<>();
-		ArrayList<double[]> RasAndDelta = new ArrayList<>();
+		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
+		ArrayList<double[]> KesAndΔ = new ArrayList<>();
+		ArrayList<double[]> RasAndΔ = new ArrayList<>();
 		for (Integer[] set : findSubsets()) {
 			int first = set[0];
 			int last = set[1];
@@ -63,33 +63,33 @@ public class TirocinioAnalyzer extends Analyzer {
 			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last + 1));
 			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
 			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
-			KqsAndDelta.add(calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("deltaI"), times));
-			KesAndDelta.add(calculateKe(volts, rpms));
-			RasAndDelta.add(calculateRa(volts, rpms, currents));
+			KqsAndΔ.add(calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("ΔI"), times));
+			KesAndΔ.add(calculateKe(volts, rpms));
+			RasAndΔ.add(calculateRa(volts, rpms, currents));
 		}
-		Kqs = new double[KqsAndDelta.size()];
-		Kes = new double[KesAndDelta.size()];
-		Ras = new double[RasAndDelta.size()];
-		deltaKqs = new double[KqsAndDelta.size()];
-		deltaKes = new double[KesAndDelta.size()];
-		deltaRas = new double[RasAndDelta.size()];
+		Kqs = new double[KqsAndΔ.size()];
+		Kes = new double[KesAndΔ.size()];
+		Ras = new double[RasAndΔ.size()];
+		ΔKqs = new double[KqsAndΔ.size()];
+		ΔKes = new double[KesAndΔ.size()];
+		ΔRas = new double[RasAndΔ.size()];
 
-		for (int i = 0; i < KqsAndDelta.size(); i++) {
-			Kqs[i] = KqsAndDelta.get(i)[0];
-			Kes[i] = KesAndDelta.get(i)[0];
-			Ras[i] = RasAndDelta.get(i)[0];
-			deltaKqs[i] = KqsAndDelta.get(i)[1];
-			deltaKes[i] = KesAndDelta.get(i)[1];
-			deltaRas[i] = RasAndDelta.get(i)[1];
+		for (int i = 0; i < KqsAndΔ.size(); i++) {
+			Kqs[i] = KqsAndΔ.get(i)[0];
+			Kes[i] = KesAndΔ.get(i)[0];
+			Ras[i] = RasAndΔ.get(i)[0];
+			ΔKqs[i] = KqsAndΔ.get(i)[1];
+			ΔKes[i] = KesAndΔ.get(i)[1];
+			ΔRas[i] = RasAndΔ.get(i)[1];
 		}
 		
 		Mean mean = new Mean();
 		results.put("Kq", mean.evaluate(Kqs));
 		results.put("Ke", mean.evaluate(Kes));
 		results.put("Ra", mean.evaluate(Ras));
-		results.put("delta Kq", mean.evaluate(deltaKqs));
-		results.put("delta Ke", mean.evaluate(deltaKes));
-		results.put("delta Ra", mean.evaluate(deltaRas));
+		results.put("ΔKq", mean.evaluate(ΔKqs));
+		results.put("ΔKe", mean.evaluate(ΔKes));
+		results.put("ΔRa", mean.evaluate(ΔRas));
 	}
 
 	private void readDataFromFile() throws IOException {
@@ -179,26 +179,26 @@ public class TirocinioAnalyzer extends Analyzer {
 		return result;
 	}
 
-	public static double[] calculateKq(double[] omegas, double[] currents, double I, double deltaI, double[] times) {
+	public static double[] calculateKq(double[] omegas, double[] currents, double I, double ΔI, double[] times) {
 		// calcolare accelerazione angolare con regressione lineare sugli rpm
 		SimpleRegression regression = new SimpleRegression();
 		regression.addData(toMatrix(times, omegas));
 		double alfa = regression.getSlope();
-		double delta_alfa = regression.getSlopeStdErr();
+		double Δ_alfa = regression.getSlopeStdErr();
 
 		// calcolare la coppia applicata dal motore come acc. per inerzia
 		double torque = I * alfa;
-		double delta_torque = torque * (delta_alfa / alfa + deltaI / I);
+		double Δ_torque = torque * (Δ_alfa / alfa + ΔI / I);
 
 		// calcolare la corrente media con media sui valori della corrente
 		Mean mean = new Mean();
 		double current_mean = mean.evaluate(currents);
 		StandardDeviation sd = new StandardDeviation();
-		double delta_current_mean = sd.evaluate(currents, current_mean);
+		double Δ_current_mean = sd.evaluate(currents, current_mean);
 
 		// calcolare Kq come rapporto tra coppia e corrente media
 		return new double[] { torque / current_mean,
-				torque / current_mean * (delta_torque / torque + delta_current_mean / current_mean) };
+				torque / current_mean * (Δ_torque / torque + Δ_current_mean / current_mean) };
 	}
 
 	public static double[] calculateKe(double[] tensions, double[] omegas) {
@@ -215,16 +215,16 @@ public class TirocinioAnalyzer extends Analyzer {
 		SimpleRegression regression = new SimpleRegression();
 		regression.addData(toMatrix(omegas, tensions));
 		double intercept = regression.getIntercept();
-		double delta_intercept = regression.getInterceptStdErr();
+		double Δ_intercept = regression.getInterceptStdErr();
 
 		// calcolare la corrente media con media sui valori della corrente
 		Mean mean = new Mean();
 		double current_mean = mean.evaluate(currents);
 		StandardDeviation sd = new StandardDeviation();
-		double delta_current_mean = sd.evaluate(currents, current_mean);
+		double Δ_current_mean = sd.evaluate(currents, current_mean);
 
 		return new double[] { intercept / current_mean,
-				(intercept / current_mean) * (delta_current_mean / current_mean + delta_intercept / intercept) };
+				(intercept / current_mean) * (Δ_current_mean / current_mean + Δ_intercept / intercept) };
 	}
 
 	public double[] getKqs() {
@@ -239,16 +239,16 @@ public class TirocinioAnalyzer extends Analyzer {
 		return Ras;
 	}
 
-	public double[] getDeltaKqs() {
-		return deltaKqs;
+	public double[] getΔKqs() {
+		return ΔKqs;
 	}
 
-	public double[] getDeltaKes() {
-		return deltaKes;
+	public double[] getΔKes() {
+		return ΔKes;
 	}
 
-	public double[] getDeltaRas() {
-		return deltaRas;
+	public double[] getΔRas() {
+		return ΔRas;
 	}
 
 	private double[] toPrimitiveType(List<Double> list) {
