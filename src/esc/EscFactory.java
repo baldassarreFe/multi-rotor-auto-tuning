@@ -1,7 +1,9 @@
 package esc;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,9 +21,14 @@ public class EscFactory {
 		escMap = new HashMap<String, Class<? extends AbstractEsc>>();
 		for (Class<? extends AbstractEsc> c : subTypes)
 			escMap.put(c.getSimpleName(), c);
-		// TODO: HARDCODED BRUTTO, usare reflection tipo
-		// escMap.put(AutoQuadEsc32.class.getSimpleName(), AutoQuadEsc32.class);
 		return escMap;
+	}
+	
+	public static List<Class<? extends AbstractEsc>> getEscsList() {
+		// https://code.google.com/archive/p/reflections/
+		Reflections reflections = new Reflections("esc");
+		Set<Class<? extends AbstractEsc>> subTypes = reflections.getSubTypesOf(AbstractEsc.class);
+		return new ArrayList<>(subTypes);
 	}
 
 	public static AbstractEsc newInstanceOf(Class<? extends AbstractEsc> cls, SerialPort port) {

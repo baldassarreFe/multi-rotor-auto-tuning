@@ -3,6 +3,7 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -23,8 +24,8 @@ import serialPorts.PortSelector;
 public class LeftPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private CommPortIdentifier portId;
-	private Map<String, Class<? extends AbstractEsc>> escs;
-	private JComboBox<String> esclist;
+	private List<Class<? extends AbstractEsc>> escs;
+	private JComboBox<Class<? extends AbstractEsc>> esclist;
 	private JComboBox<String> portList;
 	private Map<String, CommPortIdentifier> ports;
 	private JComboBox<Routine> routines;
@@ -38,8 +39,12 @@ public class LeftPanel extends JPanel {
 		portList = new JComboBox<>(ports.keySet().toArray(new String[] {}));
 		this.add(portList);
 		
-		escs = EscFactory.getEscsMap();
-		esclist = new JComboBox<>(escs.keySet().toArray(new String[] {}));
+		escs = EscFactory.getEscsList();
+		esclist = new JComboBox<>();
+		for (Class<? extends AbstractEsc> c : escs) {
+			esclist.addItem(c);
+		}
+		esclist.setRenderer(new CustomClassRenderer());
 		this.add(esclist);
 		
 		RoutineLoader.loadFrom(new File("routines"));
@@ -72,7 +77,8 @@ public class LeftPanel extends JPanel {
 			JOptionPane.showMessageDialog(this, "Impossibile collegarsi alla porta " + portId);
 			return null;
 		} 
-		AbstractEsc esc = EscFactory.newInstanceOf(escs.get(esclist.getSelectedItem()), result); 
+		@SuppressWarnings("unchecked")
+		AbstractEsc esc = EscFactory.newInstanceOf((Class<? extends AbstractEsc>) esclist.getSelectedItem(), result); 
 		if (esc == null) {
 			JOptionPane.showMessageDialog(this, "Impossibile collegarsi all'esc alla porta " + portId);
 			return null;
