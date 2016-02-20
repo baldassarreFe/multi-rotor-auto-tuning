@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -16,8 +16,8 @@ public abstract class Analyzer {
 	
 	public Analyzer(File logFile, File propertyFile){
 		this.logFile = logFile;
-		this.parametersRequired = new HashMap<>();
-		this.results = new HashMap<>();
+		this.parametersRequired = new LinkedHashMap<>();
+		this.results = new LinkedHashMap<>();
 		this.propertyFile = propertyFile;
 	}
 

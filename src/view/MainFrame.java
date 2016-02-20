@@ -25,6 +25,7 @@ public class MainFrame extends JFrame {
 
 	public void initGraphic() {
 		this.setLayout(new GridLayout(1, 2));
+		this.setTitle("Multi rotor auto tuning");
 		this.add(new LeftPanel(controller));
 		this.add(new RightPanel(controller));
 		this.setSize(600, 300);

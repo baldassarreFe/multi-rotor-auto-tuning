@@ -41,10 +41,10 @@ public class LeftPanel extends JPanel {
 		ports = PortSelector.scanPorts();
 		portList = new JComboBox<>(ports.toArray(new CommPortIdentifier[] {}));
 		portList.setRenderer(new CustomPortRenderer());
-		portList.setMaximumSize(new Dimension(400,(int)portList.getPreferredSize().getHeight()+10));
+		portList.setMaximumSize(new Dimension(400, (int) portList.getPreferredSize().getHeight() + 10));
 		this.add(portList);
-		
-		this.add(Box.createRigidArea(new Dimension(0,20)));
+
+		this.add(Box.createRigidArea(new Dimension(0, 20)));
 
 		escs = EscFactory.getEscsList();
 		escList = new JComboBox<>();
@@ -52,18 +52,17 @@ public class LeftPanel extends JPanel {
 			escList.addItem(c);
 		}
 		escList.setRenderer(new CustomClassRenderer());
-		escList.setMaximumSize(new Dimension(400,(int)escList.getPreferredSize().getHeight()+10));
+		escList.setMaximumSize(new Dimension(400, (int) escList.getPreferredSize().getHeight() + 10));
 		this.add(escList);
-		
-		this.add(Box.createRigidArea(new Dimension(0,20)));
 
+		this.add(Box.createRigidArea(new Dimension(0, 20)));
 
 		RoutineLoader.loadFrom(new File("routines"));
 		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Routine[] {}));
-		routines.setMaximumSize(new Dimension(400,(int)routines.getPreferredSize().getHeight()+10));
+		routines.setMaximumSize(new Dimension(400, (int) routines.getPreferredSize().getHeight() + 10));
 		this.add(routines);
 
-		this.add(Box.createRigidArea(new Dimension(0,20)));
+		this.add(Box.createRigidArea(new Dimension(0, 20)));
 
 		JButton start = new JButton("START");
 		start.addActionListener(new ActionListener() {
@@ -77,12 +76,13 @@ public class LeftPanel extends JPanel {
 				controller.startRoutine(r);
 			}
 		});
-		
+
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.add(start);
 		this.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
 	}
 
+	@SuppressWarnings("unchecked")
 	public AbstractEsc getConnectedEsc() {
 		portId = (CommPortIdentifier) portList.getSelectedItem();
 		if (portId == null) {
@@ -94,8 +94,12 @@ public class LeftPanel extends JPanel {
 			JOptionPane.showMessageDialog(this, "Impossibile collegarsi alla porta " + portId);
 			return null;
 		}
-		@SuppressWarnings("unchecked")
-		AbstractEsc esc = EscFactory.newInstanceOf((Class<? extends AbstractEsc>) escList.getSelectedItem(), result);
+		AbstractEsc esc = null;
+		try {
+			esc = EscFactory.newInstanceOf((Class<? extends AbstractEsc>) escList.getSelectedItem(), result);
+		} catch (Exception ignore) {
+			ignore.printStackTrace();
+		}
 		if (esc == null) {
 			JOptionPane.showMessageDialog(this, "Impossibile collegarsi all'esc alla porta " + portId);
 			return null;

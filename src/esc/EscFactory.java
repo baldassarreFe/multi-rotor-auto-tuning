@@ -18,20 +18,9 @@ public class EscFactory {
 		return new ArrayList<>(subTypes);
 	}
 
-	public static AbstractEsc newInstanceOf(Class<? extends AbstractEsc> cls, SerialPort port) {
-		try {
-			return (AbstractEsc) cls.getConstructor(SerialPort.class).newInstance(port);
-		} catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public static AbstractEsc newInstanceOf(Class<? extends AbstractEsc> cls, SerialPort port)
+			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException {
+		return (AbstractEsc) cls.getConstructor(SerialPort.class).newInstance(port);
 	}
 }
