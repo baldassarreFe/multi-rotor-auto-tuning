@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -26,8 +25,8 @@ public class LeftPanel extends JPanel {
 	private CommPortIdentifier portId;
 	private List<Class<? extends AbstractEsc>> escs;
 	private JComboBox<Class<? extends AbstractEsc>> esclist;
-	private JComboBox<String> portList;
-	private Map<String, CommPortIdentifier> ports;
+	private JComboBox<CommPortIdentifier> portList;
+	private List<CommPortIdentifier> ports;
 	private JComboBox<Routine> routines;
 	private Controller controller;
 
@@ -36,7 +35,8 @@ public class LeftPanel extends JPanel {
 		this.controller = cont;
 		
 		ports = PortSelector.scanPorts();
-		portList = new JComboBox<>(ports.keySet().toArray(new String[] {}));
+		portList = new JComboBox<>(ports.toArray(new CommPortIdentifier[] {}));
+		portList.setRenderer(new CustomPortRenderer());
 		this.add(portList);
 		
 		escs = EscFactory.getEscsList();
@@ -67,7 +67,7 @@ public class LeftPanel extends JPanel {
 	}
 
 	public AbstractEsc getConnectedEsc() {
-		portId = ports.get(portList.getSelectedItem());
+		portId = (CommPortIdentifier) portList.getSelectedItem();
 		if (portId == null) {
 			JOptionPane.showMessageDialog(this, "Porta non selezionata");
 			return null;

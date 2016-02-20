@@ -3,7 +3,7 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Map;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,25 +18,31 @@ import controller.Controller;
 
 public class RightPanel extends JPanel {
 	private static final long serialVersionUID = 2486037060223064661L;
-	private JComboBox<String> analyzersList;
+	private JComboBox<Class<? extends Analyzer>> analyzersList;
 	private File logFile;
 	private JButton analyze;
-	Map<String, Class<? extends Analyzer>> analyzers;
+	List<Class<? extends Analyzer>> analyzers;
 	private final Controller controller;
 
 	public RightPanel(Controller cont) {
 		this.controller = cont;
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-		analyzers = AnalyzersFactory.getAnalyzersMap();
-		analyzersList = new JComboBox<>(analyzers.keySet().toArray(new String[] {}));
+		analyzers = AnalyzersFactory.getAnalyzersList();
+		analyzersList = new JComboBox<>();
+		for (Class<? extends Analyzer> c : analyzers) {
+			analyzersList.addItem(c);
+		}
+		analyzersList.setRenderer(new CustomClassRenderer());
 
 		analyze = new JButton("Start");
 		analyze.setEnabled(false);
 		analyze.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Analyzer analyzer = AnalyzersFactory.newInstanceOf(analyzers.get(analyzersList.getSelectedItem()), logFile);
+				@SuppressWarnings("unchecked")
+				Analyzer analyzer = AnalyzersFactory
+						.newInstanceOf((Class<? extends Analyzer>) analyzersList.getSelectedItem(), logFile);
 				controller.startAnalysis(analyzer);
 			}
 		});

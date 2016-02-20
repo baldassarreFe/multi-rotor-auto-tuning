@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import gnu.io.CommPortIdentifier;
@@ -54,14 +55,11 @@ public class PortSelector {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Map<String, CommPortIdentifier> scanPorts() {
+	public static List<CommPortIdentifier> scanPorts() {
+		List<CommPortIdentifier> portList = new ArrayList<CommPortIdentifier>();
+		
 		// for containing the ports that will be found
-		Enumeration<CommPortIdentifier> ports = null;
-
-		// map the port names to CommPortIdentifiers
-		HashMap<String, CommPortIdentifier> portMap = new HashMap<>();
-
-		ports = CommPortIdentifier.getPortIdentifiers();
+		Enumeration<CommPortIdentifier> ports = CommPortIdentifier.getPortIdentifiers();
 
 		if (!ports.hasMoreElements()) {
 			System.out.println("No Ports Available");
@@ -70,10 +68,10 @@ public class PortSelector {
 			CommPortIdentifier curPort = ports.nextElement();
 			// get only serial ports
 			if (curPort.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-				portMap.put(curPort.getName(), curPort);
+				portList.add(curPort);
 			}
 		}
-		return portMap;
+		return portList;
 	}
 
 	public static SerialPort connect(CommPortIdentifier selectedPortIdentifier) {

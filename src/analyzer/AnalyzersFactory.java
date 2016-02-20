@@ -2,23 +2,19 @@ package analyzer;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.reflections.Reflections;
 
 public class AnalyzersFactory {
 
-	public static Map<String, Class<? extends Analyzer>> getAnalyzersMap() {
+	public static List<Class<? extends Analyzer>> getAnalyzersList() {
 		// https://code.google.com/archive/p/reflections/
 		Reflections reflections = new Reflections("analyzer");
 		Set<Class<? extends Analyzer>> subTypes = reflections.getSubTypesOf(Analyzer.class);
-		Map<String, Class<? extends Analyzer>> escMap;
-		escMap = new HashMap<String, Class<? extends Analyzer>>();
-		for (Class<? extends Analyzer> c : subTypes)
-			escMap.put(c.getSimpleName(), c);
-		return escMap;
+		return new ArrayList<>(subTypes);
 	}
 
 	public static Analyzer newInstanceOf(Class<? extends Analyzer> cls, File logFile) {
