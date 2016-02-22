@@ -16,9 +16,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import analyzer.Analyzer;
 import analyzer.AnalyzersFactory;
+import analyzer.DataLoader;
 import controller.Controller;
 
 public class RightPanel extends JPanel {
@@ -29,6 +31,7 @@ public class RightPanel extends JPanel {
 	private JButton analyze;
 	List<Class<? extends Analyzer>> analyzers;
 	private final Controller controller;
+	private JButton graphs;
 
 	public RightPanel(Controller cont) {
 		this.controller = cont;
@@ -60,7 +63,21 @@ public class RightPanel extends JPanel {
 			}
 		});
 		analyze.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+		
+		graphs = new JButton("VIEW GRAPHS");
+		graphs.setEnabled(false);
+		graphs.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new GraphsFrame(logFile);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(getParent(), "Problema nel parsing del file");
+				}
+			}
+		});
+		graphs.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		JButton browse = new JButton("Browse");
 		final JTextField l = new JTextField("Choose file");
@@ -70,6 +87,7 @@ public class RightPanel extends JPanel {
 		l.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
 
 		final JFileChooser fc = new JFileChooser(new File("."));
+		fc.setFileFilter(new FileNameExtensionFilter("Motor data","csv"));
 		browse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -78,6 +96,7 @@ public class RightPanel extends JPanel {
 						logFile = fc.getSelectedFile();
 						l.setText(logFile.getName());
 						analyze.setEnabled(true);
+						graphs.setEnabled(true);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -97,6 +116,7 @@ public class RightPanel extends JPanel {
 		l2.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
 
 		final JFileChooser fc2 = new JFileChooser(new File("."));
+		fc2.setFileFilter(new FileNameExtensionFilter("Parameters file","properties"));
 		browse2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,6 +143,8 @@ public class RightPanel extends JPanel {
 		this.add(analyzersList);
 		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.add(analyze);
+		this.add(Box.createRigidArea(new Dimension(0,20)));
+		this.add(graphs);
 		this.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
 
 	}

@@ -56,10 +56,11 @@ public class TirocinioAnalyzer extends Analyzer {
 		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
 		ArrayList<double[]> KesAndΔ = new ArrayList<>();
 		ArrayList<double[]> RasAndΔ = new ArrayList<>();
+		
 		// rpm to rad/s
-		for (Double d : table.get("RPM")) {
-			d = d * 2 * Math.PI / 60;
-		}
+		ArrayList<Double> temp = table.get("RPM");
+		for(int i = 0; i < temp.size(); i++)
+			temp.set(i, (temp.get(i) * 2*Math.PI / 60));
 
 		for (Integer[] set : findSubsets()) {
 			int first = set[0];
