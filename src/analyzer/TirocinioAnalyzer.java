@@ -39,6 +39,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		pw = new PrintWriter(new File(file.getName().substring(0, file.getName().length() - 4) + "-ANALYSIS.csv"));
 		parametersRequired.put("I", null);
 		parametersRequired.put("ΔI", null);
+		parametersRequired.put("SubsetSize", null);
 
 		results.put("Kq", null);
 		results.put("ΔKq", null);
@@ -56,11 +57,11 @@ public class TirocinioAnalyzer extends Analyzer {
 		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
 		ArrayList<double[]> KesAndΔ = new ArrayList<>();
 		ArrayList<double[]> RasAndΔ = new ArrayList<>();
-		
+
 		// rpm to rad/s
 		ArrayList<Double> temp = table.get("RPM");
-		for(int i = 0; i < temp.size(); i++)
-			temp.set(i, (temp.get(i) * 2*Math.PI / 60));
+		for (int i = 0; i < temp.size(); i++)
+			temp.set(i, (temp.get(i) * 2 * Math.PI / 60));
 
 		for (Integer[] set : findSubsets()) {
 			int first = set[0];
@@ -181,7 +182,7 @@ public class TirocinioAnalyzer extends Analyzer {
 				// la derivata di prima era positiva (quindi sono in un punto di
 				// massimo) e il set ha dimensione
 				// significativa per fare delle statistiche
-				if (oldDerivative > 0 && i - initial > 50)
+				if (oldDerivative > 0 && i - initial > parametersRequired.get("SubsetSize"))
 					result.add(new Integer[] { initial, i - 1 });
 				initial = i;
 			}
