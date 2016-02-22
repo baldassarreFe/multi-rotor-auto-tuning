@@ -66,7 +66,7 @@ public class TirocinioAnalyzer extends Analyzer {
 			temp.set(i, (temp.get(i) * 2 * Math.PI / 60));
 
 		List<Integer[]> subsets = findSubsets();
-		
+
 		for (Integer[] set : subsets) {
 
 			int first = set[0];
@@ -89,7 +89,7 @@ public class TirocinioAnalyzer extends Analyzer {
 			sb.append(tempKq[0] + "," + tempKq[1] + "," + tempKe[0] + "," + tempKe[1] + "," + tempRa[0] + ","
 					+ tempRa[1] + "," + set[0] + "," + set[1] + "," + (set[1] - set[0] + 1) + "\n");
 			pw.write(sb.toString());
-			
+
 		}
 		pw.close();
 
@@ -282,5 +282,4 @@ public class TirocinioAnalyzer extends Analyzer {
 		}
 		return result;
 	}
-
 }

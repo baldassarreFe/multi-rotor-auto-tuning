@@ -24,13 +24,22 @@ public class Controller {
 		// new SimpleTelemetryView(routine);
 	}
 
+	/**Avvia un'analisi di dati basata sull' {@link Analyzer} passato come parametro,
+	 * gestendo anche la creazione di un {@link AnalyzerFrame} per visualizzare i risultati
+	 * @param analyzer
+	 */
 	public void startAnalysis(Analyzer analyzer) {
 		new AnalyzerFrame(analyzer);
 	}
 
+	/**
+	 * Disconnette l'esc permettendo l'esecuzione di altre routines
+	 * 
+	 */
 	public void disconnectEsc() {
 		if (esc != null)
 			esc.stopAndDisconnect();
+		esc = null;
 	}
 
 	public static void main(String[] args) {
