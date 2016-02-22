@@ -38,7 +38,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		super(file, propertyFile);
 
 		pw = new PrintWriter(new File(file.getName().substring(0, file.getName().length() - 4) + "-ANALYSIS.csv"));
-		
+
 		parametersRequired.put("I", null);
 		parametersRequired.put("ΔI", null);
 		parametersRequired.put("SubsetSize", null);
@@ -175,28 +175,24 @@ public class TirocinioAnalyzer extends Analyzer {
 		ArrayList<Integer[]> result = new ArrayList<>();
 		int first = 0;
 		int last = 0;
-		double[] derivatives = new double[table.get("TIME").size()];
-		for (int i = 1; i < derivatives.length; i++) {
-			derivatives[i] = table.get("RPM").get(i) - table.get("RPM").get(i - 1);
-		}
-		for (int i = 3; i < table.get("TIME").size() - 3; i++) {
-			int positiveCount = 0;
-			int negativeCount = 0;
-			for (int j = -2; j <= 2; j++) {
-				if (derivatives[i + j] > 0)
-					positiveCount++;
-				else
-					negativeCount++;
+		int samplesToConsider = (int) (parametersRequired.get("SubsetSize") / 3);
+
+		for (int i = samplesToConsider / 2; i < table.get("TIME").size() - samplesToConsider / 2
+				- samplesToConsider % 2; i++) {
+
+			double avgNextDerivatives = 0;
+			for (int j = 1; j <= samplesToConsider / 2; j++) {
+				avgNextDerivatives += table.get("RPM").get(i + j) - table.get("RPM").get(i);
+				avgNextDerivatives += table.get("RPM").get(i) - table.get("RPM").get(i - j);
 			}
-			
-			if (positiveCount >= 4)
+			avgNextDerivatives /= samplesToConsider;
+
+			if (avgNextDerivatives > 0)
 				last++;
-			else 
-				last = i;
-			
-			if (negativeCount >= 4) {
+			else {
 				if (last - first > parametersRequired.get("SubsetSize")) {
 					result.add(new Integer[] { first, last });
+					System.out.println(first + " -> " + last + " [" + (last - first + 1) + "]");
 				}
 				first = i;
 				last = i;
@@ -268,5 +264,10 @@ public class TirocinioAnalyzer extends Analyzer {
 			result[i] = list.get(i);
 		}
 		return result;
+	}
+
+	public static void main(String[] args) throws IOException {
+		new TirocinioAnalyzer(new File("Motor_data_2016-02-50_15-16-26.csv"), new File("tirocigno.properties"))
+				.calcola();
 	}
 }
