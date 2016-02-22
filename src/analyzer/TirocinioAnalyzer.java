@@ -62,7 +62,6 @@ public class TirocinioAnalyzer extends Analyzer {
 
 		// rpm to rad/s
 		ArrayList<Double> temp = table.get("RPM");
-
 		for (int i = 0; i < temp.size(); i++)
 			temp.set(i, (temp.get(i) * 2 * Math.PI / 60));
 

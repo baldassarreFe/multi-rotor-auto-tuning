@@ -3,19 +3,34 @@ RPM, AMPS AVG, MOTOR VOLTS
 arm
 direction backward
 start
+sleep 1000
+rpm 3000
 sleep 10000
 telemetry 60
 sleep 1000
 
-accelerate 2000 3000 50
+accelerate 3000 2000 -400
+
+accelerate 2000 3000 10
 accelerate 3000 2000 -400
 accelerate 2000 3000 20
 accelerate 3000 2000 -400
-accelerate 2000 3000 100
+accelerate 2000 3000 30
 accelerate 3000 2000 -400
+accelerate 2000 3000 40
+accelerate 3000 2000 -400
+accelerate 2000 3000 50
+accelerate 3000 2000 -400
+
 accelerate 2000 3000 10
 accelerate 3000 2000 -400
-accelerate 2000 3000 10
+accelerate 2000 3000 20
+accelerate 3000 2000 -400
+accelerate 2000 3000 30
+accelerate 3000 2000 -400
+accelerate 2000 3000 40
+accelerate 3000 2000 -400
+accelerate 2000 3000 50
 accelerate 3000 2000 -400
 
 telemetry 0
