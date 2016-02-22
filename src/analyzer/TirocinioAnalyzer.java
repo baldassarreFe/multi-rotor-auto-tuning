@@ -57,6 +57,12 @@ public class TirocinioAnalyzer extends Analyzer {
 		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
 		ArrayList<double[]> KesAndΔ = new ArrayList<>();
 		ArrayList<double[]> RasAndΔ = new ArrayList<>();
+		
+		// rpm to rad/s
+		for (Double d : table.get("RPM")) {
+			d = d * 2*Math.PI / 60; 
+		}
+		
 		for (Integer[] set : findSubsets()) {
 			int first = set[0];
 			int last = set[1];
@@ -64,6 +70,7 @@ public class TirocinioAnalyzer extends Analyzer {
 			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last + 1));
 			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
 			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
+			
 			KqsAndΔ.add(calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("ΔI"), times));
 			KesAndΔ.add(calculateKe(volts, rpms));
 			RasAndΔ.add(calculateRa(volts, rpms, currents));
