@@ -41,6 +41,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		
 		parametersRequired.put("I", null);
 		parametersRequired.put("ΔI", null);
+		parametersRequired.put("SubsetSize", null);
 
 		results.put("Kq", null);
 		results.put("ΔKq", null);
