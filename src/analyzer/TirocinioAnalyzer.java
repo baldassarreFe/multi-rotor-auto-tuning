@@ -40,8 +40,10 @@ public class TirocinioAnalyzer extends Analyzer {
 	
 	public TirocinioAnalyzer(File file, File propertyFile) throws IOException {
 		super(file, propertyFile);
+		
 		parametersRequired.put("I", null);
 		parametersRequired.put("ΔI", null);
+		
 		results.put("Kq", null);
 		results.put("Ke", null);
 		results.put("Ra", null);
@@ -59,9 +61,9 @@ public class TirocinioAnalyzer extends Analyzer {
 		ArrayList<double[]> RasAndΔ = new ArrayList<>();
 		
 		// rpm to rad/s
-		for (Double d : table.get("RPM")) {
-			d = d * 2*Math.PI / 60; 
-		}
+		ArrayList<Double> temp = table.get("RPM");
+		for(int i = 0; i < temp.size(); i++)
+			temp.set(i, (temp.get(i) * 2*Math.PI / 60));
 		
 		for (Integer[] set : findSubsets()) {
 			int first = set[0];
