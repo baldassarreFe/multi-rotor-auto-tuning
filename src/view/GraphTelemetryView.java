@@ -52,7 +52,7 @@ public class GraphTelemetryView extends JFrame {
 		this.dataSeries = new HashMap<>(parameters.size());
 		try {
 			Date date = new Date();
-			DateFormat df = new SimpleDateFormat("yyyy-MM-DD_HH-mm-ss");
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 			fileWriter = new PrintWriter("Motor_data_" + df.format(date) + ".csv");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

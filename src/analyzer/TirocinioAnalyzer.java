@@ -193,7 +193,6 @@ public class TirocinioAnalyzer extends Analyzer {
 			else {
 				if (last - first > parametersRequired.get("SubsetSize")) {
 					result.add(new Integer[] { first, last });
-					System.out.println(first + " -> " + last + " [" + (last - first + 1) + "]");
 				}
 				first = i;
 				last = i;
@@ -265,10 +264,5 @@ public class TirocinioAnalyzer extends Analyzer {
 			result[i] = list.get(i);
 		}
 		return result;
-	}
-
-	public static void main(String[] args) throws IOException {
-		new TirocinioAnalyzer(new File("Motor_data_2016-02-50_15-16-26.csv"), new File("tirocigno.properties"))
-				.calcola();
 	}
 }
