@@ -32,36 +32,35 @@ import esc.TelemetryParameter;
 public class TirocinioAnalyzer extends Analyzer {
 
 	Map<String, ArrayList<Double>> table;
-	double[] Kqs;
-	double[] Kes;
-	double[] Ras;
-	double[] ΔKqs;
-	double[] ΔKes;
-	double[] ΔRas;
 	PrintWriter pw;
-	
+
 	public TirocinioAnalyzer(File file, File propertyFile) throws IOException {
 		super(file, propertyFile);
-		pw = new PrintWriter(new File(file.getName().substring(0, file.getName().length()-4) + "-ANALYSIS.csv"));
+		pw = new PrintWriter(new File(file.getName().substring(0, file.getName().length() - 4) + "-ANALYSIS.csv"));
 		parametersRequired.put("I", null);
 		parametersRequired.put("ΔI", null);
+
 		results.put("Kq", null);
-		results.put("Ke", null);
-		results.put("Ra", null);
 		results.put("ΔKq", null);
+		results.put("Ke", null);
 		results.put("ΔKe", null);
+		results.put("Ra", null);
 		results.put("ΔRa", null);
-		
+
 		loadParameters();
 		readDataFromFile();
 	}
-	
+
 	public void calcola() {
 		pw.write("Kq,ΔKq,Ke,ΔKe,Ra,ΔRa,SamplesCount\n");
 		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
 		ArrayList<double[]> KesAndΔ = new ArrayList<>();
 		ArrayList<double[]> RasAndΔ = new ArrayList<>();
-		StringBuilder sb = new StringBuilder();
+		// rpm to rad/s
+		for (Double d : table.get("RPM")) {
+			d = d * 2 * Math.PI / 60;
+		}
+
 		for (Integer[] set : findSubsets()) {
 			int first = set[0];
 			int last = set[1];
@@ -69,22 +68,28 @@ public class TirocinioAnalyzer extends Analyzer {
 			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last + 1));
 			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
 			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
-			double[] tempKq = calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("ΔI"), times);
+			double[] tempKq = calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("ΔI"),
+					times);
 			double[] tempKe = calculateKe(volts, rpms);
 			double[] tempRa = calculateRa(volts, rpms, currents);
-						
+
 			KqsAndΔ.add(tempKq);
 			KesAndΔ.add(tempKe);
 			RasAndΔ.add(tempRa);
-			sb.append(tempKq[0]+","+tempKq[1]+","+tempKe[0]+","+tempKe[1]+","+tempRa[0]+","+tempRa[1]+"\n");
+
+			StringBuilder sb = new StringBuilder();
+			sb.append(tempKq[0] + "," + tempKq[1] + "," + tempKe[0] + "," + tempKe[1] + "," + tempRa[0] + ","
+					+ tempRa[1] + "," + (set[1] - set[0] + 1) + "\n");
 			pw.write(sb.toString());
 		}
-		Kqs = new double[KqsAndΔ.size()];
-		Kes = new double[KesAndΔ.size()];
-		Ras = new double[RasAndΔ.size()];
-		ΔKqs = new double[KqsAndΔ.size()];
-		ΔKes = new double[KesAndΔ.size()];
-		ΔRas = new double[RasAndΔ.size()];
+		pw.close();
+
+		double[] Kqs = new double[KqsAndΔ.size()];
+		double[] Kes = new double[KesAndΔ.size()];
+		double[] Ras = new double[RasAndΔ.size()];
+		double[] ΔKqs = new double[KqsAndΔ.size()];
+		double[] ΔKes = new double[KesAndΔ.size()];
+		double[] ΔRas = new double[RasAndΔ.size()];
 
 		for (int i = 0; i < KqsAndΔ.size(); i++) {
 			Kqs[i] = KqsAndΔ.get(i)[0];
@@ -94,7 +99,7 @@ public class TirocinioAnalyzer extends Analyzer {
 			ΔKes[i] = KesAndΔ.get(i)[1];
 			ΔRas[i] = RasAndΔ.get(i)[1];
 		}
-		
+
 		Mean mean = new Mean();
 		results.put("Kq", mean.evaluate(Kqs));
 		results.put("Ke", mean.evaluate(Kes));
@@ -102,7 +107,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		results.put("ΔKq", mean.evaluate(ΔKqs));
 		results.put("ΔKe", mean.evaluate(ΔKes));
 		results.put("ΔRa", mean.evaluate(ΔRas));
-		
+
 	}
 
 	private void readDataFromFile() throws IOException {
@@ -238,30 +243,6 @@ public class TirocinioAnalyzer extends Analyzer {
 
 		return new double[] { intercept / current_mean,
 				(intercept / current_mean) * (Δ_current_mean / current_mean + Δ_intercept / intercept) };
-	}
-
-	public double[] getKqs() {
-		return Kqs;
-	}
-
-	public double[] getKes() {
-		return Kes;
-	}
-
-	public double[] getRas() {
-		return Ras;
-	}
-
-	public double[] getΔKqs() {
-		return ΔKqs;
-	}
-
-	public double[] getΔKes() {
-		return ΔKes;
-	}
-
-	public double[] getΔRas() {
-		return ΔRas;
 	}
 
 	private double[] toPrimitiveType(List<Double> list) {

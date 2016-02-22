@@ -82,9 +82,9 @@ public class AnalyzerFrame extends JFrame {
 						analyzer.parametersRequired.put(s, value);
 					}
 				} catch (NumberFormatException e1) {
-					// si verifica solo se uno dei campi è vuoto
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(getParent(), "Errore nei parametri");
+					return;
 				}
 				analyzer.calcola();
 				for (String s : resultMap.keySet()) {

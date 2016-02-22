@@ -27,13 +27,13 @@ public abstract class Analyzer {
 			try {
 				InputStream inputStream = new FileInputStream(propertyFile);
 				properties.load(inputStream);
+				inputStream.close();
 			} catch (IOException e) {
 				System.out.println("Properties loading failed");
 				return;
 			}
 			// provo a loadare tutti i parameters richiesti dalla mappa leggendo
-			// il
-			// file
+			// il file
 			for (String s : parametersRequired.keySet()) {
 				Double value = Double.valueOf((String) properties.get(s));
 				parametersRequired.put(s, value);
