@@ -49,13 +49,13 @@ public class TirocinioAnalyzer extends Analyzer {
 		results.put("ΔKe", null);
 		results.put("Ra", null);
 		results.put("ΔRa", null);
-
+		results.put("Subsets Count", null);
 		loadParameters();
 		readDataFromFile();
 	}
 
 	public void calcola() {
-		pw.write("Kq,ΔKq,Ke,ΔKe,Ra,ΔRa,SamplesCount\n");
+		pw.write("Kq,ΔKq,Ke,ΔKe,Ra,ΔRa,From,To,SamplesCount\n");
 		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
 		ArrayList<double[]> KesAndΔ = new ArrayList<>();
 		ArrayList<double[]> RasAndΔ = new ArrayList<>();
@@ -65,7 +65,10 @@ public class TirocinioAnalyzer extends Analyzer {
 		for (int i = 0; i < temp.size(); i++)
 			temp.set(i, (temp.get(i) * 2 * Math.PI / 60));
 
-		for (Integer[] set : findSubsets()) {
+		List<Integer[]> subsets = findSubsets();
+		
+		for (Integer[] set : subsets) {
+
 			int first = set[0];
 			int last = set[1];
 			double[] times = toPrimitiveType(table.get("TIME").subList(first, last + 1));
@@ -84,8 +87,9 @@ public class TirocinioAnalyzer extends Analyzer {
 
 			StringBuilder sb = new StringBuilder();
 			sb.append(tempKq[0] + "," + tempKq[1] + "," + tempKe[0] + "," + tempKe[1] + "," + tempRa[0] + ","
-					+ tempRa[1] + "," + (set[1] - set[0] + 1) + "\n");
+					+ tempRa[1] + "," + set[0] + "," + set[1] + "," + (set[1] - set[0] + 1) + "\n");
 			pw.write(sb.toString());
+			
 		}
 		pw.close();
 
@@ -112,6 +116,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		results.put("ΔKq", mean.evaluate(ΔKqs));
 		results.put("ΔKe", mean.evaluate(ΔKes));
 		results.put("ΔRa", mean.evaluate(ΔRas));
+		results.put("Subsets Count", (double) subsets.size());
 
 	}
 
@@ -171,11 +176,24 @@ public class TirocinioAnalyzer extends Analyzer {
 		reader.close();
 	}
 
-	private ArrayList<Integer[]> findSubsets() {
+	/**
+	 * Trova tutti i subset utili per l'analisi dei dati e il calcolo dei
+	 * coefficienti del motore. I subset devono essere almeno grandi quanto il
+	 * parametro SubsetSize. Affinchè un valore venga incluso in un subset, la
+	 * media delle derivate rispetto ai 10 valori successivi e ai 10 valori
+	 * precedenti deve essere positiva. Un subset viene considerato concluso
+	 * quando questa condizione non è più verificata (i valori iniziano a
+	 * calare).
+	 * 
+	 * @return una {@link List} di array di due valori, indicati rispettivamente
+	 *         l'indice del primo e dell'ultimo valore del subset, estremi
+	 *         inclusi.
+	 */
+	private List<Integer[]> findSubsets() {
 		ArrayList<Integer[]> result = new ArrayList<>();
 		int first = 0;
 		int last = 0;
-		int samplesToConsider = (int) (parametersRequired.get("SubsetSize") / 3);
+		int samplesToConsider = 20;
 
 		for (int i = samplesToConsider / 2; i < table.get("TIME").size() - samplesToConsider / 2
 				- samplesToConsider % 2; i++) {
@@ -192,7 +210,6 @@ public class TirocinioAnalyzer extends Analyzer {
 			else {
 				if (last - first > parametersRequired.get("SubsetSize")) {
 					result.add(new Integer[] { first, last });
-					System.out.println(first + " -> " + last + " [" + (last - first + 1) + "]");
 				}
 				first = i;
 				last = i;
@@ -266,8 +283,4 @@ public class TirocinioAnalyzer extends Analyzer {
 		return result;
 	}
 
-	public static void main(String[] args) throws IOException {
-		new TirocinioAnalyzer(new File("Motor_data_2016-02-50_15-16-26.csv"), new File("tirocigno.properties"))
-				.calcola();
-	}
 }

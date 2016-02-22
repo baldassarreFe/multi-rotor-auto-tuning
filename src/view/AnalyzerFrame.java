@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,12 +66,11 @@ public class AnalyzerFrame extends JFrame {
 			resultMap.put(s, value);
 			resultsPanel.add(label);
 			resultsPanel.add(value);
-
 		}
 
 		this.add(Box.createRigidArea(new Dimension(0, 35)));
 		this.add(resultsPanel);
-		
+
 		JButton analyze = new JButton("Analyze");
 		analyze.addActionListener(new ActionListener() {
 
@@ -87,8 +87,11 @@ public class AnalyzerFrame extends JFrame {
 					return;
 				}
 				analyzer.calcola();
+
+				DecimalFormat df = new DecimalFormat("#.######E0");
 				for (String s : resultMap.keySet()) {
-					resultMap.get(s).setText("" + analyzer.results.get(s));
+					String r = df.format(analyzer.results.get(s));
+					resultMap.get(s).setText(r);
 				}
 
 			}
