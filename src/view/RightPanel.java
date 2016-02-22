@@ -20,7 +20,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import analyzer.Analyzer;
 import analyzer.AnalyzersFactory;
-import analyzer.DataLoader;
 import controller.Controller;
 
 public class RightPanel extends JPanel {

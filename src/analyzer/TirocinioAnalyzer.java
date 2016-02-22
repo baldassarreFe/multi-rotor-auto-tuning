@@ -37,34 +37,34 @@ public class TirocinioAnalyzer extends Analyzer {
 	double[] ΔKqs;
 	double[] ΔKes;
 	double[] ΔRas;
-	
+
 	public TirocinioAnalyzer(File file, File propertyFile) throws IOException {
 		super(file, propertyFile);
-		
+
 		parametersRequired.put("I", null);
 		parametersRequired.put("ΔI", null);
-		
+
 		results.put("Kq", null);
 		results.put("Ke", null);
 		results.put("Ra", null);
 		results.put("ΔKq", null);
 		results.put("ΔKe", null);
 		results.put("ΔRa", null);
-		
+
 		loadParameters();
 		readDataFromFile();
 	}
-	
+
 	public void calcola() {
 		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
 		ArrayList<double[]> KesAndΔ = new ArrayList<>();
 		ArrayList<double[]> RasAndΔ = new ArrayList<>();
-		
+
 		// rpm to rad/s
 		ArrayList<Double> temp = table.get("RPM");
-		for(int i = 0; i < temp.size(); i++)
-			temp.set(i, (temp.get(i) * 2*Math.PI / 60));
-		
+		for (int i = 0; i < temp.size(); i++)
+			temp.set(i, (temp.get(i) * 2 * Math.PI / 60));
+
 		for (Integer[] set : findSubsets()) {
 			int first = set[0];
 			int last = set[1];
@@ -72,7 +72,7 @@ public class TirocinioAnalyzer extends Analyzer {
 			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last + 1));
 			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
 			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
-			
+
 			KqsAndΔ.add(calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("ΔI"), times));
 			KesAndΔ.add(calculateKe(volts, rpms));
 			RasAndΔ.add(calculateRa(volts, rpms, currents));
@@ -92,7 +92,7 @@ public class TirocinioAnalyzer extends Analyzer {
 			ΔKes[i] = KesAndΔ.get(i)[1];
 			ΔRas[i] = RasAndΔ.get(i)[1];
 		}
-		
+
 		Mean mean = new Mean();
 		results.put("Kq", mean.evaluate(Kqs));
 		results.put("Ke", mean.evaluate(Kes));
@@ -160,21 +160,33 @@ public class TirocinioAnalyzer extends Analyzer {
 
 	private ArrayList<Integer[]> findSubsets() {
 		ArrayList<Integer[]> result = new ArrayList<>();
-		int initial = 0;
-		for (int i = 2; i < table.get("TIME").size() - 2; i++) {
-			double oldDerivative = table.get("RPM").get(i - 1) - table.get("RPM").get(i - 2);
-			double nextDerivative = table.get("RPM").get(i + 1) - table.get("RPM").get(i);
-			double derivative = table.get("RPM").get(i) - table.get("RPM").get(i - 1);
-			// se questa derivata e quella successiva sono negative ho due
-			// condizioni: o punto di massimo (e quindi devo aggiungere il
-			// subset) oppure sono in discesa
-			if (derivative <= 0 && nextDerivative <= 0) {
-				// la derivata di prima era positiva (quindi sono in un punto di
-				// massimo) e il set ha dimensione
-				// significativa per fare delle statistiche
-				if (oldDerivative > 0 && i - initial > 50)
-					result.add(new Integer[] { initial, i - 1 });
-				initial = i;
+		int first = 0;
+		int last = 0;
+		double[] derivatives = new double[table.get("TIME").size()];
+		for (int i = 1; i < derivatives.length; i++) {
+			derivatives[i] = table.get("RPM").get(i) - table.get("RPM").get(i - 1);
+		}
+		for (int i = 3; i < table.get("TIME").size() - 3; i++) {
+			int positiveCount = 0;
+			int negativeCount = 0;
+			for (int j = -2; j <= 2; j++) {
+				if (derivatives[i + j] > 0)
+					positiveCount++;
+				else
+					negativeCount++;
+			}
+			
+			if (positiveCount >= 4)
+				last++;
+			else 
+				last = i;
+			
+			if (negativeCount >= 4) {
+				if (last - first > parametersRequired.get("SubsetSize")) {
+					result.add(new Integer[] { first, last });
+				}
+				first = i;
+				last = i;
 			}
 		}
 		return result;

@@ -70,7 +70,6 @@ public class GraphsFrame extends JFrame {
 				}
 			}
 		}
-
 		reader.close();
 	}
 
