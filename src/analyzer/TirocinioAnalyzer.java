@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,24 +32,21 @@ import esc.TelemetryParameter;
 public class TirocinioAnalyzer extends Analyzer {
 
 	Map<String, ArrayList<Double>> table;
-	double[] Kqs;
-	double[] Kes;
-	double[] Ras;
-	double[] ΔKqs;
-	double[] ΔKes;
-	double[] ΔRas;
+	PrintWriter pw;
 
 	public TirocinioAnalyzer(File file, File propertyFile) throws IOException {
 		super(file, propertyFile);
 
+		pw = new PrintWriter(new File(file.getName().substring(0, file.getName().length() - 4) + "-ANALYSIS.csv"));
+		
 		parametersRequired.put("I", null);
 		parametersRequired.put("ΔI", null);
 
 		results.put("Kq", null);
-		results.put("Ke", null);
-		results.put("Ra", null);
 		results.put("ΔKq", null);
+		results.put("Ke", null);
 		results.put("ΔKe", null);
+		results.put("Ra", null);
 		results.put("ΔRa", null);
 
 		loadParameters();
@@ -56,12 +54,14 @@ public class TirocinioAnalyzer extends Analyzer {
 	}
 
 	public void calcola() {
+		pw.write("Kq,ΔKq,Ke,ΔKe,Ra,ΔRa,SamplesCount\n");
 		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
 		ArrayList<double[]> KesAndΔ = new ArrayList<>();
 		ArrayList<double[]> RasAndΔ = new ArrayList<>();
 
 		// rpm to rad/s
 		ArrayList<Double> temp = table.get("RPM");
+
 		for (int i = 0; i < temp.size(); i++)
 			temp.set(i, (temp.get(i) * 2 * Math.PI / 60));
 
@@ -73,16 +73,28 @@ public class TirocinioAnalyzer extends Analyzer {
 			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
 			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
 
-			KqsAndΔ.add(calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("ΔI"), times));
-			KesAndΔ.add(calculateKe(volts, rpms));
-			RasAndΔ.add(calculateRa(volts, rpms, currents));
+			double[] tempKq = calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("ΔI"),
+					times);
+			double[] tempKe = calculateKe(volts, rpms);
+			double[] tempRa = calculateRa(volts, rpms, currents);
+
+			KqsAndΔ.add(tempKq);
+			KesAndΔ.add(tempKe);
+			RasAndΔ.add(tempRa);
+
+			StringBuilder sb = new StringBuilder();
+			sb.append(tempKq[0] + "," + tempKq[1] + "," + tempKe[0] + "," + tempKe[1] + "," + tempRa[0] + ","
+					+ tempRa[1] + "," + (set[1] - set[0] + 1) + "\n");
+			pw.write(sb.toString());
 		}
-		Kqs = new double[KqsAndΔ.size()];
-		Kes = new double[KesAndΔ.size()];
-		Ras = new double[RasAndΔ.size()];
-		ΔKqs = new double[KqsAndΔ.size()];
-		ΔKes = new double[KesAndΔ.size()];
-		ΔRas = new double[RasAndΔ.size()];
+		pw.close();
+
+		double[] Kqs = new double[KqsAndΔ.size()];
+		double[] Kes = new double[KesAndΔ.size()];
+		double[] Ras = new double[RasAndΔ.size()];
+		double[] ΔKqs = new double[KqsAndΔ.size()];
+		double[] ΔKes = new double[KesAndΔ.size()];
+		double[] ΔRas = new double[RasAndΔ.size()];
 
 		for (int i = 0; i < KqsAndΔ.size(); i++) {
 			Kqs[i] = KqsAndΔ.get(i)[0];
@@ -100,6 +112,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		results.put("ΔKq", mean.evaluate(ΔKqs));
 		results.put("ΔKe", mean.evaluate(ΔKes));
 		results.put("ΔRa", mean.evaluate(ΔRas));
+
 	}
 
 	private void readDataFromFile() throws IOException {
@@ -247,30 +260,6 @@ public class TirocinioAnalyzer extends Analyzer {
 
 		return new double[] { intercept / current_mean,
 				(intercept / current_mean) * (Δ_current_mean / current_mean + Δ_intercept / intercept) };
-	}
-
-	public double[] getKqs() {
-		return Kqs;
-	}
-
-	public double[] getKes() {
-		return Kes;
-	}
-
-	public double[] getRas() {
-		return Ras;
-	}
-
-	public double[] getΔKqs() {
-		return ΔKqs;
-	}
-
-	public double[] getΔKes() {
-		return ΔKes;
-	}
-
-	public double[] getΔRas() {
-		return ΔRas;
 	}
 
 	private double[] toPrimitiveType(List<Double> list) {
