@@ -47,7 +47,7 @@ public class RoutineLoader {
 			while (st.hasMoreTokens()) {
 				try {
 					String paramName = st.nextToken().trim().toUpperCase();
-					TelemetryParameter p = TelemetryParameter.valoreDi(paramName);
+					TelemetryParameter p = TelemetryParameter.parse(paramName);
 					params.add(p);
 				} catch (IllegalArgumentException e) {
 					throw new FileFormatException("Errore nei parametri nel file" + f.getName(), e);

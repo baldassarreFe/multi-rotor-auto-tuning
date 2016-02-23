@@ -18,6 +18,10 @@ import routine.Instruction;
  * Implementazione rappresentante un ESC modello AutoQuadEsc32
  * 
  */
+/**
+ * @author fede
+ *
+ */
 public class AutoQuadEsc32 extends AbstractEsc {
 	private ReaderThread reader;
 
@@ -107,38 +111,96 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		return this;
 	}
 
+	/**
+	 * Invia lo specifico comando per seleziona la direzione di rotazione del
+	 * motore: "set DIRECTION + direction"
+	 * 
+	 * @param direction
+	 *            valore intero che può assumere i valori 1 e -1 (forward e
+	 *            backward)
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
 	private AutoQuadEsc32 setDirection(int direction) {
 		return sendRawCommand("set DIRECTION " + direction);
 	}
 
+	/**
+	 * Invia lo specifico comando per seleziona la direzione di rotazione del
+	 * motore: "set DIRECTION + direction"
+	 * 
+	 * @param direction
+	 *            valore intero che può assumere i valori 1 e -1 (forward e
+	 *            backward)
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
 	private AutoQuadEsc32 setRPM(int rpm) {
 		return sendRawCommand("rpm " + rpm);
 	}
 
+	/**
+	 * Invia l'istruzione di arm del motore; "arm"
+	 * 
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
 	private AutoQuadEsc32 arm() {
 		return sendRawCommand("arm");
 	}
 
+	/**
+	 * Invia l'istruzione di disarm del motore: "disarm"
+	 * 
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
 	private AutoQuadEsc32 disarm() {
 		return sendRawCommand("disarm");
 	}
 
+	/**
+	 * Invia l'istruzione di avvio del motore: "start"
+	 * 
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
 	private AutoQuadEsc32 start() {
 		return sendRawCommand("start");
 	}
 
+	/**
+	 * Invia l'istruzione per arrestare il motore: "stop"
+	 * 
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
 	private AutoQuadEsc32 stop() {
 		return sendRawCommand("stop");
 	}
 
 	/**
+	 * Permette di effettuare un'accelerazione del motore su un certo intervallo
+	 * di RPM. A partire dagli RPM di partenza aumenta di 1 ogni intervallo di
+	 * tempo deltaT calcolato in base alla accelerazione fino a raggiungere gli
+	 * RPM desiderati. In questo modello di ESC vi è un limite alla
+	 * decelerazione di circa -400 rpm/s. Per cambiamenti più rapidi si nota che
+	 * l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta.
+	 * Per quanto riguarda l'accelerazione questa sarà limitata superiormente
+	 * dal valore per il quale l'esc mette i motor volts a 15V (tensione di
+	 * alimentazione).
+	 * 
 	 * @param from
 	 *            starting rpm
 	 * @param to
 	 *            ending rpm
 	 * @param pace
-	 *            acceleration in rpm / s
-	 * @return
+	 *            acceleration in rpm/s
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 * @throws IllegalArgumentException
+	 *             nel caso di parametri non compatibili
+	 * 
 	 */
 	private AutoQuadEsc32 accelerate(int from, int to, double pace) {
 		if (pace == 0 || from == to) {
@@ -179,6 +241,15 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		return this;
 	}
 
+	/**
+	 * Avvia la telemetria del motore in base alla frequenza passata come
+	 * parametro: "telemetry " + frequency
+	 * 
+	 * @param frequency
+	 *            wanted frequency in Hz
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
 	private AutoQuadEsc32 startTelemetry(int frequency) {
 		if (frequency < 0 || frequency > 100) {
 			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
@@ -198,6 +269,13 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		return this;
 	}
 
+	/**
+	 * Stoppa la telemetria del motore settando la frequenza di aggiornamento a
+	 * 0: "telemetry 0"
+	 * 
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
 	private AutoQuadEsc32 stopTelemetry() {
 		sendRawCommand("telemetry 0");
 		if (reader != null) {
@@ -271,7 +349,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 						// se c'è almeno un token e
 						// se ha parsato la prima parte della stringa come
 						// parametro e questo parametro ci interessa
-						if (tokens.length != 0 && (p = TelemetryParameter.valoreDi(tokens[0])) != null
+						if (tokens.length != 0 && (p = TelemetryParameter.parse(tokens[0])) != null
 								&& telemetryParameters.contains(p)) {
 							Object value = null;
 							try {

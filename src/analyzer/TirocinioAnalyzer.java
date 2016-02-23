@@ -138,7 +138,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		int ampsColumn = -1;
 		int voltsColumn = -1;
 		for (int i = 1; i < tokens.length; i++) {
-			switch (TelemetryParameter.valoreDi(tokens[i])) {
+			switch (TelemetryParameter.parse(tokens[i])) {
 			case RPM:
 				rpmColumn = i;
 				break;
