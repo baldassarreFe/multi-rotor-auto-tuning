@@ -31,7 +31,7 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * {@link Analyzer#parametersRequired}, {@link Analyzer#table},
 	 * {@link Analyzer#results}.<br>
 	 * Come parametri vengono richiesti il momento di inerzia (I) del disco, la
-	 * sua incertezza (ΔI) e la dimensione minima che deve avere un subset di
+	 * sua incertezza (deltaI) e la dimensione minima che deve avere un subset di
 	 * misure di rpm crescenti per essere considerato come un'accelerazione ai
 	 * fini dell'analisi.<br>
 	 * Come colonne nel file sono richieste TIME, RPM, AMPS AVG e MOTOR VOLTS.
@@ -54,15 +54,15 @@ public class TirocinioAnalyzer extends Analyzer {
 				new File(dataFile.getName().substring(0, dataFile.getName().length() - 4) + "-ANALYSIS.csv"));
 
 		parametersRequired.put("I", null);
-		parametersRequired.put("ΔI", null);
+		parametersRequired.put("deltaI", null);
 		parametersRequired.put("SubsetSize", null);
 
 		results.put("Kq", null);
-		results.put("ΔKq", null);
+		results.put("deltaKq", null);
 		results.put("Ke", null);
-		results.put("ΔKe", null);
+		results.put("deltaKe", null);
 		results.put("Ra", null);
-		results.put("ΔRa", null);
+		results.put("deltaRa", null);
 		results.put("Subsets Count", null);
 
 		table.put("TIME", new ArrayList<Double>());
@@ -77,7 +77,7 @@ public class TirocinioAnalyzer extends Analyzer {
 	/**
 	 * La procedura di calcolo sfrutta gli strumenti di {@link Mean},
 	 * {@link SimpleRegression} e {@link StandardDeviation} per dare in output
-	 * Kq, ΔKq, Ke, ΔKe, Ra, ΔRa, SamplesCount. Per prima cosa individua i
+	 * Kq, deltaKq, Ke, deltaKe, Ra, deltaRa, SamplesCount. Per prima cosa individua i
 	 * subset di accelerazione all'interno del set completo di dati, poi per
 	 * ogni set sfrutta i metodi {@link #calculateKe(double[], double[])},
 	 * {@link #calculateKq(double[], double[], double, double, double[])} e
@@ -89,10 +89,10 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * @see analyzer.Analyzer#calcola()
 	 */
 	public void calcola() {
-		pw.write("Kq,ΔKq,Ke,ΔKe,Ra,ΔRa,From,To,SamplesCount\n");
-		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
-		ArrayList<double[]> KesAndΔ = new ArrayList<>();
-		ArrayList<double[]> RasAndΔ = new ArrayList<>();
+		pw.write("Kq,deltaKq,Ke,deltaKe,Ra,deltaRa,From,To,SamplesCount\n");
+		ArrayList<double[]> KqsAndDelta = new ArrayList<>();
+		ArrayList<double[]> KesAndDelta = new ArrayList<>();
+		ArrayList<double[]> RasAndDelta = new ArrayList<>();
 
 		// rpm to rad/s
 		List<Double> temp = table.get("RPM");
@@ -110,14 +110,14 @@ public class TirocinioAnalyzer extends Analyzer {
 			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
 			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
 
-			double[] tempKq = calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("ΔI"),
+			double[] tempKq = calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("deltaI"),
 					times);
 			double[] tempKe = calculateKe(volts, rpms);
 			double[] tempRa = calculateRa(volts, rpms, currents);
 
-			KqsAndΔ.add(tempKq);
-			KesAndΔ.add(tempKe);
-			RasAndΔ.add(tempRa);
+			KqsAndDelta.add(tempKq);
+			KesAndDelta.add(tempKe);
+			RasAndDelta.add(tempRa);
 
 			StringBuilder sb = new StringBuilder();
 			sb.append(tempKq[0] + "," + tempKq[1] + "," + tempKe[0] + "," + tempKe[1] + "," + tempRa[0] + ","
@@ -127,29 +127,29 @@ public class TirocinioAnalyzer extends Analyzer {
 		}
 		pw.close();
 
-		double[] Kqs = new double[KqsAndΔ.size()];
-		double[] Kes = new double[KesAndΔ.size()];
-		double[] Ras = new double[RasAndΔ.size()];
-		double[] ΔKqs = new double[KqsAndΔ.size()];
-		double[] ΔKes = new double[KesAndΔ.size()];
-		double[] ΔRas = new double[RasAndΔ.size()];
+		double[] Kqs = new double[KqsAndDelta.size()];
+		double[] Kes = new double[KesAndDelta.size()];
+		double[] Ras = new double[RasAndDelta.size()];
+		double[] deltaKqs = new double[KqsAndDelta.size()];
+		double[] deltaKes = new double[KesAndDelta.size()];
+		double[] deltaRas = new double[RasAndDelta.size()];
 
-		for (int i = 0; i < KqsAndΔ.size(); i++) {
-			Kqs[i] = KqsAndΔ.get(i)[0];
-			Kes[i] = KesAndΔ.get(i)[0];
-			Ras[i] = RasAndΔ.get(i)[0];
-			ΔKqs[i] = KqsAndΔ.get(i)[1];
-			ΔKes[i] = KesAndΔ.get(i)[1];
-			ΔRas[i] = RasAndΔ.get(i)[1];
+		for (int i = 0; i < KqsAndDelta.size(); i++) {
+			Kqs[i] = KqsAndDelta.get(i)[0];
+			Kes[i] = KesAndDelta.get(i)[0];
+			Ras[i] = RasAndDelta.get(i)[0];
+			deltaKqs[i] = KqsAndDelta.get(i)[1];
+			deltaKes[i] = KesAndDelta.get(i)[1];
+			deltaRas[i] = RasAndDelta.get(i)[1];
 		}
 
 		Mean mean = new Mean();
 		results.put("Kq", mean.evaluate(Kqs));
 		results.put("Ke", mean.evaluate(Kes));
 		results.put("Ra", mean.evaluate(Ras));
-		results.put("ΔKq", mean.evaluate(ΔKqs));
-		results.put("ΔKe", mean.evaluate(ΔKes));
-		results.put("ΔRa", mean.evaluate(ΔRas));
+		results.put("deltaKq", mean.evaluate(deltaKqs));
+		results.put("deltaKe", mean.evaluate(deltaKes));
+		results.put("deltaRa", mean.evaluate(deltaRas));
 		results.put("Subsets Count", (double) subsets.size());
 
 	}
@@ -206,30 +206,30 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * @param omegas
 	 * @param currents
 	 * @param I
-	 * @param ΔI
+	 * @param deltaI
 	 * @param times
 	 * @return
 	 */
-	private static double[] calculateKq(double[] omegas, double[] currents, double I, double ΔI, double[] times) {
+	private static double[] calculateKq(double[] omegas, double[] currents, double I, double deltaI, double[] times) {
 		// calcolare accelerazione angolare con regressione lineare sugli rpm
 		SimpleRegression regression = new SimpleRegression();
 		regression.addData(toMatrix(times, omegas));
 		double alfa = regression.getSlope();
-		double Δ_alfa = regression.getSlopeStdErr();
+		double delta_alfa = regression.getSlopeStdErr();
 
 		// calcolare la coppia applicata dal motore come acc. per inerzia
 		double torque = I * alfa;
-		double Δ_torque = torque * (Δ_alfa / alfa + ΔI / I);
+		double delta_torque = torque * (delta_alfa / alfa + deltaI / I);
 
 		// calcolare la corrente media con media sui valori della corrente
 		Mean mean = new Mean();
 		double current_mean = mean.evaluate(currents);
 		StandardDeviation sd = new StandardDeviation();
-		double Δ_current_mean = sd.evaluate(currents, current_mean);
+		double delta_current_mean = sd.evaluate(currents, current_mean);
 
 		// calcolare Kq come rapporto tra coppia e corrente media
 		return new double[] { torque / current_mean,
-				torque / current_mean * (Δ_torque / torque + Δ_current_mean / current_mean) };
+				torque / current_mean * (delta_torque / torque + delta_current_mean / current_mean) };
 	}
 
 	private static double[] calculateKe(double[] tensions, double[] omegas) {
@@ -246,16 +246,16 @@ public class TirocinioAnalyzer extends Analyzer {
 		SimpleRegression regression = new SimpleRegression();
 		regression.addData(toMatrix(omegas, tensions));
 		double intercept = regression.getIntercept();
-		double Δ_intercept = regression.getInterceptStdErr();
+		double delta_intercept = regression.getInterceptStdErr();
 
 		// calcolare la corrente media con media sui valori della corrente
 		Mean mean = new Mean();
 		double current_mean = mean.evaluate(currents);
 		StandardDeviation sd = new StandardDeviation();
-		double Δ_current_mean = sd.evaluate(currents, current_mean);
+		double delta_current_mean = sd.evaluate(currents, current_mean);
 
 		return new double[] { intercept / current_mean,
-				(intercept / current_mean) * (Δ_current_mean / current_mean + Δ_intercept / intercept) };
+				(intercept / current_mean) * (delta_current_mean / current_mean + delta_intercept / intercept) };
 	}
 
 	private static double[][] toMatrix(double[] x, double[] y) {
