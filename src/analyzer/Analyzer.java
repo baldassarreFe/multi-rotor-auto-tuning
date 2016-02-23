@@ -6,41 +6,58 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.SortedMap;
 
 /**
  * Classe astratta di base per analizzare dati generati da una routine. Permette
  * caricare delle specifiche colonne da un file di input sulla base delle
- * colonne indicate dalle sottoclassi nel campo {@link table}. Permette
+ * colonne indicate dalle sottoclassi nel campo {@link #table}. Permette
  * inoltre di caricare dei parametri da un file di properties sulla base dei
  * parametri indicate dalle sottoclassi nel campo
- * {@link parametersRequired}. I risultati del calcolo saranno
+ * {@link #parametersRequired}. I risultati del calcolo saranno
  * accessibili tramite il campo results dopo aver invocato il metodo
- * {@link calcola()}
- *
+ * {@link #calcola()} *
  */
 public abstract class Analyzer {
 	private File propertyFile;
 	private File dataFile;
+	private boolean hasSuperBeenCalled = false;
 
-	protected Map<String, ArrayList<Double>> table;
+	protected Map<String, List<Double>> table;
 	public Map<String, Double> parametersRequired;
 	public Map<String, Double> results;
 
-	public Analyzer(File logFile, File propertyFile) {
-		this.dataFile = logFile;
+	/**
+	 * This constructor <b>must</b> be called by the implementations or else the
+	 * maps and the source files can not be initializated
+	 * 
+	 * @param dataFile
+	 * @param propertyFile
+	 */
+	public Analyzer(File dataFile, File propertyFile) {
+		if (dataFile == null)
+			throw new IllegalArgumentException();
+		this.dataFile = dataFile;
 		this.propertyFile = propertyFile;
 		this.table = new HashMap<>();
 		this.parametersRequired = new LinkedHashMap<>();
 		this.results = new LinkedHashMap<>();
+		this.hasSuperBeenCalled = true;
 	}
 
+	/**
+	 * Loads the parameters from the file specified in the constructor into the
+	 * {@link #parametersRequired} map. If no file has been specified
+	 * nothing is loaded. If some of the parameters are not found these are
+	 * left null.
+	 */
 	protected void loadParameters() {
+		if (!hasSuperBeenCalled)
+			throw new IllegalStateException("Implementation has not called the super constructor");
 		if (propertyFile != null) {
 			Properties properties = new Properties();
 			try {
@@ -60,7 +77,18 @@ public abstract class Analyzer {
 		}
 	}
 
+	/**
+	 * Loads the data from the file specified in the constructor into the
+	 * {@link #table} map. Se una riga della tabella non presenta uno o
+	 * più valori viene scartata
+	 * 
+	 * @throws IOException
+	 *             if one of the column specified in the map is missing or if an
+	 *             error occurs during I/O
+	 */
 	protected void readDataFromFile() throws IOException {
+		if (!hasSuperBeenCalled)
+			throw new IllegalStateException("Implementation has not called the super constructor");
 		BufferedReader reader = new BufferedReader(new FileReader(dataFile));
 
 		// Le colonne richieste dalla routine sono specificate nel campo table,
@@ -99,5 +127,10 @@ public abstract class Analyzer {
 		reader.close();
 	}
 
+	/**
+	 * Sulla base dei dati presenti in {@link #table} e
+	 * {@link #parametersRequired} riempie {@link #results} con
+	 * i risultati dei calcoli.
+	 */
 	public abstract void calcola();
 }

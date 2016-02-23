@@ -1,43 +1,57 @@
 package analyzer;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.math3.stat.descriptive.moment.Mean;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
-import esc.TelemetryParameter;
-
 /**
- * 1. caricare da un file csv i dati di timestamp, motor volts, amps avg, rpm,
- * scartare le altre colonne<br>
- * 2. trovare gli N subset di valori per i quali si ha la derivata di rpm
- * positiva (accelerazione)<br>
- * 3. per ogni subset fare il calcolo dei coefficienti:<br>
- * 3a. calcolare accelerazione angolare con regressione lineare sugli rpm<br>
- * 3b. calcolare la coppia applicata dal motore come acc. per inerzia<br>
- * 3c. calcolare la corrente media con media sui valori della corrente<br>
- * 3d. calcolare Kq come rapporto tra coppia e corrente media<br>
- * 3e. calcolare Ke e Ra come coefficienti (risp slope e intercept/corrente
+ * Questa implementazione di {@link Analyzer} compie i seguenti passi per
+ * calcolare Ke, Kq, Ra: 1. trovare gli N subset di valori per i quali si ha la
+ * derivata di rpm positiva (accelerazione)<br>
+ * 2. per ogni subset fare il calcolo dei coefficienti:<br>
+ * 2a. calcolare accelerazione angolare con regressione lineare sugli rpm<br>
+ * 2b. calcolare la coppia applicata dal motore come acc. per inerzia<br>
+ * 2c. calcolare la corrente media con media sui valori della corrente<br>
+ * 2d. calcolare Kq come rapporto tra coppia e corrente media<br>
+ * 2e. calcolare Ke e Ra come coefficienti (risp slope e intercept/corrente
  * media) della regressione lineare tra tensione e velocità angolare<br>
  */
 public class TirocinioAnalyzer extends Analyzer {
+	private PrintWriter pw;
 
-	Map<String, ArrayList<Double>> table;
-	PrintWriter pw;
-
+	/**
+	 * Dopo aver chiamato il costruttore di
+	 * {@link Analyzer#Analyzer(File, File)} vengono riempite le mappe
+	 * {@link Analyzer#parametersRequired}, {@link Analyzer#table},
+	 * {@link Analyzer#results}.<br>
+	 * Come parametri vengono richiesti il momento di inerzia (I) del disco, la
+	 * sua incertezza (ΔI) e la dimensione minima che deve avere un subset di
+	 * misure di rpm crescenti per essere considerato come un'accelerazione ai
+	 * fini dell'analisi.<br>
+	 * Come colonne nel file sono richieste TIME, RPM, AMPS AVG e MOTOR VOLTS.
+	 * <br>
+	 * Come risultati vengono restituiti Ke, Kq e Ra con le relative incertezze,
+	 * oltre che al numero di acelerazioni individuate durante l'analisi.<br>
+	 * Informazioni più dettagliate sui risultati intermedi dei calcoli possono
+	 * essere lette in un nuovo file chiamato come il file dei dati con
+	 * l'aggiunta di "-ANALYSIS"
+	 * 
+	 * @param dataFile
+	 * @param propertyFile
+	 * @throws IOException
+	 * @see {@link Analyzer#Analyzer(File, File)}
+	 */
 	public TirocinioAnalyzer(File dataFile, File propertyFile) throws IOException {
 		super(dataFile, propertyFile);
 
-		pw = new PrintWriter(new File(dataFile.getName().substring(0, dataFile.getName().length() - 4) + "-ANALYSIS.csv"));
+		pw = new PrintWriter(
+				new File(dataFile.getName().substring(0, dataFile.getName().length() - 4) + "-ANALYSIS.csv"));
 
 		parametersRequired.put("I", null);
 		parametersRequired.put("ΔI", null);
@@ -50,16 +64,30 @@ public class TirocinioAnalyzer extends Analyzer {
 		results.put("Ra", null);
 		results.put("ΔRa", null);
 		results.put("Subsets Count", null);
-		
+
 		table.put("TIME", new ArrayList<Double>());
 		table.put("RPM", new ArrayList<Double>());
 		table.put("AMPS AVG", new ArrayList<Double>());
 		table.put("MOTOR VOLTS", new ArrayList<Double>());
-		
+
 		loadParameters();
 		readDataFromFile();
 	}
 
+	/**
+	 * La procedura di calcolo sfrutta gli strumenti di {@link Mean},
+	 * {@link SimpleRegression} e {@link StandardDeviation} per dare in output
+	 * Kq, ΔKq, Ke, ΔKe, Ra, ΔRa, SamplesCount. Per prima cosa individua i
+	 * subset di accelerazione all'interno del set completo di dati, poi per
+	 * ogni set sfrutta i metodi {@link #calculateKe(double[], double[])},
+	 * {@link #calculateKq(double[], double[], double, double, double[])} e
+	 * {@link #calculateRa(double[], double[], double[])}. Infine produce come
+	 * output una media dei valori calcolati sui singoli subset. Produce un
+	 * output più dettagliato dei calcoli all'interno del file creato nel
+	 * costruttore.
+	 * 
+	 * @see analyzer.Analyzer#calcola()
+	 */
 	public void calcola() {
 		pw.write("Kq,ΔKq,Ke,ΔKe,Ra,ΔRa,From,To,SamplesCount\n");
 		ArrayList<double[]> KqsAndΔ = new ArrayList<>();
@@ -67,7 +95,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		ArrayList<double[]> RasAndΔ = new ArrayList<>();
 
 		// rpm to rad/s
-		ArrayList<Double> temp = table.get("RPM");
+		List<Double> temp = table.get("RPM");
 		for (int i = 0; i < temp.size(); i++)
 			temp.set(i, (temp.get(i) * 2 * Math.PI / 60));
 
@@ -168,16 +196,21 @@ public class TirocinioAnalyzer extends Analyzer {
 		return result;
 	}
 
-	private static double[][] toMatrix(double[] x, double[] y) {
-		double[][] result = new double[x.length][2]; // must be the same size
-		for (int i = 0; i < x.length; i++) {
-			result[i][0] = x[i];
-			result[i][1] = y[i];
-		}
-		return result;
-	}
-
-	public static double[] calculateKq(double[] omegas, double[] currents, double I, double ΔI, double[] times) {
+	/**
+	 * Calcola Kq con questi passi:<br>
+	 * 1. calcolare accelerazione angolare con regressione lineare sugli rpm<br>
+	 * 2. calcolare la coppia applicata dal motore come acc. per inerzia<br>
+	 * 3. calcolare la corrente media con media sui valori della corrente<br>
+	 * 4. calcolare Kq come rapporto tra coppia e corrente media
+	 * 
+	 * @param omegas
+	 * @param currents
+	 * @param I
+	 * @param ΔI
+	 * @param times
+	 * @return
+	 */
+	private static double[] calculateKq(double[] omegas, double[] currents, double I, double ΔI, double[] times) {
 		// calcolare accelerazione angolare con regressione lineare sugli rpm
 		SimpleRegression regression = new SimpleRegression();
 		regression.addData(toMatrix(times, omegas));
@@ -199,7 +232,7 @@ public class TirocinioAnalyzer extends Analyzer {
 				torque / current_mean * (Δ_torque / torque + Δ_current_mean / current_mean) };
 	}
 
-	public static double[] calculateKe(double[] tensions, double[] omegas) {
+	private static double[] calculateKe(double[] tensions, double[] omegas) {
 		// calcolare Ke come slope della regressione lineare tra tensione e
 		// velocità angolare
 		SimpleRegression regression = new SimpleRegression();
@@ -207,7 +240,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		return new double[] { regression.getSlope(), regression.getSlopeStdErr() };
 	}
 
-	public static double[] calculateRa(double[] tensions, double[] omegas, double[] currents) {
+	private static double[] calculateRa(double[] tensions, double[] omegas, double[] currents) {
 		// calcolare Ra come intercept/mean_current della regressione lineare
 		// tra tensione e velocità angolare
 		SimpleRegression regression = new SimpleRegression();
@@ -223,6 +256,15 @@ public class TirocinioAnalyzer extends Analyzer {
 
 		return new double[] { intercept / current_mean,
 				(intercept / current_mean) * (Δ_current_mean / current_mean + Δ_intercept / intercept) };
+	}
+
+	private static double[][] toMatrix(double[] x, double[] y) {
+		double[][] result = new double[x.length][2]; // must be the same size
+		for (int i = 0; i < x.length; i++) {
+			result[i][0] = x[i];
+			result[i][1] = y[i];
+		}
+		return result;
 	}
 
 	private double[] toPrimitiveType(List<Double> list) {
