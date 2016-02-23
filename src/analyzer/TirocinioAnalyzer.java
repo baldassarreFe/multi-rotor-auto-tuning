@@ -34,10 +34,10 @@ public class TirocinioAnalyzer extends Analyzer {
 	Map<String, ArrayList<Double>> table;
 	PrintWriter pw;
 
-	public TirocinioAnalyzer(File file, File propertyFile) throws IOException {
-		super(file, propertyFile);
+	public TirocinioAnalyzer(File dataFile, File propertyFile) throws IOException {
+		super(dataFile, propertyFile);
 
-		pw = new PrintWriter(new File(file.getName().substring(0, file.getName().length() - 4) + "-ANALYSIS.csv"));
+		pw = new PrintWriter(new File(dataFile.getName().substring(0, dataFile.getName().length() - 4) + "-ANALYSIS.csv"));
 
 		parametersRequired.put("I", null);
 		parametersRequired.put("ΔI", null);
@@ -50,6 +50,12 @@ public class TirocinioAnalyzer extends Analyzer {
 		results.put("Ra", null);
 		results.put("ΔRa", null);
 		results.put("Subsets Count", null);
+		
+		table.put("TIME", new ArrayList<Double>());
+		table.put("RPM", new ArrayList<Double>());
+		table.put("AMPS AVG", new ArrayList<Double>());
+		table.put("MOTOR VOLTS", new ArrayList<Double>());
+		
 		loadParameters();
 		readDataFromFile();
 	}
@@ -118,62 +124,6 @@ public class TirocinioAnalyzer extends Analyzer {
 		results.put("ΔRa", mean.evaluate(ΔRas));
 		results.put("Subsets Count", (double) subsets.size());
 
-	}
-
-	private void readDataFromFile() throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(logFile));
-
-		// mappa parametro - lista di dati
-		table = new HashMap<>();
-		table.put("TIME", new ArrayList<Double>());
-		table.put("RPM", new ArrayList<Double>());
-		table.put("AMPS AVG", new ArrayList<Double>());
-		table.put("MOTOR VOLTS", new ArrayList<Double>());
-
-		// individuare le colonne utili
-		String header = reader.readLine();
-		String[] tokens = header.split(",");
-		int timeColumn = 0;
-		int rpmColumn = -1;
-		int ampsColumn = -1;
-		int voltsColumn = -1;
-		for (int i = 1; i < tokens.length; i++) {
-			switch (TelemetryParameter.valoreDi(tokens[i])) {
-			case RPM:
-				rpmColumn = i;
-				break;
-			case AMPS_AVG:
-				ampsColumn = i;
-				break;
-			case MOTOR_VOLTS:
-				voltsColumn = i;
-				break;
-			default:
-				break;
-			}
-		}
-		if (rpmColumn == -1 || ampsColumn == -1 || voltsColumn == -1) {
-			reader.close();
-			throw new IOException("File formatting problem");
-		}
-
-		// se su una riga c'è anche solo un buco saltiamo la riga, si può
-		// migliorare,
-		// ma per comodità nel fare la regressione è meglio fare così
-		String line;
-		while ((line = reader.readLine()) != null) {
-			tokens = line.split(",");
-			try {
-				table.get("TIME").add(Double.parseDouble(tokens[timeColumn]));
-				table.get("RPM").add(Double.parseDouble(tokens[rpmColumn]));
-				table.get("AMPS AVG").add(Double.parseDouble(tokens[ampsColumn]));
-				table.get("MOTOR VOLTS").add(Double.parseDouble(tokens[voltsColumn]));
-			} catch (ArrayIndexOutOfBoundsException | NumberFormatException ignore) {
-				System.err.println("Errore alla riga: " + line);
-				ignore.printStackTrace();
-			}
-		}
-		reader.close();
 	}
 
 	/**
