@@ -24,7 +24,7 @@ public enum TelemetryParameter {
 		this.classe = c;
 	}
 	
-	public static TelemetryParameter valoreDi(String string) {
+	public static TelemetryParameter parse(String string) {
 		for(TelemetryParameter p : TelemetryParameter.values()) {
 			if(string.equals(p.name))
 				return p;
