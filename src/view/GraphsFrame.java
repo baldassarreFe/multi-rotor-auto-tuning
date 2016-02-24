@@ -31,9 +31,8 @@ public class GraphsFrame extends JFrame {
 		// parsing dell'header
 		String header = reader.readLine();
 		String[] parameters = header.split(",");
-		for (int i = 1; i < parameters.length; i++) {
+		for (int i = 1; i < parameters.length; i++)
 			dataSeries.put(parameters[i], new XYSeries(parameters[i]));
-		}
 
 		// creazione dei grafici
 		this.setLayout(new GridLayout(2, (int) Math.ceil(parameters.length / 2.0)));
@@ -58,7 +57,7 @@ public class GraphsFrame extends JFrame {
 		String line;
 		while ((line = reader.readLine()) != null) {
 			String[] values = line.split(",");
-			for (int i = 1; i < values.length; i++) {
+			for (int i = 1; i < values.length; i++)
 				try {
 					Double timestamp = Double.valueOf(values[0]);
 					Double value = Double.valueOf(values[i]);
@@ -67,7 +66,6 @@ public class GraphsFrame extends JFrame {
 					System.err.println("Errore alla riga: " + line);
 					ignore.printStackTrace();
 				}
-			}
 		}
 		reader.close();
 	}

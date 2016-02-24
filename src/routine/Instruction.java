@@ -19,10 +19,10 @@ public class Instruction {
 		return new Instruction(InstructionType.ACCELERATE, map);
 	}
 
-	public static final Instruction newSleep(long millis) {
+	public static final Instruction newDirection(String direction) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("millis", millis);
-		return new Instruction(InstructionType.SLEEP, map);
+		map.put("direction", direction);
+		return new Instruction(InstructionType.DIRECTION, map);
 	}
 
 	public static final Instruction newSetRpm(int rpm) {
@@ -37,10 +37,10 @@ public class Instruction {
 		return new Instruction(InstructionType.START_TELEMETRY, map);
 	}
 
-	public static final Instruction newDirection(String direction) {
+	public static final Instruction newSleep(long millis) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("direction", direction);
-		return new Instruction(InstructionType.DIRECTION, map);
+		map.put("millis", millis);
+		return new Instruction(InstructionType.SLEEP, map);
 	}
 
 	public final InstructionType type;
@@ -51,6 +51,7 @@ public class Instruction {
 		this.parameters = parameters;
 	}
 
+	@Override
 	public String toString() {
 		return type.toString() + " " + (parameters == null ? "" : parameters);
 	}

@@ -1,4 +1,5 @@
 package routine;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -6,16 +7,17 @@ import java.util.List;
 import esc.AbstractEsc;
 import esc.TelemetryParameter;
 
-/**used only for test purposes, custom routines can be created passing
- *  a list of {@link Instruction} to {@link Routine#Routine(List)} 
-*/
+/**
+ * used only for test purposes, custom routines can be created passing a list of
+ * {@link Instruction} to {@link Routine#Routine(List)}
+ */
 @Deprecated
 public class AccelerateRoutine extends Routine {
 
 	public AbstractEsc esc;
-	
+
 	public AccelerateRoutine() {
-		super(null,Arrays.asList(TelemetryParameter.values()),null);
+		super(null, Arrays.asList(TelemetryParameter.values()), null);
 		List<Instruction> instrs = new ArrayList<>();
 		instrs.add(Instruction.ARM);
 		instrs.add(Instruction.START);
@@ -24,10 +26,11 @@ public class AccelerateRoutine extends Routine {
 		instrs.add(Instruction.newSleep(3000));
 		instrs.add(Instruction.STOP);
 		instrs.add(Instruction.DISARM);
-		this.instructions = instrs;
+		instructions = instrs;
 	}
-	
-	public String toString(){
+
+	@Override
+	public String toString() {
 		return "Accelera 1000->2000 a 50 rpm/s";
 	}
 }

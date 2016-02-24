@@ -22,15 +22,14 @@ public class MainFrame extends JFrame {
 	private static final String VERSION = "1.0";
 	protected static final String ABOUT = "Developed by Federico Baldassarre e Federico Venturini\n"
 			+ "CASY (Center for Research on Complex Automated Systems)"
-			+ "\nAlma Mater Studiorum - Università di Bologna"
-			+ "\nVersion: "
-			+ VERSION + " " + DATE;
+			+ "\nAlma Mater Studiorum - Università di Bologna" + "\nVersion: " + VERSION + " " + DATE;
 	private Controller controller;
 
 	public MainFrame(final Controller controller) {
 		this.controller = controller;
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				controller.stopRoutineAndDisconnectEsc();
 				System.exit(0);
@@ -61,7 +60,7 @@ public class MainFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(Box.createHorizontalGlue());
 		menuBar.add(help);
-		
+
 		this.setJMenuBar(menuBar);
 
 		this.setVisible(true);

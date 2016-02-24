@@ -26,7 +26,8 @@ public class CustomClassRenderer extends JLabel implements ListCellRenderer<Clas
 			setForeground(list.getForeground());
 		}
 		// value non sarà mai null, tranne se la lista non contiene elementi
-		// in questo caso Swing fa il renderer di una cella vuota per la quale passa al renderer value=null
+		// in questo caso Swing fa il renderer di una cella vuota per la quale
+		// passa al renderer value=null
 		this.setText(value != null ? value.getSimpleName() : "No classes available");
 		return this;
 	}

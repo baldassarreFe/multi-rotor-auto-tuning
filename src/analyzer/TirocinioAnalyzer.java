@@ -25,6 +25,77 @@ import esc.FileFormatException;
  * media) della regressione lineare tra tensione e velocità angolare<br>
  */
 public class TirocinioAnalyzer extends Analyzer {
+	private static double[] calculateKe(double[] tensions, double[] omegas) {
+		// calcolare Ke come slope della regressione lineare tra tensione e
+		// velocità angolare
+		SimpleRegression regression = new SimpleRegression();
+		regression.addData(toMatrix(omegas, tensions));
+		return new double[] { regression.getSlope(), regression.getSlopeStdErr() };
+	}
+
+	/**
+	 * Calcola Kq con questi passi:<br>
+	 * 1. calcolare accelerazione angolare con regressione lineare sugli rpm<br>
+	 * 2. calcolare la coppia applicata dal motore come acc. per inerzia<br>
+	 * 3. calcolare la corrente media con media sui valori della corrente<br>
+	 * 4. calcolare Kq come rapporto tra coppia e corrente media
+	 *
+	 * @param omegas
+	 * @param currents
+	 * @param I
+	 * @param deltaI
+	 * @param times
+	 * @return
+	 */
+	private static double[] calculateKq(double[] omegas, double[] currents, double I, double deltaI, double[] times) {
+		// calcolare accelerazione angolare con regressione lineare sugli rpm
+		SimpleRegression regression = new SimpleRegression();
+		regression.addData(toMatrix(times, omegas));
+		double alfa = regression.getSlope();
+		double delta_alfa = regression.getSlopeStdErr();
+
+		// calcolare la coppia applicata dal motore come acc. per inerzia
+		double torque = I * alfa;
+		double delta_torque = torque * (delta_alfa / alfa + deltaI / I);
+
+		// calcolare la corrente media con media sui valori della corrente
+		Mean mean = new Mean();
+		double current_mean = mean.evaluate(currents);
+		StandardDeviation sd = new StandardDeviation();
+		double delta_current_mean = sd.evaluate(currents, current_mean);
+
+		// calcolare Kq come rapporto tra coppia e corrente media
+		return new double[] { torque / current_mean,
+				torque / current_mean * (delta_torque / torque + delta_current_mean / current_mean) };
+	}
+
+	private static double[] calculateRa(double[] tensions, double[] omegas, double[] currents) {
+		// calcolare Ra come intercept/mean_current della regressione lineare
+		// tra tensione e velocità angolare
+		SimpleRegression regression = new SimpleRegression();
+		regression.addData(toMatrix(omegas, tensions));
+		double intercept = regression.getIntercept();
+		double delta_intercept = regression.getInterceptStdErr();
+
+		// calcolare la corrente media con media sui valori della corrente
+		Mean mean = new Mean();
+		double current_mean = mean.evaluate(currents);
+		StandardDeviation sd = new StandardDeviation();
+		double delta_current_mean = sd.evaluate(currents, current_mean);
+
+		return new double[] { intercept / current_mean,
+				intercept / current_mean * (delta_current_mean / current_mean + delta_intercept / intercept) };
+	}
+
+	private static double[][] toMatrix(double[] x, double[] y) {
+		double[][] result = new double[x.length][2]; // must be the same size
+		for (int i = 0; i < x.length; i++) {
+			result[i][0] = x[i];
+			result[i][1] = y[i];
+		}
+		return result;
+	}
+
 	private PrintWriter pw;
 
 	/**
@@ -33,9 +104,9 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * {@link Analyzer#parametersRequired}, {@link Analyzer#table},
 	 * {@link Analyzer#results}.<br>
 	 * Come parametri vengono richiesti il momento di inerzia (I) del disco, la
-	 * sua incertezza (deltaI) e la dimensione minima che deve avere un subset di
-	 * misure di rpm crescenti per essere considerato come un'accelerazione ai
-	 * fini dell'analisi.<br>
+	 * sua incertezza (deltaI) e la dimensione minima che deve avere un subset
+	 * di misure di rpm crescenti per essere considerato come un'accelerazione
+	 * ai fini dell'analisi.<br>
 	 * Come colonne nel file sono richieste TIME, RPM, AMPS AVG e MOTOR VOLTS.
 	 * <br>
 	 * Come risultati vengono restituiti Ke, Kq e Ra con le relative incertezze,
@@ -43,7 +114,7 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * Informazioni più dettagliate sui risultati intermedi dei calcoli possono
 	 * essere lette in un nuovo file chiamato come il file dei dati con
 	 * l'aggiunta di "-ANALYSIS"
-	 * 
+	 *
 	 * @param dataFile
 	 * @param propertyFile
 	 * @throws IOException
@@ -79,17 +150,19 @@ public class TirocinioAnalyzer extends Analyzer {
 	/**
 	 * La procedura di calcolo sfrutta gli strumenti di {@link Mean},
 	 * {@link SimpleRegression} e {@link StandardDeviation} per dare in output
-	 * Kq, deltaKq, Ke, deltaKe, Ra, deltaRa, SamplesCount. Per prima cosa individua i
-	 * subset di accelerazione all'interno del set completo di dati, poi per
-	 * ogni set sfrutta i metodi {@link #calculateKe(double[], double[])},
+	 * Kq, deltaKq, Ke, deltaKe, Ra, deltaRa, SamplesCount. Per prima cosa
+	 * individua i subset di accelerazione all'interno del set completo di dati,
+	 * poi per ogni set sfrutta i metodi
+	 * {@link #calculateKe(double[], double[])},
 	 * {@link #calculateKq(double[], double[], double, double, double[])} e
 	 * {@link #calculateRa(double[], double[], double[])}. Infine produce come
 	 * output una media dei valori calcolati sui singoli subset. Produce un
 	 * output più dettagliato dei calcoli all'interno del file creato nel
 	 * costruttore.
-	 * 
+	 *
 	 * @see analyzer.Analyzer#calcola()
 	 */
+	@Override
 	public void calcola() {
 		pw.write("Kq,deltaKq,Ke,deltaKe,Ra,deltaRa,From,To,SamplesCount\n");
 		ArrayList<double[]> KqsAndDelta = new ArrayList<>();
@@ -99,7 +172,7 @@ public class TirocinioAnalyzer extends Analyzer {
 		// rpm to rad/s
 		List<Double> temp = table.get("RPM");
 		for (int i = 0; i < temp.size(); i++)
-			temp.set(i, (temp.get(i) * 2 * Math.PI / 60));
+			temp.set(i, temp.get(i) * 2 * Math.PI / 60);
 
 		List<Integer[]> subsets = findSubsets();
 
@@ -164,7 +237,7 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * precedenti deve essere positiva. Un subset viene considerato concluso
 	 * quando questa condizione non è più verificata (i valori iniziano a
 	 * calare).
-	 * 
+	 *
 	 * @return una {@link List} di array di due valori, indicati rispettivamente
 	 *         l'indice del primo e dell'ultimo valore del subset, estremi
 	 *         inclusi.
@@ -188,9 +261,8 @@ public class TirocinioAnalyzer extends Analyzer {
 			if (avgNextDerivatives > 0)
 				last++;
 			else {
-				if (last - first > parametersRequired.get("SubsetSize")) {
+				if (last - first > parametersRequired.get("SubsetSize"))
 					result.add(new Integer[] { first, last });
-				}
 				first = i;
 				last = i;
 			}
@@ -198,82 +270,10 @@ public class TirocinioAnalyzer extends Analyzer {
 		return result;
 	}
 
-	/**
-	 * Calcola Kq con questi passi:<br>
-	 * 1. calcolare accelerazione angolare con regressione lineare sugli rpm<br>
-	 * 2. calcolare la coppia applicata dal motore come acc. per inerzia<br>
-	 * 3. calcolare la corrente media con media sui valori della corrente<br>
-	 * 4. calcolare Kq come rapporto tra coppia e corrente media
-	 * 
-	 * @param omegas
-	 * @param currents
-	 * @param I
-	 * @param deltaI
-	 * @param times
-	 * @return
-	 */
-	private static double[] calculateKq(double[] omegas, double[] currents, double I, double deltaI, double[] times) {
-		// calcolare accelerazione angolare con regressione lineare sugli rpm
-		SimpleRegression regression = new SimpleRegression();
-		regression.addData(toMatrix(times, omegas));
-		double alfa = regression.getSlope();
-		double delta_alfa = regression.getSlopeStdErr();
-
-		// calcolare la coppia applicata dal motore come acc. per inerzia
-		double torque = I * alfa;
-		double delta_torque = torque * (delta_alfa / alfa + deltaI / I);
-
-		// calcolare la corrente media con media sui valori della corrente
-		Mean mean = new Mean();
-		double current_mean = mean.evaluate(currents);
-		StandardDeviation sd = new StandardDeviation();
-		double delta_current_mean = sd.evaluate(currents, current_mean);
-
-		// calcolare Kq come rapporto tra coppia e corrente media
-		return new double[] { torque / current_mean,
-				torque / current_mean * (delta_torque / torque + delta_current_mean / current_mean) };
-	}
-
-	private static double[] calculateKe(double[] tensions, double[] omegas) {
-		// calcolare Ke come slope della regressione lineare tra tensione e
-		// velocità angolare
-		SimpleRegression regression = new SimpleRegression();
-		regression.addData(toMatrix(omegas, tensions));
-		return new double[] { regression.getSlope(), regression.getSlopeStdErr() };
-	}
-
-	private static double[] calculateRa(double[] tensions, double[] omegas, double[] currents) {
-		// calcolare Ra come intercept/mean_current della regressione lineare
-		// tra tensione e velocità angolare
-		SimpleRegression regression = new SimpleRegression();
-		regression.addData(toMatrix(omegas, tensions));
-		double intercept = regression.getIntercept();
-		double delta_intercept = regression.getInterceptStdErr();
-
-		// calcolare la corrente media con media sui valori della corrente
-		Mean mean = new Mean();
-		double current_mean = mean.evaluate(currents);
-		StandardDeviation sd = new StandardDeviation();
-		double delta_current_mean = sd.evaluate(currents, current_mean);
-
-		return new double[] { intercept / current_mean,
-				(intercept / current_mean) * (delta_current_mean / current_mean + delta_intercept / intercept) };
-	}
-
-	private static double[][] toMatrix(double[] x, double[] y) {
-		double[][] result = new double[x.length][2]; // must be the same size
-		for (int i = 0; i < x.length; i++) {
-			result[i][0] = x[i];
-			result[i][1] = y[i];
-		}
-		return result;
-	}
-
 	private double[] toPrimitiveType(List<Double> list) {
 		double[] result = new double[list.size()];
-		for (int i = 0; i < result.length; i++) {
+		for (int i = 0; i < result.length; i++)
 			result[i] = list.get(i);
-		}
 		return result;
 	}
 }

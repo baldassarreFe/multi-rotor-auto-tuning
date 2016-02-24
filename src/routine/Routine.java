@@ -31,13 +31,18 @@ public class Routine implements Runnable {
 		this.name = name;
 		this.params = params;
 		this.instructions = instructions;
-		this.isRunning = new AtomicBoolean();
+		isRunning = new AtomicBoolean();
 	}
 
-	public void setEsc(AbstractEsc esc) {
-		this.esc = esc;
+	public PipedOutputStream getOutput() {
+		return esc.getPipedOutput();
 	}
 
+	public List<TelemetryParameter> getParameters() {
+		return params;
+	}
+
+	@Override
 	public void run() {
 		isRunning.set(true);
 		if (instructions == null)
@@ -45,27 +50,23 @@ public class Routine implements Runnable {
 		if (esc == null)
 			throw new IllegalStateException("Routine has no ESC attached");
 		esc.setTelemetryParameters(params);
-		for (Instruction i : instructions) {
+		for (Instruction i : instructions)
 			if (isRunning.get() == true)
 				esc.executeInstruction(i);
-			else 
+			else
 				return;
-		}
 	}
 
-	public List<TelemetryParameter> getParameters() {
-		return params;
-	}
-
-	public String toString() {
-		return name;
-	}
-
-	public PipedOutputStream getOutput() {
-		return esc.getPipedOutput();
+	public void setEsc(AbstractEsc esc) {
+		this.esc = esc;
 	}
 
 	public void stopImmediately() {
 		isRunning.set(false);
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 }

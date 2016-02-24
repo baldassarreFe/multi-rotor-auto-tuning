@@ -40,13 +40,12 @@ public class AnalyzerFrame extends JFrame {
 	public void initGraphic() {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		this.parametersPanel = new JPanel(new GridLayout(analyzer.parametersRequired.size(), 2, 20, 10));
+		parametersPanel = new JPanel(new GridLayout(analyzer.parametersRequired.size(), 2, 20, 10));
 		for (String s : analyzer.parametersRequired.keySet()) {
 			JTextField field = new JTextField();
 			Double value = analyzer.parametersRequired.get(s);
-			if (value != null) {
+			if (value != null)
 				field.setText("" + value);
-			}
 			field.setEditable(true);
 			JLabel label = new JLabel(s, SwingConstants.RIGHT);
 			label.setSize(new Dimension(50, field.getPreferredSize().height));
@@ -57,7 +56,7 @@ public class AnalyzerFrame extends JFrame {
 		}
 		this.add(parametersPanel);
 
-		this.resultsPanel = new JPanel(new GridLayout(analyzer.results.size(), 2, 20, 10));
+		resultsPanel = new JPanel(new GridLayout(analyzer.results.size(), 2, 20, 10));
 		for (String s : analyzer.results.keySet()) {
 			JLabel label = new JLabel(s, SwingConstants.RIGHT);
 			JTextField value = new JTextField();

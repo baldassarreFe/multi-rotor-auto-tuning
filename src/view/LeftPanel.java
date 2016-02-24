@@ -40,7 +40,7 @@ public class LeftPanel extends JPanel {
 
 	public LeftPanel(Controller cont) {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		this.controller = cont;
+		controller = cont;
 
 		ports = PortSelector.scanPorts();
 		portList = new JComboBox<>(ports.toArray(new CommPortIdentifier[] {}));
@@ -52,9 +52,8 @@ public class LeftPanel extends JPanel {
 
 		escs = EscFactory.getEscsList();
 		escList = new JComboBox<>();
-		for (Class<? extends AbstractEsc> c : escs) {
+		for (Class<? extends AbstractEsc> c : escs)
 			escList.addItem(c);
-		}
 		escList.setRenderer(new CustomClassRenderer());
 		escList.setMaximumSize(new Dimension(400, (int) escList.getPreferredSize().getHeight() + 10));
 		this.add(escList);
@@ -93,7 +92,7 @@ public class LeftPanel extends JPanel {
 			JOptionPane.showMessageDialog(this, "Porta non selezionata");
 			return null;
 		}
-		
+
 		SerialPort result;
 		try {
 			result = PortSelector.connect(portId);
@@ -101,10 +100,11 @@ public class LeftPanel extends JPanel {
 			JOptionPane.showMessageDialog(getParent(), "Failed to open " + portId.getName() + ": port is in use.");
 			return null;
 		} catch (UnsupportedCommOperationException e) {
-			JOptionPane.showMessageDialog(getParent(), "Failed to set serial port parameters on " + portId.getName() + ": " + e.getMessage());
+			JOptionPane.showMessageDialog(getParent(),
+					"Failed to set serial port parameters on " + portId.getName() + ": " + e.getMessage());
 			return null;
 		}
-		
+
 		AbstractEsc esc = null;
 		try {
 			esc = EscFactory.newInstanceOf((Class<? extends AbstractEsc>) escList.getSelectedItem(), result);
@@ -112,7 +112,8 @@ public class LeftPanel extends JPanel {
 			if (ite.getCause() instanceof IOException) {
 				ite.getCause().printStackTrace();
 				JOptionPane.showMessageDialog(getParent(), "Problema nella comunicazione con la porta");
-			} else { // eccezione generica generata dai costruttori delle future sottoclassi
+			} else { // eccezione generica generata dai costruttori delle future
+						// sottoclassi
 				ite.getCause().printStackTrace();
 				JOptionPane.showMessageDialog(getParent(), "Problema: " + ite.getCause().getMessage());
 			}
@@ -121,8 +122,8 @@ public class LeftPanel extends JPanel {
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(getParent(), "Problema: " + e1.getMessage());
 			return null;
-		}		
-		
+		}
+
 		return esc;
 	}
 }
