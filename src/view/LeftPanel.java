@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import controller.Controller;
 import esc.AbstractEsc;
 import esc.EscFactory;
-import esc.FileFormatException;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;

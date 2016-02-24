@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -38,6 +39,7 @@ public class AnalyzerFrame extends JFrame {
 
 	public void initGraphic() {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.parametersPanel = new JPanel(new GridLayout(analyzer.parametersRequired.size(), 2, 20, 10));
 		for (String s : analyzer.parametersRequired.keySet()) {
 			JTextField field = new JTextField();
