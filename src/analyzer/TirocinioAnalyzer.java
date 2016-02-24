@@ -10,6 +10,8 @@ import org.apache.commons.math3.stat.descriptive.moment.Mean;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
+import esc.FileFormatException;
+
 /**
  * Questa implementazione di {@link Analyzer} compie i seguenti passi per
  * calcolare Ke, Kq, Ra: 1. trovare gli N subset di valori per i quali si ha la
@@ -47,7 +49,7 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * @throws IOException
 	 * @see {@link Analyzer#Analyzer(File, File)}
 	 */
-	public TirocinioAnalyzer(File dataFile, File propertyFile) throws IOException {
+	public TirocinioAnalyzer(File dataFile, File propertyFile) throws FileFormatException, IOException {
 		super(dataFile, propertyFile);
 
 		pw = new PrintWriter(

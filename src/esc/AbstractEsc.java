@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import gnu.io.SerialPort;
 import routine.Instruction;
@@ -23,6 +24,7 @@ public abstract class AbstractEsc {
 	protected OutputStream output;
 	protected PipedOutputStream pipedOutput;
 	private SerialPort port;
+	private AtomicBoolean shouldExecuteInstructions;
 	protected static ArrayList<TelemetryParameter> telemetryParameters = new ArrayList<>();
 
 	/**
@@ -40,6 +42,7 @@ public abstract class AbstractEsc {
 		this.input = port.getInputStream();
 		this.output = port.getOutputStream();
 		this.pipedOutput = new PipedOutputStream();
+		this.shouldExecuteInstructions = new AtomicBoolean(true);
 	}
 
 	/**
@@ -65,11 +68,14 @@ public abstract class AbstractEsc {
 	 * la porta seriale
 	 */
 	public void stopAndDisconnect() {
-		executeInstruction(Instruction.STOP);
-		executeInstruction(Instruction.STOP_TELEMETRY);
-		executeInstruction(Instruction.DISARM);
+		shouldExecuteInstructions.set(false);
+		privilegedExecuteInstruction(Instruction.STOP);
+		privilegedExecuteInstruction(Instruction.STOP_TELEMETRY);
+		privilegedExecuteInstruction(Instruction.DISARM);
 		port.close();
 	}
+
+	protected abstract void privilegedExecuteInstruction(Instruction instruction);
 
 	/**
 	 * Restituisce la {@link PipedOutputStream} associata all'ESC sulla quale
@@ -87,13 +93,16 @@ public abstract class AbstractEsc {
 	 * affinchè il particolare tipo di ESC invii i giusti comandi per
 	 * l'esecuzione sul particolare motore. Nell'implementazione è necessario
 	 * valutare caso per caso tutti i valori che può assumere
-	 * {@link Instruction} e l'associato enum {@link InstructionType} ed effettuare
-	 * le operazioni necessarie per effettuare l'operazione associata a quella
-	 * istruzione
+	 * {@link Instruction} e l'associato enum {@link InstructionType} ed
+	 * effettuare le operazioni necessarie per effettuare l'operazione associata
+	 * a quella istruzione
 	 * 
 	 * @param instruction
 	 */
-	public abstract void executeInstruction(Instruction instruction);
+	public final void executeInstruction(Instruction instruction) {
+		if (shouldExecuteInstructions.get() == true)
+			privilegedExecuteInstruction(instruction);
+	}
 
 	/**
 	 * Aggiunge un parametro alla lista di parametri di interesse dell'ESC.

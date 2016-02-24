@@ -12,15 +12,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import esc.FileFormatException;
+
 /**
  * Classe astratta di base per analizzare dati generati da una routine. Permette
  * caricare delle specifiche colonne da un file di input sulla base delle
- * colonne indicate dalle sottoclassi nel campo {@link #table}. Permette
- * inoltre di caricare dei parametri da un file di properties sulla base dei
- * parametri indicate dalle sottoclassi nel campo
- * {@link #parametersRequired}. I risultati del calcolo saranno
- * accessibili tramite il campo results dopo aver invocato il metodo
- * {@link #calcola()} *
+ * colonne indicate dalle sottoclassi nel campo {@link #table}. Permette inoltre
+ * di caricare dei parametri da un file di properties sulla base dei parametri
+ * indicate dalle sottoclassi nel campo {@link #parametersRequired}. I risultati
+ * del calcolo saranno accessibili tramite il campo results dopo aver invocato
+ * il metodo {@link #calcola()} *
  */
 public abstract class Analyzer {
 	private File propertyFile;
@@ -51,9 +52,8 @@ public abstract class Analyzer {
 
 	/**
 	 * Loads the parameters from the file specified in the constructor into the
-	 * {@link #parametersRequired} map. If no file has been specified
-	 * nothing is loaded. If some of the parameters are not found these are
-	 * left null.
+	 * {@link #parametersRequired} map. If no file has been specified nothing is
+	 * loaded. If some of the parameters are not found these are left null.
 	 */
 	protected void loadParameters() {
 		if (!hasSuperBeenCalled)
@@ -79,14 +79,15 @@ public abstract class Analyzer {
 
 	/**
 	 * Loads the data from the file specified in the constructor into the
-	 * {@link #table} map. Se una riga della tabella non presenta uno o
-	 * più valori viene scartata
+	 * {@link #table} map. Se una riga della tabella non presenta uno o più
+	 * valori viene scartata
 	 * 
 	 * @throws IOException
-	 *             if one of the column specified in the map is missing or if an
-	 *             error occurs during I/O
+	 *             if an error occurs during I/O
+	 * @throws FileFormatException
+	 *             if one of the column specified in the map is missing
 	 */
-	protected void readDataFromFile() throws IOException {
+	protected void readDataFromFile() throws IOException, FileFormatException {
 		if (!hasSuperBeenCalled)
 			throw new IllegalStateException("Implementation has not called the super constructor");
 		BufferedReader reader = new BufferedReader(new FileReader(dataFile));
@@ -103,7 +104,7 @@ public abstract class Analyzer {
 		if (table.size() != cont) {
 			// nel file non ci sono le colonne necessarie all'analisi
 			reader.close();
-			throw new IOException("File formatting problem: unable to find some columns");
+			throw new FileFormatException("File formatting problem: unable to find some columns");
 		}
 
 		while ((line = reader.readLine()) != null) {
@@ -129,8 +130,8 @@ public abstract class Analyzer {
 
 	/**
 	 * Sulla base dei dati presenti in {@link #table} e
-	 * {@link #parametersRequired} riempie {@link #results} con
-	 * i risultati dei calcoli.
+	 * {@link #parametersRequired} riempie {@link #results} con i risultati dei
+	 * calcoli.
 	 */
 	public abstract void calcola();
 }

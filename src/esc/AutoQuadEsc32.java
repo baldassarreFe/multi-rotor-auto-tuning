@@ -29,10 +29,6 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		super(port);
 	}
 
-	public String toString() {
-		return "AutoQuadEsc32";
-	}
-
 	/**
 	 * Considera tutti i possibili tipi di istruzione definiti in
 	 * {@link Instruction} ed esegue contestualmente le operazioni associate
@@ -45,7 +41,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	 * 
 	 * @see esc.AbstractEsc#executeInstruction(routine.Instruction)
 	 */
-	public void executeInstruction(Instruction instruction) {
+	protected void privilegedExecuteInstruction(Instruction instruction) {
 		switch (instruction.type) {
 		case ARM:
 			arm();
@@ -103,8 +99,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		try {
 			// l'ESC usa la codifica UTF-8 e ha bisogno dei caratteri di LF e CR
 			output.write(command.trim().getBytes("UTF-8"));
-			output.write(13); // LF
-			output.write(10); // CR
+			output.write(new byte[] {13, 10}); // LF, CR
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -256,9 +251,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		}
 		if (frequency == 0)
 			return stopTelemetry();
-		if (output == null) {
-			throw new IllegalArgumentException("writer nullo");
-		}
+		
 		sendRawCommand("telemetry " + frequency);
 		if (reader != null) {
 			reader.shouldRead.set(false);
@@ -300,6 +293,10 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	@Override
 	public void removeTelemetryParameter(TelemetryParameter parameter) {
 		telemetryParameters.remove(parameter);
+	}
+
+	public String toString() {
+		return "AutoQuadEsc32";
 	}
 
 	private class ReaderThread extends Thread {
