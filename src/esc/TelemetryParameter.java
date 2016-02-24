@@ -31,4 +31,8 @@ public enum TelemetryParameter {
 		}
 		return null;
 	}
+	
+	public String toString() {
+		return name + " " + classe.getName();
+	}
 }
