@@ -17,7 +17,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -34,8 +41,9 @@ import routine.Routine;
 
 public class GraphTelemetryView extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private List<TelemetryParameter> parameters;
+	List<TelemetryParameter> parameters;
 	private Map<TelemetryParameter, XYSeries> dataSeries;
+	private Map<TelemetryParameter, JTextField> dataBox;
 	private PipedInputStream pis;
 	private PrintWriter fileWriter;
 
@@ -48,8 +56,12 @@ public class GraphTelemetryView extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		this.parameters = routine.getParameters();
-		this.dataSeries = new HashMap<>(parameters.size());
+
+		this.dataSeries = new HashMap<>();
+		this.dataBox = new HashMap<>();
+
 		try {
 			Date date = new Date();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
@@ -57,10 +69,19 @@ public class GraphTelemetryView extends JFrame {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+
 		fileWriter.print("TIME,");
 		for (int i = 0; i < parameters.size(); i++) {
 			TelemetryParameter p = parameters.get(i);
-			dataSeries.put(p, new XYSeries(p.name));
+			System.out.println(p);
+			if (Number.class.isAssignableFrom(p.classe))
+				dataSeries.put(p, new XYSeries(p.name));
+			else if (String.class.isAssignableFrom(p.classe)) {
+				JTextField textField = new JTextField();
+				textField.setEditable(false);
+				dataBox.put(p, textField);
+			}
 			fileWriter.print(p.name + (i == parameters.size() - 1 ? "\n" : ","));
 		}
 		initGraphics();
@@ -68,7 +89,9 @@ public class GraphTelemetryView extends JFrame {
 	}
 
 	private void initGraphics() {
-		this.setLayout(new GridLayout(2, (int) Math.ceil(parameters.size() / 2.0)));
+		JPanel graphPanel = new JPanel();
+		graphPanel.setLayout(new GridLayout(2, (int) Math.ceil(dataSeries.keySet().size()+1 / 2.0)));
+		
 		for (XYSeries xys : dataSeries.values()) {
 			JFreeChart chart = ChartFactory.createXYLineChart(xys.getDescription(), null, null,
 					new XYSeriesCollection(xys), PlotOrientation.VERTICAL, true, true, false);
@@ -79,11 +102,26 @@ public class GraphTelemetryView extends JFrame {
 				renderer.setBaseShapesFilled(true);
 			}
 			ChartPanel panel = new ChartPanel(chart);
-			panel.setSize(200, 100);
-			this.add(panel);
+			// panel.setSize(200, 100);
+			graphPanel.add(panel);
 		}
-
+		
+		JPanel textPanel = new JPanel();
+		textPanel.setLayout(new GridLayout(dataBox.keySet().size(), 2));
+		for (Entry<TelemetryParameter, JTextField> e : dataBox.entrySet()) {
+			JLabel label = new JLabel(e.getKey().name);
+			label.setHorizontalAlignment(SwingConstants.RIGHT);
+			label.setBorder(BorderFactory.createEmptyBorder(20,10,20,10));
+			e.getValue().setBorder(BorderFactory.createEmptyBorder(20,10,20,10));
+			textPanel.add(label);
+			textPanel.add(e.getValue());
+		}
+		graphPanel.add(textPanel);
+		
+		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
+		this.add(graphPanel);
 		pack();
+		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -130,9 +168,7 @@ public class GraphTelemetryView extends JFrame {
 							if (Number.class.isAssignableFrom(entry.getValue().getClass())) {
 								dataSeries.get(entry.getKey()).add(timestamp, (Number) entry.getValue());
 							} else {
-								// TODO: Mettere delle text box per i valori di
-								// telemetria non numerici
-							}
+								dataBox.get(entry.getKey()).setText((String) entry.getValue());							}
 						}
 					}
 
