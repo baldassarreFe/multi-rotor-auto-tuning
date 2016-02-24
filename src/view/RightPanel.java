@@ -36,14 +36,13 @@ public class RightPanel extends JPanel {
 	private JButton graphs;
 
 	public RightPanel(Controller cont) {
-		this.controller = cont;
+		controller = cont;
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		analyzers = AnalyzersFactory.getAnalyzersList();
 		analyzersList = new JComboBox<>();
-		for (Class<? extends Analyzer> c : analyzers) {
+		for (Class<? extends Analyzer> c : analyzers)
 			analyzersList.addItem(c);
-		}
 		analyzersList.setRenderer(new CustomClassRenderer());
 		analyzersList.setMaximumSize(new Dimension(400, (int) analyzersList.getPreferredSize().getHeight() + 10));
 
@@ -64,7 +63,8 @@ public class RightPanel extends JPanel {
 					} else if (ite.getCause() instanceof IOException) {
 						ite.getCause().printStackTrace();
 						JOptionPane.showMessageDialog(getParent(), "Problema nella lettura del file");
-					} else { // eccezione generica generata dai costruttori delle future sottoclassi
+					} else { // eccezione generica generata dai costruttori
+								// delle future sottoclassi
 						ite.getCause().printStackTrace();
 						JOptionPane.showMessageDialog(getParent(), "Problema: " + ite.getCause().getMessage());
 					}
@@ -103,7 +103,7 @@ public class RightPanel extends JPanel {
 		browse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (fc.showDialog(getParent(), "Select") == JFileChooser.APPROVE_OPTION) {
+				if (fc.showDialog(getParent(), "Select") == JFileChooser.APPROVE_OPTION)
 					try {
 						logFile = fc.getSelectedFile();
 						l.setText(logFile.getName());
@@ -112,7 +112,6 @@ public class RightPanel extends JPanel {
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-				}
 			}
 		});
 		JPanel chooser = new JPanel();
@@ -132,14 +131,13 @@ public class RightPanel extends JPanel {
 		browse2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (fc2.showDialog(getParent(), "Select") == JFileChooser.APPROVE_OPTION) {
+				if (fc2.showDialog(getParent(), "Select") == JFileChooser.APPROVE_OPTION)
 					try {
 						parametersFile = fc2.getSelectedFile();
 						l2.setText(parametersFile.getName());
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-				}
 			}
 		});
 		JPanel chooser2 = new JPanel();

@@ -16,13 +16,103 @@ import routine.Instruction;
 
 /**
  * Implementazione rappresentante un ESC modello AutoQuadEsc32
- * 
+ *
  */
 /**
  * @author fede
  *
  */
 public class AutoQuadEsc32 extends AbstractEsc {
+	private class ReaderThread extends Thread {
+		private double period;
+		private ObjectOutputStream writer;
+		private ByteArrayOutputStream inputBuffer;
+		protected AtomicBoolean shouldRead = new AtomicBoolean(true);
+		private HashMap<TelemetryParameter, Object> bundle;
+
+		public ReaderThread(int telemetryFrequency) {
+			this.setName("ReaderThread");
+			period = 1.0 / telemetryFrequency;
+			try {
+				writer = new ObjectOutputStream(pipedOutput);
+			} catch (IOException e) {
+				synchronized (pipedOutput) {
+					try {
+						pipedOutput.wait();
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+				}
+				try {
+					writer = new ObjectOutputStream(pipedOutput);
+				} catch (IOException nonFallisce) {
+					nonFallisce.printStackTrace();
+				}
+			}
+			inputBuffer = new ByteArrayOutputStream();
+			bundle = new HashMap<>();
+		}
+
+		@Override
+		public void run() {
+			try {
+				Double time = 0.0;
+
+				byte singleData;
+				while (shouldRead.get() == true && (singleData = (byte) input.read()) != -1) {
+					inputBuffer.write(singleData);
+					// letto fine riga -> classe'è un dato da parsare
+					if (singleData == '\n') {
+						ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
+						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
+						String line = reader.readLine();
+						String[] tokens = line.split("\\s{2,}");
+						TelemetryParameter p = null;
+						// se c'è almeno un token e
+						// se ha parsato la prima parte della stringa come
+						// parametro e questo parametro ci interessa
+						if (tokens.length != 0 && (p = TelemetryParameter.parse(tokens[0])) != null
+								&& telemetryParameters.contains(p)) {
+							Object value = null;
+							try {
+								if (p.classe == String.class)
+									value = tokens[1];
+								else if (p.classe == Integer.class)
+									value = Integer.parseInt(tokens[1]);
+								else if (p.classe == Double.class)
+									value = Double.parseDouble(tokens[1]);
+							} catch (NumberFormatException | ArrayIndexOutOfBoundsException ignore) {
+								// c'è stato un errore di lettura, succede
+								// spesso con valori alti di telemetria
+								// metto comunque null nel bundle
+								System.out.println(line + " " + Arrays.toString(tokens));
+								ignore.printStackTrace();
+							} finally {
+								bundle.put(p, value);
+							}
+
+							// il bundle è riempito, lo mando insieme al
+							// timestamp
+							if (bundle.size() == telemetryParameters.size()) {
+								writer.writeDouble(time);
+								writer.writeObject(bundle);
+								// bundle.clear(); NON FUNZIONA, IL BUNDLE
+								// AGGIORNA I VALORI, MA CON WRITEOBJECT INVIA
+								// SEMPRE I VALORI VECCHI (CACHE?)
+								bundle = new HashMap<>();
+								time += period;
+							}
+						}
+						inputBuffer.reset();
+					}
+				}
+				return;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	private ReaderThread reader;
 
 	public AutoQuadEsc32(SerialPort port) throws IOException {
@@ -30,17 +120,104 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	}
 
 	/**
+	 * Permette di effettuare un'accelerazione del motore su un certo intervallo
+	 * di RPM. A partire dagli RPM di partenza aumenta di 1 ogni intervallo di
+	 * tempo deltaT calcolato in base alla accelerazione fino a raggiungere gli
+	 * RPM desiderati. In questo modello di ESC vi è un limite alla
+	 * decelerazione di circa -400 rpm/s. Per cambiamenti più rapidi si nota che
+	 * l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta.
+	 * Per quanto riguarda l'accelerazione questa sarà limitata superiormente
+	 * dal valore per il quale l'esc mette i motor volts a 15V (tensione di
+	 * alimentazione).
+	 *
+	 * @param from
+	 *            starting rpm
+	 * @param to
+	 *            ending rpm
+	 * @param pace
+	 *            acceleration in rpm/s
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 * @throws IllegalArgumentException
+	 *             nel caso di parametri non compatibili
+	 *
+	 */
+	private AutoQuadEsc32 accelerate(int from, int to, double pace) {
+		if (pace == 0 || from == to)
+			throw new IllegalArgumentException("Cannot accelerate");
+
+		if (pace < -400)
+			System.out.println("WARNING: deceleration with a rate greater than 400 rpm/s cannot be achieved");
+
+		int deltaRpm = pace > 0 ? 1 : -1;
+		long deltaT = Math.round(deltaRpm / pace * 1000);
+
+		if (from < to && pace > 0) {
+			setRPM(from);
+			while (from <= to) {
+				from += deltaRpm;
+				setRPM(from);
+				try {
+					Thread.sleep(deltaT);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		} else if (from > to && pace < 0) {
+			setRPM(from);
+			while (from >= to) {
+				from += deltaRpm;
+				setRPM(from);
+				try {
+					Thread.sleep(deltaT);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		} else
+			throw new IllegalArgumentException("from, to, pace not compatible");
+		return this;
+	}
+
+	@Deprecated
+	@Override
+	public void addTelemetryParameter(TelemetryParameter parameter) {
+		telemetryParameters.add(parameter);
+	}
+
+	/**
+	 * Invia l'istruzione di arm del motore; "arm"
+	 *
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
+	private AutoQuadEsc32 arm() {
+		return sendRawCommand("arm");
+	}
+
+	/**
+	 * Invia l'istruzione di disarm del motore: "disarm"
+	 *
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
+	private AutoQuadEsc32 disarm() {
+		return sendRawCommand("disarm");
+	}
+
+	/**
 	 * Considera tutti i possibili tipi di istruzione definiti in
 	 * {@link Instruction} ed esegue contestualmente le operazioni associate
 	 * (con l'eventuale uso di parametri contenuti nella particolare istanza di
 	 * Instruction) per inviare il commando tramite il modello AutoQuadEsc32
-	 * 
+	 *
 	 * @param instruction
 	 *            istanza di Instruction contenente tipo di istruzione e
 	 *            parametri associati da eseguire
-	 * 
+	 *
 	 * @see esc.AbstractEsc#executeInstruction(routine.Instruction)
 	 */
+	@Override
 	protected void privilegedExecuteInstruction(Instruction instruction) {
 		switch (instruction.type) {
 		case ARM:
@@ -84,12 +261,18 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		}
 	}
 
+	@Deprecated
+	@Override
+	public void removeTelemetryParameter(TelemetryParameter parameter) {
+		telemetryParameters.remove(parameter);
+	}
+
 	/**
 	 * Invia il comando passato come parametro nel formato utilizzato dal
 	 * modello AutoQuadEsc32. In particolare invia tramite porta seriale il
 	 * comando serializzato con codifica UTF-8, seguito dai caratteri LineFeed e
 	 * CarriageReturn necessari affinchè l'esc riceva l'istruzione
-	 * 
+	 *
 	 * @param command
 	 *            stringa che definisce il comando da inviare
 	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
@@ -99,7 +282,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		try {
 			// l'ESC usa la codifica UTF-8 e ha bisogno dei caratteri di LF e CR
 			output.write(command.trim().getBytes("UTF-8"));
-			output.write(new byte[] {13, 10}); // LF, CR
+			output.write(new byte[] { 13, 10 }); // LF, CR
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -109,7 +292,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	/**
 	 * Invia lo specifico comando per seleziona la direzione di rotazione del
 	 * motore: "set DIRECTION + direction"
-	 * 
+	 *
 	 * @param direction
 	 *            valore intero che può assumere i valori 1 e -1 (forward e
 	 *            backward)
@@ -123,7 +306,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	/**
 	 * Invia lo specifico comando per seleziona la direzione di rotazione del
 	 * motore: "set DIRECTION + direction"
-	 * 
+	 *
 	 * @param direction
 	 *            valore intero che può assumere i valori 1 e -1 (forward e
 	 *            backward)
@@ -134,29 +317,15 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		return sendRawCommand("rpm " + rpm);
 	}
 
-	/**
-	 * Invia l'istruzione di arm del motore; "arm"
-	 * 
-	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
-	 *         chaining di comandi in successione
-	 */
-	private AutoQuadEsc32 arm() {
-		return sendRawCommand("arm");
-	}
-
-	/**
-	 * Invia l'istruzione di disarm del motore: "disarm"
-	 * 
-	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
-	 *         chaining di comandi in successione
-	 */
-	private AutoQuadEsc32 disarm() {
-		return sendRawCommand("disarm");
+	@Override
+	public void setTelemetryParameters(List<TelemetryParameter> parameters) {
+		telemetryParameters.clear();
+		telemetryParameters.addAll(parameters);
 	}
 
 	/**
 	 * Invia l'istruzione di avvio del motore: "start"
-	 * 
+	 *
 	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
 	 *         chaining di comandi in successione
 	 */
@@ -165,8 +334,32 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	}
 
 	/**
+	 * Avvia la telemetria del motore in base alla frequenza passata come
+	 * parametro: "telemetry " + frequency
+	 *
+	 * @param frequency
+	 *            wanted frequency in Hz
+	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
+	 *         chaining di comandi in successione
+	 */
+	private AutoQuadEsc32 startTelemetry(int frequency) {
+		if (frequency < 0 || frequency > 100)
+			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
+		if (frequency == 0)
+			return stopTelemetry();
+
+		sendRawCommand("telemetry " + frequency);
+		if (reader != null)
+			reader.shouldRead.set(false);
+
+		reader = new ReaderThread(frequency);
+		reader.start();
+		return this;
+	}
+
+	/**
 	 * Invia l'istruzione per arrestare il motore: "stop"
-	 * 
+	 *
 	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
 	 *         chaining di comandi in successione
 	 */
@@ -175,217 +368,21 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	}
 
 	/**
-	 * Permette di effettuare un'accelerazione del motore su un certo intervallo
-	 * di RPM. A partire dagli RPM di partenza aumenta di 1 ogni intervallo di
-	 * tempo deltaT calcolato in base alla accelerazione fino a raggiungere gli
-	 * RPM desiderati. In questo modello di ESC vi è un limite alla
-	 * decelerazione di circa -400 rpm/s. Per cambiamenti più rapidi si nota che
-	 * l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta.
-	 * Per quanto riguarda l'accelerazione questa sarà limitata superiormente
-	 * dal valore per il quale l'esc mette i motor volts a 15V (tensione di
-	 * alimentazione).
-	 * 
-	 * @param from
-	 *            starting rpm
-	 * @param to
-	 *            ending rpm
-	 * @param pace
-	 *            acceleration in rpm/s
-	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
-	 *         chaining di comandi in successione
-	 * @throws IllegalArgumentException
-	 *             nel caso di parametri non compatibili
-	 * 
-	 */
-	private AutoQuadEsc32 accelerate(int from, int to, double pace) {
-		if (pace == 0 || from == to) {
-			throw new IllegalArgumentException("Cannot accelerate");
-		}
-
-		if (pace < -400)
-			System.out.println("WARNING: deceleration with a rate greater than 400 rpm/s cannot be achieved");
-
-		int deltaRpm = pace > 0 ? 1 : -1;
-		long deltaT = Math.round((deltaRpm / pace) * 1000);
-
-		if (from < to && pace > 0) {
-			setRPM(from);
-			while (from <= to) {
-				from += deltaRpm;
-				setRPM(from);
-				try {
-					Thread.sleep(deltaT);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		} else if (from > to && pace < 0) {
-			setRPM(from);
-			while (from >= to) {
-				from += deltaRpm;
-				setRPM(from);
-				try {
-					Thread.sleep(deltaT);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		} else {
-			throw new IllegalArgumentException("from, to, pace not compatible");
-		}
-		return this;
-	}
-
-	/**
-	 * Avvia la telemetria del motore in base alla frequenza passata come
-	 * parametro: "telemetry " + frequency
-	 * 
-	 * @param frequency
-	 *            wanted frequency in Hz
-	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
-	 *         chaining di comandi in successione
-	 */
-	private AutoQuadEsc32 startTelemetry(int frequency) {
-		if (frequency < 0 || frequency > 100) {
-			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
-		}
-		if (frequency == 0)
-			return stopTelemetry();
-		
-		sendRawCommand("telemetry " + frequency);
-		if (reader != null) {
-			reader.shouldRead.set(false);
-		}
-
-		reader = new ReaderThread(frequency);
-		reader.start();
-		return this;
-	}
-
-	/**
 	 * Stoppa la telemetria del motore settando la frequenza di aggiornamento a
 	 * 0: "telemetry 0"
-	 * 
+	 *
 	 * @return istanza di AutoQuadEsc32 stessa per poter effettuare eventuale
 	 *         chaining di comandi in successione
 	 */
 	private AutoQuadEsc32 stopTelemetry() {
 		sendRawCommand("telemetry 0");
-		if (reader != null) {
+		if (reader != null)
 			reader.shouldRead.set(false);
-		}
 		return this;
 	}
 
-	@Deprecated
 	@Override
-	public void addTelemetryParameter(TelemetryParameter parameter) {
-		telemetryParameters.add(parameter);
-	}
-
-	@Override
-	public void setTelemetryParameters(List<TelemetryParameter> parameters) {
-		telemetryParameters.clear();
-		telemetryParameters.addAll(parameters);
-	}
-
-	@Deprecated
-	@Override
-	public void removeTelemetryParameter(TelemetryParameter parameter) {
-		telemetryParameters.remove(parameter);
-	}
-
 	public String toString() {
 		return "AutoQuadEsc32";
-	}
-
-	private class ReaderThread extends Thread {
-		private double period;
-		private ObjectOutputStream writer;
-		private ByteArrayOutputStream inputBuffer;
-		protected AtomicBoolean shouldRead = new AtomicBoolean(true);
-		private HashMap<TelemetryParameter, Object> bundle;
-
-		public ReaderThread(int telemetryFrequency) {
-			this.setName("ReaderThread");
-			this.period = 1.0 / telemetryFrequency;
-			try {
-				this.writer = new ObjectOutputStream(pipedOutput);
-			} catch (IOException e) {
-				synchronized (pipedOutput) {
-					try {
-						pipedOutput.wait();
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
-				}
-				try {
-					this.writer = new ObjectOutputStream(pipedOutput);
-				} catch (IOException nonFallisce) {
-					nonFallisce.printStackTrace();
-				}
-			}
-			this.inputBuffer = new ByteArrayOutputStream();
-			bundle = new HashMap<>();
-		}
-
-		public void run() {
-			try {
-				Double time = 0.0;
-
-				byte singleData;
-				while (shouldRead.get() == true && (singleData = (byte) input.read()) != -1) {
-					inputBuffer.write(singleData);
-					// letto fine riga -> classe'è un dato da parsare
-					if (singleData == '\n') {
-						ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
-						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
-						String line = reader.readLine();
-						String[] tokens = line.split("\\s{2,}");
-						TelemetryParameter p = null;
-						// se c'è almeno un token e
-						// se ha parsato la prima parte della stringa come
-						// parametro e questo parametro ci interessa
-						if (tokens.length != 0 && (p = TelemetryParameter.parse(tokens[0])) != null
-								&& telemetryParameters.contains(p)) {
-							Object value = null;
-							try {
-								if (p.classe == String.class) {
-									value = tokens[1];
-								} else if (p.classe == Integer.class) {
-									value = Integer.parseInt(tokens[1]);
-								} else if (p.classe == Double.class) {
-									value = Double.parseDouble(tokens[1]);
-								}
-							} catch (NumberFormatException | ArrayIndexOutOfBoundsException ignore) {
-								// c'è stato un errore di lettura, succede
-								// spesso con valori alti di telemetria
-								// metto comunque null nel bundle
-								System.out.println(line + " " + Arrays.toString(tokens));
-								ignore.printStackTrace();
-							} finally {
-								bundle.put(p, value);
-							}
-
-							// il bundle è riempito, lo mando insieme al
-							// timestamp
-							if (bundle.size() == telemetryParameters.size()) {
-								writer.writeDouble(time);
-								writer.writeObject(bundle);
-								// bundle.clear(); NON FUNZIONA, IL BUNDLE
-								// AGGIORNA I VALORI, MA CON WRITEOBJECT INVIA
-								// SEMPRE I VALORI VECCHI (CACHE?)
-								bundle = new HashMap<>();
-								time += period;
-							}
-						}
-						inputBuffer.reset();
-					}
-				}
-				return;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 	}
 }

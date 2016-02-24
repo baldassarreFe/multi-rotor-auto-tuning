@@ -28,7 +28,8 @@ public class CustomPortRenderer extends JLabel implements ListCellRenderer<CommP
 			setForeground(list.getForeground());
 		}
 		// value non sarà mai null, tranne se la lista non contiene elementi
-		// in questo caso Swing fa il renderer di una cella vuota per la quale passa al renderer value=null
+		// in questo caso Swing fa il renderer di una cella vuota per la quale
+		// passa al renderer value=null
 		this.setText(value != null ? value.getName() : "No ports available");
 		return this;
 	}

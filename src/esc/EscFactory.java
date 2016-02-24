@@ -14,7 +14,7 @@ public class EscFactory {
 	/**
 	 * Scans the classes through reflection to find all the subclasses of
 	 * {@link AbstractEsc}
-	 * 
+	 *
 	 * @return a list of subclasses of {@link AbstractEsc}
 	 */
 	public static List<Class<? extends AbstractEsc>> getEscsList() {
@@ -28,7 +28,7 @@ public class EscFactory {
 	 * Given a {@link Class} that extends {@link AbstractEsc} and the
 	 * {@link SerialPort} to use for the connection, creates a new instance of
 	 * that class
-	 * 
+	 *
 	 * @param escImplementation
 	 * @param port
 	 *            the port to connect the esc to
@@ -45,6 +45,6 @@ public class EscFactory {
 			NoSuchMethodException, SecurityException {
 		if (escImplementation == null || port == null)
 			throw new IllegalArgumentException();
-		return (AbstractEsc) escImplementation.getConstructor(SerialPort.class).newInstance(port);
+		return escImplementation.getConstructor(SerialPort.class).newInstance(port);
 	}
 }

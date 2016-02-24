@@ -22,17 +22,69 @@ import esc.TelemetryParameter;
 import routine.Routine;
 
 public class SimpleTelemetryView extends JFrame {
+	private class Updater extends Thread {
+
+		private ObjectInputStream dis;
+
+		public Updater(InputStream is) {
+
+			try {
+				dis = new ObjectInputStream(is);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		@SuppressWarnings("unchecked")
+		public void run() {
+			try {
+				Map<TelemetryParameter, Object> bundle;
+				Double timestamp;
+				while ((timestamp = dis.readDouble()) != null
+						&& (bundle = (Map<TelemetryParameter, Object>) dis.readObject()) != null) {
+					// letto un bundle, aggiungo ogni valore non null al grafico
+					// corrispondente
+					for (Entry<TelemetryParameter, Object> entry : bundle.entrySet())
+						if (entry.getValue() != null) {
+							binding.get(entry.getKey()).setText(entry.getValue().toString());
+							binding.get(entry.getKey()).repaint();
+						}
+
+					// scrittura ordinata anche nel file
+					StringBuilder sb = new StringBuilder(timestamp.toString() + ",");
+					for (int i = 0; i < parameters.size(); i++) {
+						TelemetryParameter p = parameters.get(i);
+						Object value = bundle.get(p);
+						sb.append((value == null ? "" : value) + (i == parameters.size() - 1 ? "\n" : ","));
+					}
+					fileWriter.print(sb.toString());
+				}
+			} catch (IOException e) {
+				// succede quando la telemetry viene fermata, non è una cosa
+				// negativa
+			} catch (ClassNotFoundException e) {
+				// non succederà mai perchè siamo in locale
+				e.printStackTrace();
+			} finally {
+				fileWriter.flush();
+				fileWriter.close();
+			}
+		}
+	}
+
 	private static final long serialVersionUID = 1L;
 	private List<TelemetryParameter> parameters;
 	private Map<TelemetryParameter, JTextField> binding;
 	private PipedInputStream pis;
+
 	private PrintWriter fileWriter;
 
 	public SimpleTelemetryView(Routine routine) {
-		this.parameters = routine.getParameters();
-		this.binding = new HashMap<>(parameters.size());
+		parameters = routine.getParameters();
+		binding = new HashMap<>(parameters.size());
 		try {
-			this.pis = new PipedInputStream(routine.getOutput());
+			pis = new PipedInputStream(routine.getOutput());
 			synchronized (routine.getOutput()) {
 				routine.getOutput().notify();
 			}
@@ -65,6 +117,7 @@ public class SimpleTelemetryView extends JFrame {
 		setSize(640, 480);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				try {
 					pis.close();
@@ -76,56 +129,5 @@ public class SimpleTelemetryView extends JFrame {
 		});
 		setVisible(true);
 
-	}
-
-	private class Updater extends Thread {
-
-		private ObjectInputStream dis;
-
-		public Updater(InputStream is) {
-
-			try {
-				this.dis = new ObjectInputStream(is);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		@SuppressWarnings("unchecked")
-		public void run() {
-			try {
-				Map<TelemetryParameter, Object> bundle;
-				Double timestamp;
-				while ((timestamp = dis.readDouble()) != null
-						&& (bundle = (Map<TelemetryParameter, Object>) dis.readObject()) != null) {
-					// letto un bundle, aggiungo ogni valore non null al grafico
-					// corrispondente
-					for (Entry<TelemetryParameter, Object> entry : bundle.entrySet()) {
-						if (entry.getValue() != null) {
-							binding.get(entry.getKey()).setText(entry.getValue().toString());
-							binding.get(entry.getKey()).repaint();
-						}
-					}
-
-					// scrittura ordinata anche nel file
-					StringBuilder sb = new StringBuilder(timestamp.toString() + ",");
-					for (int i = 0; i < parameters.size(); i++) {
-						TelemetryParameter p = parameters.get(i);
-						Object value = bundle.get(p);
-						sb.append((value == null ? "" : value) + (i == parameters.size() - 1 ? "\n" : ","));
-					}
-					fileWriter.print(sb.toString());
-				}
-			} catch (IOException e) {
-				// succede quando la telemetry viene fermata, non è una cosa
-				// negativa
-			} catch (ClassNotFoundException e) {
-				// non succederà mai perchè siamo in locale
-				e.printStackTrace();
-			} finally {
-				fileWriter.flush();
-				fileWriter.close();
-			}
-		}
 	}
 }

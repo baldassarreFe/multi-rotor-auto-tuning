@@ -35,7 +35,7 @@ public abstract class Analyzer {
 	/**
 	 * This constructor <b>must</b> be called by the implementations or else the
 	 * maps and the source files can not be initializated
-	 * 
+	 *
 	 * @param dataFile
 	 * @param propertyFile
 	 */
@@ -44,11 +44,18 @@ public abstract class Analyzer {
 			throw new IllegalArgumentException();
 		this.dataFile = dataFile;
 		this.propertyFile = propertyFile;
-		this.table = new HashMap<>();
-		this.parametersRequired = new LinkedHashMap<>();
-		this.results = new LinkedHashMap<>();
-		this.hasSuperBeenCalled = true;
+		table = new HashMap<>();
+		parametersRequired = new LinkedHashMap<>();
+		results = new LinkedHashMap<>();
+		hasSuperBeenCalled = true;
 	}
+
+	/**
+	 * Sulla base dei dati presenti in {@link #table} e
+	 * {@link #parametersRequired} riempie {@link #results} con i risultati dei
+	 * calcoli.
+	 */
+	public abstract void calcola();
 
 	/**
 	 * Loads the parameters from the file specified in the constructor into the
@@ -81,7 +88,7 @@ public abstract class Analyzer {
 	 * Loads the data from the file specified in the constructor into the
 	 * {@link #table} map. Se una riga della tabella non presenta uno o più
 	 * valori viene scartata
-	 * 
+	 *
 	 * @throws IOException
 	 *             if an error occurs during I/O
 	 * @throws FileFormatException
@@ -97,10 +104,9 @@ public abstract class Analyzer {
 		int cont = 0;
 		String line = reader.readLine();
 		String[] header = line.split(",");
-		for (int i = 0; i < header.length; i++) {
-			if (table.containsKey(header[i]))
+		for (String element : header)
+			if (table.containsKey(element))
 				cont++;
-		}
 		if (table.size() != cont) {
 			// nel file non ci sono le colonne necessarie all'analisi
 			reader.close();
@@ -115,7 +121,7 @@ public abstract class Analyzer {
 			if (tokens.length != table.size())
 				continue;
 
-			for (int i = 0; i < tokens.length; i++) {
+			for (int i = 0; i < tokens.length; i++)
 				try {
 					if (table.containsKey(header[i]))
 						table.get(header[i]).add(Double.parseDouble(tokens[i]));
@@ -123,15 +129,7 @@ public abstract class Analyzer {
 					System.err.println("Errore alla riga: " + line);
 					ignore.printStackTrace();
 				}
-			}
 		}
 		reader.close();
 	}
-
-	/**
-	 * Sulla base dei dati presenti in {@link #table} e
-	 * {@link #parametersRequired} riempie {@link #results} con i risultati dei
-	 * calcoli.
-	 */
-	public abstract void calcola();
 }

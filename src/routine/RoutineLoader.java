@@ -16,20 +16,23 @@ import esc.TelemetryParameter;
 public class RoutineLoader {
 	private static List<Routine> list = new ArrayList<>();
 
+	public static List<Routine> getRoutines() {
+		list.add(new AccelerateRoutine());
+		list.add(new ExampleRoutine());
+		return list;
+	}
+
 	public static void loadFrom(File... directories) {
-		for (File d : directories) {
-			if (d.isDirectory() && d.canRead()) {
+		for (File d : directories)
+			if (d.isDirectory() && d.canRead())
 				for (File f : d.listFiles(new FilenameFilter() {
 
 					@Override
 					public boolean accept(File dir, String name) {
 						return name.endsWith(".rou");
 					}
-				})) {
+				}))
 					list.add(parseFile(f));
-				}
-			}
-		}
 	}
 
 	private static Routine parseFile(File f) {
@@ -44,7 +47,7 @@ public class RoutineLoader {
 			if (paramsLine == null)
 				throw new FileFormatException("Non ci sono parametri nel file" + f.getName());
 			StringTokenizer st = new StringTokenizer(paramsLine, ",");
-			while (st.hasMoreTokens()) {
+			while (st.hasMoreTokens())
 				try {
 					String paramName = st.nextToken().trim().toUpperCase();
 					TelemetryParameter p = TelemetryParameter.parse(paramName);
@@ -52,13 +55,12 @@ public class RoutineLoader {
 				} catch (IllegalArgumentException e) {
 					throw new FileFormatException("Errore nei parametri nel file" + f.getName(), e);
 				}
-			}
 
 			List<Instruction> instructions = new ArrayList<>();
 			String command;
-			while ((command = r.readLine()) != null) {
-				for (InstructionType t : InstructionType.values()) {
-					if (command.trim().toUpperCase().startsWith(t.toString())) {
+			while ((command = r.readLine()) != null)
+				for (InstructionType t : InstructionType.values())
+					if (command.trim().toUpperCase().startsWith(t.toString()))
 						switch (t) {
 						case SET_RPM:
 							st = new StringTokenizer(command);
@@ -119,9 +121,6 @@ public class RoutineLoader {
 						default:
 							instructions.add(new Instruction(t, null));
 						}
-					}
-				}
-			}
 			return new Routine(name, params, instructions);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -133,11 +132,5 @@ public class RoutineLoader {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	public static List<Routine> getRoutines() {
-		list.add(new AccelerateRoutine());
-		list.add(new ExampleRoutine());
-		return list;
 	}
 }

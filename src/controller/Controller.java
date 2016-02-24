@@ -9,11 +9,28 @@ import view.MainFrame;
 
 public class Controller {
 
+	public static void main(String[] args) {
+		MainFrame mainView = new MainFrame(new Controller());
+		mainView.initGraphic();
+	}
+
 	private AbstractEsc esc;
+
 	private Routine routine;
 
 	public void setEsc(AbstractEsc esc) {
 		this.esc = esc;
+	}
+
+	/**
+	 * Avvia un'analisi di dati basata sull' {@link Analyzer} passato come
+	 * parametro, gestendo anche la creazione di un {@link AnalyzerFrame} per
+	 * visualizzare i risultati
+	 *
+	 * @param analyzer
+	 */
+	public void startAnalysis(Analyzer analyzer) {
+		new AnalyzerFrame(analyzer);
 	}
 
 	public void startRoutine(Routine routine) {
@@ -26,20 +43,9 @@ public class Controller {
 	}
 
 	/**
-	 * Avvia un'analisi di dati basata sull' {@link Analyzer} passato come
-	 * parametro, gestendo anche la creazione di un {@link AnalyzerFrame} per
-	 * visualizzare i risultati
-	 * 
-	 * @param analyzer
-	 */
-	public void startAnalysis(Analyzer analyzer) {
-		new AnalyzerFrame(analyzer);
-	}
-
-	/**
 	 * Disconnette l'esc permettendo l'esecuzione di altre routines, si veda:
 	 * {@link AbstractEsc#stopAndDisconnect()}
-	 * 
+	 *
 	 */
 	public void stopRoutineAndDisconnectEsc() {
 		if (routine != null) {
@@ -50,10 +56,5 @@ public class Controller {
 			esc.stopAndDisconnect();
 			esc = null;
 		}
-	}
-
-	public static void main(String[] args) {
-		MainFrame mainView = new MainFrame(new Controller());
-		mainView.initGraphic();
 	}
 }
