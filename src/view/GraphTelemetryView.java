@@ -74,7 +74,6 @@ public class GraphTelemetryView extends JFrame {
 		fileWriter.print("TIME,");
 		for (int i = 0; i < parameters.size(); i++) {
 			TelemetryParameter p = parameters.get(i);
-			System.out.println(p);
 			if (Number.class.isAssignableFrom(p.classe))
 				dataSeries.put(p, new XYSeries(p.name));
 			else if (String.class.isAssignableFrom(p.classe)) {
