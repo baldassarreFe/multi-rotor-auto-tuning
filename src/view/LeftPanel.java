@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -18,8 +20,11 @@ import javax.swing.JPanel;
 import controller.Controller;
 import esc.AbstractEsc;
 import esc.EscFactory;
+import esc.FileFormatException;
 import gnu.io.CommPortIdentifier;
+import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
+import gnu.io.UnsupportedCommOperationException;
 import routine.Routine;
 import routine.RoutineLoader;
 import serialPorts.PortSelector;
@@ -89,21 +94,36 @@ public class LeftPanel extends JPanel {
 			JOptionPane.showMessageDialog(this, "Porta non selezionata");
 			return null;
 		}
-		SerialPort result = PortSelector.connect(portId);
-		if (result == null) {
-			JOptionPane.showMessageDialog(this, "Impossibile collegarsi alla porta " + portId);
+		
+		SerialPort result;
+		try {
+			result = PortSelector.connect(portId);
+		} catch (PortInUseException e) {
+			JOptionPane.showMessageDialog(getParent(), "Failed to open " + portId.getName() + ": port is in use.");
+			return null;
+		} catch (UnsupportedCommOperationException e) {
+			JOptionPane.showMessageDialog(getParent(), "Failed to set serial port parameters on " + portId.getName() + ": " + e.getMessage());
 			return null;
 		}
+		
 		AbstractEsc esc = null;
 		try {
 			esc = EscFactory.newInstanceOf((Class<? extends AbstractEsc>) escList.getSelectedItem(), result);
-		} catch (Exception ignore) {
-			ignore.printStackTrace();
-		}
-		if (esc == null) {
-			JOptionPane.showMessageDialog(this, "Impossibile collegarsi all'esc alla porta " + portId);
+		} catch (InvocationTargetException ite) {
+			if (ite.getCause() instanceof IOException) {
+				ite.getCause().printStackTrace();
+				JOptionPane.showMessageDialog(getParent(), "Problema nella comunicazione con la porta");
+			} else { // eccezione generica generata dai costruttori delle future sottoclassi
+				ite.getCause().printStackTrace();
+				JOptionPane.showMessageDialog(getParent(), "Problema: " + ite.getCause().getMessage());
+			}
 			return null;
-		}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(getParent(), "Problema: " + e1.getMessage());
+			return null;
+		}		
+		
 		return esc;
 	}
 }

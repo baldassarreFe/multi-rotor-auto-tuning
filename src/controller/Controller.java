@@ -10,14 +10,15 @@ import view.MainFrame;
 public class Controller {
 
 	private AbstractEsc esc;
+	private Routine routine;
 
 	public void setEsc(AbstractEsc esc) {
 		this.esc = esc;
 	}
 
 	public void startRoutine(Routine routine) {
-		routine.setEsc(esc);
-
+		this.routine = routine;
+		this.routine.setEsc(esc);
 		new Thread(routine).start();
 		new GraphTelemetryView(routine);
 		// Si poteva usare anche questa volendo
@@ -40,10 +41,15 @@ public class Controller {
 	 * {@link AbstractEsc#stopAndDisconnect()}
 	 * 
 	 */
-	public void disconnectEsc() {
-		if (esc != null)
+	public void stopRoutineAndDisconnectEsc() {
+		if (routine != null) {
+			routine.stopImmediately();
+			routine = null;
+		}
+		if (esc != null) {
 			esc.stopAndDisconnect();
-		esc = null;
+			esc = null;
+		}
 	}
 
 	public static void main(String[] args) {

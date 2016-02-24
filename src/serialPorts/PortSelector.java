@@ -12,6 +12,7 @@ import java.util.Map;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
+import gnu.io.UnsupportedCommOperationException;
 
 public class PortSelector {
 
@@ -57,7 +58,7 @@ public class PortSelector {
 	@SuppressWarnings("unchecked")
 	public static List<CommPortIdentifier> scanPorts() {
 		List<CommPortIdentifier> portList = new ArrayList<CommPortIdentifier>();
-		
+
 		// for containing the ports that will be found
 		Enumeration<CommPortIdentifier> ports = CommPortIdentifier.getPortIdentifiers();
 
@@ -74,19 +75,15 @@ public class PortSelector {
 		return portList;
 	}
 
-	public static SerialPort connect(CommPortIdentifier selectedPortIdentifier) {
+	public static SerialPort connect(CommPortIdentifier selectedPortIdentifier) throws PortInUseException, UnsupportedCommOperationException {
 		SerialPort serialPort = null;
-		try {
-			// the method below returns an object of type SerialPort
-			serialPort = (SerialPort) selectedPortIdentifier.open("federico", TIMEOUT);
-			serialPort.setSerialPortParams(230400, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
-					SerialPort.PARITY_NONE);
-			System.out.println("Connection Established");
-		} catch (PortInUseException e) {
-			System.out.println(selectedPortIdentifier.getName() + " is in use. (" + e.toString() + ")");
-		} catch (Exception e) {
-			System.out.println("Failed to open " + selectedPortIdentifier.getName() + "(" + e.toString() + ")");
-		}
+		// the method below returns an object of type SerialPort
+		serialPort = (SerialPort) selectedPortIdentifier.open("multi-rotor-auto-tuning", TIMEOUT);
+		// TODO permettere all'utente di modificare questi parametri da
+		// interfaccia grafica o caricarli da file .properties
+		// Questi vanno bene per AutoquadEsc32
+		serialPort.setSerialPortParams(230400, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+		System.out.println("Connection Established");
 		return serialPort;
 	}
 

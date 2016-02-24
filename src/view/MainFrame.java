@@ -17,7 +17,7 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e){
-				controller.disconnectEsc();
+				controller.stopRoutineAndDisconnectEsc();
 				System.exit(0);
 			}
 		});
