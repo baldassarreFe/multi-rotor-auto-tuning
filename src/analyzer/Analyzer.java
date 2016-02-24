@@ -116,7 +116,7 @@ public abstract class Analyzer {
 
 			for (int i = 0; i < tokens.length; i++) {
 				try {
-					if (table.containsKey(tokens[i]))
+					if (table.containsKey(header[i]))
 						table.get(header[i]).add(Double.parseDouble(tokens[i]));
 				} catch (ArrayIndexOutOfBoundsException | NumberFormatException ignore) {
 					System.err.println("Errore alla riga: " + line);
