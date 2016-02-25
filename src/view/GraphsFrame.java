@@ -24,8 +24,8 @@ import org.jfree.data.xy.XYSeriesCollection;
  * This class implements a simple JFrame which display the data extracted from
  * the data file in a previous run in a series of ctarts as done in
  * {@link GraphTelemetryView}. In this particular class we have broken the
- * model-view-controller structure and everything is done into the constructor.
- * The class autonomosly parse data from file and displays them in the graphs.
+ * model-view-controller structure and everything is done into the same class:
+ * the class autonomosly parse data from file and displays them in the graphs.
  */
 public class GraphsFrame extends JFrame {
 	private static final long serialVersionUID = 1801638182066987430L;
