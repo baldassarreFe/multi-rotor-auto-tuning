@@ -3,6 +3,16 @@ package routine;
 import java.util.HashMap;
 import java.util.Map;
 
+import esc.AbstractEsc;
+
+/**
+ * Factory for the instructions to send to an {@link AbstractEsc}. Some calls
+ * for new instructions actually instantiate a new {@link Instruction}, others
+ * simply reuse previously objects
+ * 
+ * @author federico
+ *
+ */
 public class Instruction {
 
 	public static final Instruction ARM = new Instruction(InstructionType.ARM, null);
@@ -46,7 +56,7 @@ public class Instruction {
 	public final InstructionType type;
 	public final Map<String, Object> parameters;
 
-	public Instruction(InstructionType type, Map<String, Object> parameters) {
+	private Instruction(InstructionType type, Map<String, Object> parameters) {
 		this.type = type;
 		this.parameters = parameters;
 	}
@@ -56,7 +66,9 @@ public class Instruction {
 		return type.toString() + " " + (parameters == null ? "" : parameters);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -68,7 +80,9 @@ public class Instruction {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
