@@ -20,6 +20,13 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+/**
+ * This class implements a simple JFrame which display the data extracted from
+ * the data file in a previous run in a series of ctarts as done in
+ * {@link GraphTelemetryView}. In this particular class we have broken the
+ * model-view-controller structure and everything is done into the constructor.
+ * The class autonomosly parse data from file and displays them in the graphs.
+ */
 public class GraphsFrame extends JFrame {
 	private static final long serialVersionUID = 1801638182066987430L;
 	private Map<String, XYSeries> dataSeries;
@@ -46,7 +53,6 @@ public class GraphsFrame extends JFrame {
 				renderer.setBaseShapesFilled(true);
 			}
 			ChartPanel panel = new ChartPanel(chart);
-			panel.setSize(200, 100);
 			this.add(panel);
 		}
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -62,6 +68,7 @@ public class GraphsFrame extends JFrame {
 					Double timestamp = Double.valueOf(values[0]);
 					Double value = Double.valueOf(values[i]);
 					dataSeries.get(parameters[i]).add(timestamp, value);
+					dataSeries.get(parameters[i]).fireSeriesChanged();
 				} catch (ArrayIndexOutOfBoundsException | NumberFormatException ignore) {
 					System.err.println("Errore alla riga: " + line);
 					ignore.printStackTrace();
