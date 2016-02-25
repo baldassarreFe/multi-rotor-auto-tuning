@@ -32,7 +32,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		/**
 		 * Alla creazione si imposta la frequenza della telemetria cos� che ai
 		 * dati letti venga associato un timestamp indipendente dall'orologio
-		 * della JMV che esegue la lettura
+		 * della JVM che esegue la lettura
 		 * 
 		 * @param telemetryFrequency
 		 */
