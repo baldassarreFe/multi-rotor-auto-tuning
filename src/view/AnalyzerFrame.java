@@ -65,6 +65,7 @@ public class AnalyzerFrame extends JFrame {
 	 * any problem in parsing values, an error message is displayed.
 	 */
 	public void initGraphics() {
+		this.setTitle("Data analysis");
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 		this.getRootPane().setBorder(
 				BorderFactory.createEmptyBorder(10, 10, 10, 10));
