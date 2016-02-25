@@ -33,6 +33,10 @@ public class GraphsFrame extends JFrame {
 	private Map<String, XYSeries> dataSeries;
 	private BufferedReader reader;
 
+	/**
+	 * Thread that updates the graphs on his {@link GraphsFrame} with the values
+	 * parsed from the file given to the GraphFrame
+	 */
 	private class Updater extends Thread {
 
 		@Override
@@ -64,14 +68,23 @@ public class GraphsFrame extends JFrame {
 		}
 	}
 
-	public GraphsFrame(File logFile) throws IOException {
-		this.reader = new BufferedReader(new FileReader(logFile));
+	/**
+	 * Constructor of a {@link GraphsFrame}, receives the file containing the
+	 * data to display
+	 * 
+	 * @param dataFile
+	 * @throws IOException
+	 */
+	public GraphsFrame(File dataFile) throws IOException {
+		this.reader = new BufferedReader(new FileReader(dataFile));
 		loadHeader();
 		initGraphics();
 		new Updater().start();
 	}
 
-	/**Parsing dell'header e creazione delle dataSeries
+	/**
+	 * Parsing dell'header e creazione delle dataSeries
+	 * 
 	 * @throws IOException
 	 */
 	private void loadHeader() throws IOException {
@@ -83,7 +96,8 @@ public class GraphsFrame extends JFrame {
 	}
 
 	/**
-	 * Creazione dei grafici sulla base dei parametri contenuti in {@link #parameters}
+	 * Creazione dei grafici sulla base dei parametri contenuti in
+	 * {@link #parameters}
 	 */
 	private void initGraphics() {
 		this.setLayout(new GridLayout(2, (int) Math.ceil(parameters.length / 2.0)));
