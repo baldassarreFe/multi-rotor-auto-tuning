@@ -24,7 +24,7 @@ public class Routine implements Runnable {
 	public final static Routine exampleRoutine = new ConstantSpeedRoutine();
 	public final static Routine stopAll = new Routine("Stop", new ArrayList<TelemetryParameter>(),
 			new ArrayList<Instruction>(Arrays
-					.asList(new Instruction[] { Instruction.STOP, Instruction.STOP_TELEMETRY, Instruction.DISARM })));
+					.asList(new Instruction[] { Instruction.newStop(), Instruction.newStopTelemetry(), Instruction.newDisarm() })));
 
 	public AbstractEsc esc;
 	protected String name;

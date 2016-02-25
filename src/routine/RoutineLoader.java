@@ -95,13 +95,17 @@ public class RoutineLoader {
 
 		BufferedReader r = new BufferedReader(new FileReader(file));
 		String name = r.readLine();
-		if (name == null)
+		if (name == null) {
+			r.close();
 			throw new FileFormatException("Non c'è nome nel file" + file.getName());
+		}
 
 		ArrayList<TelemetryParameter> params = new ArrayList<>();
 		String paramsLine = r.readLine();
-		if (paramsLine == null)
+		if (paramsLine == null) {
+			r.close();
 			throw new FileFormatException("Non ci sono parametri nel file" + file.getName());
+		}
 		StringTokenizer st = new StringTokenizer(paramsLine, ",");
 		while (st.hasMoreTokens())
 			try {
@@ -109,6 +113,7 @@ public class RoutineLoader {
 				TelemetryParameter p = TelemetryParameter.parse(paramName);
 				params.add(p);
 			} catch (IllegalArgumentException e) {
+				r.close();
 				throw new FileFormatException("Errore nei parametri nel file" + file.getName(), e);
 			}
 
@@ -119,8 +124,10 @@ public class RoutineLoader {
 				st = new StringTokenizer(line);
 				String type = st.nextToken(":");
 				InstructionType t = InstructionType.parse(type);
-				if (t == null)
+				if (t == null) {
+					r.close();
 					throw new FileFormatException("Istruzione non riconosciuta: " + line);
+				}
 
 				// some instructions need to parse some parameters
 				try {
@@ -148,22 +155,23 @@ public class RoutineLoader {
 						instructions.add(Instruction.newDirection(direction));
 						break;
 					case ARM:
-						instructions.add(Instruction.ARM);
+						instructions.add(Instruction.newArm());
 						break;
 					case STOP:
-						instructions.add(Instruction.STOP);
+						instructions.add(Instruction.newStop());
 						break;
 					case STOP_TELEMETRY:
-						instructions.add(Instruction.STOP_TELEMETRY);
+						instructions.add(Instruction.newStopTelemetry());
 						break;
 					case DISARM:
-						instructions.add(Instruction.DISARM);
+						instructions.add(Instruction.newDisarm());
 						break;
 					case START:
-						instructions.add(Instruction.START);
+						instructions.add(Instruction.newStart());
 						break;
 					}
 				} catch (NumberFormatException e) {
+					r.close();
 					throw new FileFormatException("Errore alla linea: " + line, e);
 				}
 			}

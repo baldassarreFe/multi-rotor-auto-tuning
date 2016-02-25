@@ -120,9 +120,9 @@ public abstract class AbstractEsc {
 	 */
 	public void stopAndDisconnect() {
 		shouldExecuteInstructions.set(false);
-		privilegedExecuteInstruction(Instruction.STOP);
-		privilegedExecuteInstruction(Instruction.STOP_TELEMETRY);
-		privilegedExecuteInstruction(Instruction.DISARM);
+		privilegedExecuteInstruction(Instruction.newStop());
+		privilegedExecuteInstruction(Instruction.newStopTelemetry());
+		privilegedExecuteInstruction(Instruction.newDisarm());
 		port.close();
 	}
 }
