@@ -105,6 +105,7 @@ public class GraphsFrame extends JFrame {
 	 * {@link #parameters}
 	 */
 	private void initGraphics() {
+		this.setTitle("Data viewer");
 		this.setLayout(new GridLayout(2, (int) Math
 				.ceil(parameters.length / 2.0)));
 		for (XYSeries xys : dataSeries.values()) {

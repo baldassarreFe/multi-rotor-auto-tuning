@@ -211,6 +211,7 @@ public class GraphTelemetryView extends JFrame {
 		this.add(graphPanel);
 		pack();
 
+		this.setTitle("Telemetry view");
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			@Override
