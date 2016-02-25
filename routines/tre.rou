@@ -2,15 +2,15 @@ Rapida accelerazione da 2000 a 6000
 RPM, AMPS AVG, MOTOR VOLTS
 arm
 start
-rpm 2000
-sleep 10000
-telemetry 50
-sleep 1000
+rpm: 2000
+sleep: 10000
+telemetry: 50
+sleep: 1000
 
-accelerate 2000 6000 1200
-accelerate 6000 1000 -400
+accelerate: 2000 6000 1200
+accelerate: 6000 1000 -400
 
-sleep 5000
-telemetry 0
+sleep: 5000
+stop telemetry
 stop
 disarm

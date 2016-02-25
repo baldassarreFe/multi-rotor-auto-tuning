@@ -30,7 +30,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		private HashMap<TelemetryParameter, Object> bundle;
 
 		/**
-		 * Alla creazione si imposta la frequenza della telemetria così che ai
+		 * Alla creazione si imposta la frequenza della telemetria cosï¿½ che ai
 		 * dati letti venga associato un timestamp indipendente dall'orologio
 		 * della JMV che esegue la lettura
 		 * 
@@ -39,9 +39,9 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		public ReaderThread(int telemetryFrequency) {
 			this.setName("ReaderThread");
 			period = 1.0 / telemetryFrequency;
-			// Se il pipedOutput non è stato collegato a un pipedInput fallisce
+			// Se il pipedOutput non ï¿½ stato collegato a un pipedInput fallisce
 			// la creazione di un ObjectOutputStream
-			// perciò dopo un primo fallimento il ReaderThread si mette in
+			// perciï¿½ dopo un primo fallimento il ReaderThread si mette in
 			// attesa che un altro thread chiami notify()
 			// su pipedOutput
 			try {
@@ -77,7 +77,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 				byte singleData;
 				while (shouldRead.get() == true && (singleData = (byte) input.read()) != -1) {
 					inputBuffer.write(singleData);
-					// letto fine riga -> classe'Ã¨ un dato da parsare
+					// letto fine riga -> valueClass'Ã¨ un dato da parsare
 					if (singleData == '\n') {
 						ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
 						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
@@ -91,11 +91,11 @@ public class AutoQuadEsc32 extends AbstractEsc {
 								&& telemetryParameters.contains(p)) {
 							Object value = null;
 							try {
-								if (p.classe == String.class)
+								if (p.valueClass == String.class)
 									value = tokens[1];
-								else if (p.classe == Integer.class)
+								else if (p.valueClass == Integer.class)
 									value = Integer.parseInt(tokens[1]);
-								else if (p.classe == Double.class)
+								else if (p.valueClass == Double.class)
 									value = Double.parseDouble(tokens[1]);
 							} catch (NumberFormatException | ArrayIndexOutOfBoundsException ignore) {
 								// c'Ã¨ stato un errore di lettura, succede

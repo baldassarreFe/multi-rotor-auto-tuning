@@ -10,16 +10,18 @@ import esc.AbstractEsc;
 import esc.TelemetryParameter;
 
 /**
- * used only for test purposes, custom routines can be created passing a list of
- * {@link Instruction} to {@link Routine#Routine(List)}
+ * Used only for test purposes, custom routines can be created passing a list of
+ * {@link Instruction} to the constructor of {@link Routine#Routine(List)}, even
+ * if the best way to define a routine is by creating a .rou file that can be
+ * parsed through a {@link RoutineLoader}
  */
 @Deprecated
-public class ExampleRoutine extends Routine {
+public class ConstantSpeedRoutine extends Routine {
 
 	public AbstractEsc esc;
 
-	public ExampleRoutine() {
-		super("Velocità costante 2000", Arrays.asList(TelemetryParameter.values()), null);
+	public ConstantSpeedRoutine() {
+		super("Velocità costante 2000", Arrays.asList(TelemetryParameter.values()), new ArrayList<Instruction>());
 		List<Instruction> instrs = new ArrayList<>();
 		instrs.add(Instruction.ARM);
 		instrs.add(Instruction.START);
@@ -33,6 +35,6 @@ public class ExampleRoutine extends Routine {
 		instrs.add(sleep);
 		instrs.add(Instruction.STOP);
 		instrs.add(Instruction.DISARM);
-		instructions = instrs;
+		this.instructions = instrs;
 	}
 }
