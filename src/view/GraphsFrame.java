@@ -47,7 +47,6 @@ public class GraphsFrame extends JFrame {
 					renderer.setBaseShapesFilled(true);
 				}
 				ChartPanel panel = new ChartPanel(chart);
-				panel.setSize(200, 100);
 				this.add(panel);
 			}
 			setDefaultCloseOperation(DISPOSE_ON_CLOSE);

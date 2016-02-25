@@ -2,12 +2,18 @@ package view;
 
 import java.awt.Component;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import gnu.io.CommPortIdentifier;
 
+/**
+ * Class for displaying a {@link JComboBox} of {@link CommPortIdentifier} using their method
+ * {@link CommPortIdentifier#getName()} to get the string to display inside a {@link JLabel}
+ *
+ */
 public class CustomPortRenderer extends JLabel implements ListCellRenderer<CommPortIdentifier> {
 	private static final long serialVersionUID = 2385007885134918354L;
 

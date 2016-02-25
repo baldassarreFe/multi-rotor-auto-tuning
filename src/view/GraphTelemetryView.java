@@ -50,7 +50,7 @@ import routine.Routine;
  */
 public class GraphTelemetryView extends JFrame {
 	/**
-	 * This thread is made to receives data in bundles (Map of
+	 * This thread is made to receive data in bundles ({@link Map} of
 	 * <TelelemetryParameter,Object>) from the ReaderThread in
 	 * {@link AutoQuadEsc32}. Once received this map, the thread controls if the
 	 * object is an instance of a String or a Number and subsequently put it in

@@ -18,10 +18,27 @@ import java.util.Map.Entry;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import org.jfree.data.xy.XYSeries;
+
+import esc.AutoQuadEsc32;
 import esc.TelemetryParameter;
 import routine.Routine;
 
+/**
+ * The first prototype of a view able to display the changing values of a
+ * running telemetry. Simply creates as much text boxes as the parameters to
+ * display and constantly updates them when a newer value is available
+ * 
+ */
 public class SimpleTelemetryView extends JFrame {
+	/**
+	 * This thread is made to receive data in bundles ({@link Map} of
+	 * <TelelemetryParameter,Object>) from the ReaderThread in
+	 * {@link AutoQuadEsc32}. Every value in the map is used to update its corresponding text field 
+	 * Also, the thread writes in a properly formatted way the file
+	 * ".csv" associated with the current run of the rotor.
+	 *
+	 */
 	private class Updater extends Thread {
 
 		private ObjectInputStream dis;
