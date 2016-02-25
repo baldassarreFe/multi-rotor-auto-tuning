@@ -7,12 +7,12 @@ Il progetto è nato dalla necessità di eseguire una serie di accelerazioni a co
 Con l'obiettivo di permettere il tuning di motori ed ESC diversi, con comandi diversi e necessità di eseguire routine e analisi diverse, abbiamo deciso di sviluppare un'astrazione dell'intero processo, rendendolo così indipendente dal nostro specifico caso e riutilizzabile in un contesto di utilizzo più ampio.
 
 ## Funzionamento ed utilizzo
-Dalla schermata principale è possibile utilizzare i seguenti componenti:
+Dalla schermata principale è possibile utilizzare i seguenti componenti:  
 1. *Esecuzione di una routine*  
   1.a Selezione della porta seriale a cui è collegato l'ESC  
   1.b Selezione del modello di ESC da utilizzare  
   1.c Selezione della routine da eseguire  
-  1.d Avvio della routine
+  1.d Avvio della routine  
 2. *Analisi dei dati*  
   2.f Selezione del file dei dati  
   2.g Selezione del file di parametri per l'analisi  
