@@ -121,6 +121,9 @@ public class GraphTelemetryView extends JFrame {
 
 	private PrintWriter fileWriter;
 
+	/**
+	 * @param routine
+	 */
 	public GraphTelemetryView(Routine routine) {
 		try {
 			pis = new PipedInputStream(routine.getOutput());
