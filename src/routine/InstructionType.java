@@ -1,12 +1,31 @@
 package routine;
 
 /**
- * An enumeration representing the types of instructions available to an Esc
+ * An enumeration representing the types of instructions available to an Esc.
+ * Each {@link InstructionType} has associated a string used to parse
+ * instructions from .rou files
  *
  */
 public enum InstructionType {
-	ARM("ARM"), DISARM("DISARM"), SLEEP("SLEEP"), START("START"), STOP("STOP"), SET_RPM("RPM"), ACCELERATE(
-			"ACCELERATE"), START_TELEMETRY("TELEMETRY"), STOP_TELEMETRY("STOP TELEMETRY"), DIRECTION("DIRECTION");
+	ARM("ARM"),
+
+	DISARM("DISARM"),
+
+	SLEEP("SLEEP"),
+
+	START("START"),
+
+	STOP("STOP"),
+
+	SET_RPM("RPM"),
+
+	ACCELERATE("ACCELERATE"),
+
+	START_TELEMETRY("TELEMETRY"),
+
+	STOP_TELEMETRY("STOP TELEMETRY"),
+
+	DIRECTION("DIRECTION");
 
 	private String commandName;
 
@@ -18,7 +37,8 @@ public enum InstructionType {
 	 * Returns the {@link InstructionType} corresponding with the string passed
 	 * as parameter, or null if none is found.
 	 * 
-	 * @param type the string to parse (case is ignored)
+	 * @param type
+	 *            the string to parse (case is ignored)
 	 * @return
 	 */
 	public static InstructionType parse(String type) {
