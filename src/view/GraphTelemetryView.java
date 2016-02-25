@@ -147,9 +147,9 @@ public class GraphTelemetryView extends JFrame {
 		fileWriter.print("TIME,");
 		for (int i = 0; i < parameters.size(); i++) {
 			TelemetryParameter p = parameters.get(i);
-			if (Number.class.isAssignableFrom(p.classe))
+			if (Number.class.isAssignableFrom(p.valueClass))
 				dataSeries.put(p, new XYSeries(p.name));
-			else if (String.class.isAssignableFrom(p.classe)) {
+			else if (String.class.isAssignableFrom(p.valueClass)) {
 				JTextField textField = new JTextField();
 				textField.setEditable(false);
 				dataBox.put(p, textField);

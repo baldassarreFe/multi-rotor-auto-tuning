@@ -2,23 +2,23 @@ Accelerazioni e decelerazioni a vari rpm
 RPM, AMPS AVG, MOTOR VOLTS
 arm
 start
-rpm 1000
-sleep 5000
-telemetry 60
-sleep 1000
+rpm: 1000
+sleep: 5000
+telemetry: 60
+sleep: 1000
 
-accelerate 1000 3000 2000
-accelerate 3000 1000 -400
-accelerate 1000 3000 2000
-accelerate 3000 1000 -400
-accelerate 1000 3000 2000
-accelerate 3000 1000 -400
-accelerate 1000 3000 2000
-accelerate 3000 1000 -400
+accelerate: 1000 3000 2000
+accelerate: 3000 1000 -400
+accelerate: 1000 3000 2000
+accelerate: 3000 1000 -400
+accelerate: 1000 3000 2000
+accelerate: 3000 1000 -400
+accelerate: 1000 3000 2000
+accelerate: 3000 1000 -400
 
-accelerate 1000 6000 1000
-accelerate 6000 1000 -400
-sleep 5000
-telemetry 0
+accelerate: 1000 6000 1000
+accelerate: 6000 1000 -400
+sleep: 5000
+stop telemetry
 stop
 disarm

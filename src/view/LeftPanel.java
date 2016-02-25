@@ -98,8 +98,7 @@ public class LeftPanel extends JPanel {
 				AbstractEsc esc = getConnectedEsc();
 				if (esc == null)
 					return;
-				controller.setEsc(esc);
-				controller.startRoutine(r);
+				controller.startRoutine(r,esc);
 			}
 		});
 

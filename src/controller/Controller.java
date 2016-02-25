@@ -10,21 +10,11 @@ import view.MainFrame;
 public class Controller {
 
 	public static void main(String[] args) {
-		MainFrame mainView = new MainFrame(new Controller());
+		new MainFrame(new Controller());
 	}
 
 	private AbstractEsc esc;
-
 	private Routine routine;
-
-	/**
-	 * Set the ESC associated with the controller
-	 * 
-	 * @param esc
-	 */
-	public void setEsc(AbstractEsc esc) {
-		this.esc = esc;
-	}
 
 	/**
 	 * Avvia un'analisi di dati basata sull' {@link Analyzer} passato come
@@ -37,8 +27,16 @@ public class Controller {
 		new AnalyzerFrame(analyzer);
 	}
 
-	public void startRoutine(Routine routine) {
+	/**
+	 * Avvia una determinata routine su un determinato esc, gestendo la
+	 * creazione della finestra grafica sulla quale mostrate l'output
+	 * 
+	 * @param routine
+	 * @param esc
+	 */
+	public void startRoutine(Routine routine, AbstractEsc esc) {
 		this.routine = routine;
+		this.esc = esc;
 		this.routine.setEsc(esc);
 		new Thread(routine).start();
 		new GraphTelemetryView(routine);
@@ -47,8 +45,8 @@ public class Controller {
 	}
 
 	/**
-	 * Disconnette l'esc permettendo l'esecuzione di altre routines, si veda:
-	 * {@link AbstractEsc#stopAndDisconnect()}
+	 * Ferma la routine e disconnette l'esc permettendo l'esecuzione di altre routines, si vedano
+	 * {@link AbstractEsc#stopAndDisconnect()} e {@link Routine#stopImmediately()}
 	 *
 	 */
 	public void stopRoutineAndDisconnectEsc() {

@@ -18,11 +18,10 @@ import routine.Instruction;
  * Implementazione rappresentante un ESC modello AutoQuadEsc32
  *
  */
-/**
- * @author fede
- *
- */
 public class AutoQuadEsc32 extends AbstractEsc {
+	/**
+	 * Thread che gestisce la lettura dell'output di un esc.
+	 */
 	private class ReaderThread extends Thread {
 		private double period;
 		private ObjectOutputStream writer;
@@ -30,9 +29,21 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		protected AtomicBoolean shouldRead = new AtomicBoolean(true);
 		private HashMap<TelemetryParameter, Object> bundle;
 
+		/**
+		 * Alla creazione si imposta la frequenza della telemetria cos� che ai
+		 * dati letti venga associato un timestamp indipendente dall'orologio
+		 * della JMV che esegue la lettura
+		 * 
+		 * @param telemetryFrequency
+		 */
 		public ReaderThread(int telemetryFrequency) {
 			this.setName("ReaderThread");
 			period = 1.0 / telemetryFrequency;
+			// Se il pipedOutput non � stato collegato a un pipedInput fallisce
+			// la creazione di un ObjectOutputStream
+			// perci� dopo un primo fallimento il ReaderThread si mette in
+			// attesa che un altro thread chiami notify()
+			// su pipedOutput
 			try {
 				writer = new ObjectOutputStream(pipedOutput);
 			} catch (IOException e) {
@@ -41,18 +52,23 @@ public class AutoQuadEsc32 extends AbstractEsc {
 						pipedOutput.wait();
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
+						return;
 					}
 				}
 				try {
 					writer = new ObjectOutputStream(pipedOutput);
 				} catch (IOException nonFallisce) {
 					nonFallisce.printStackTrace();
+					return;
 				}
 			}
 			inputBuffer = new ByteArrayOutputStream();
 			bundle = new HashMap<>();
 		}
 
+		/**
+		 * 
+		 */
 		@Override
 		public void run() {
 			try {
@@ -61,7 +77,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 				byte singleData;
 				while (shouldRead.get() == true && (singleData = (byte) input.read()) != -1) {
 					inputBuffer.write(singleData);
-					// letto fine riga -> classe'è un dato da parsare
+					// letto fine riga -> valueClass'è un dato da parsare
 					if (singleData == '\n') {
 						ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
 						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
@@ -75,11 +91,11 @@ public class AutoQuadEsc32 extends AbstractEsc {
 								&& telemetryParameters.contains(p)) {
 							Object value = null;
 							try {
-								if (p.classe == String.class)
+								if (p.valueClass == String.class)
 									value = tokens[1];
-								else if (p.classe == Integer.class)
+								else if (p.valueClass == Integer.class)
 									value = Integer.parseInt(tokens[1]);
-								else if (p.classe == Double.class)
+								else if (p.valueClass == Double.class)
 									value = Double.parseDouble(tokens[1]);
 							} catch (NumberFormatException | ArrayIndexOutOfBoundsException ignore) {
 								// c'è stato un errore di lettura, succede
@@ -124,11 +140,11 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	 * di RPM. A partire dagli RPM di partenza aumenta di 1 ogni intervallo di
 	 * tempo deltaT calcolato in base alla accelerazione fino a raggiungere gli
 	 * RPM desiderati. In questo modello di ESC vi è un limite alla
-	 * decelerazione di circa -400 rpm/s. Per cambiamenti più rapidi si nota che
-	 * l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta.
-	 * Per quanto riguarda l'accelerazione questa sarà limitata superiormente
-	 * dal valore per il quale l'esc mette i motor volts a 15V (tensione di
-	 * alimentazione).
+	 * decelerazione di circa -400 rpm/s. Per cambiamenti più rapidi si nota
+	 * che l'esc pone a 0V i motor volts e non ottiene la decelerazione
+	 * richiesta. Per quanto riguarda l'accelerazione questa sarà limitata
+	 * superiormente dal valore per il quale l'esc mette i motor volts a 15V
+	 * (tensione di alimentazione).
 	 *
 	 * @param from
 	 *            starting rpm

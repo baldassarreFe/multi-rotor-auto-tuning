@@ -17,12 +17,24 @@ public class RoutineLoader {
 	private static List<Routine> list = new ArrayList<>();
 
 	public static List<Routine> getRoutines() {
-		list.add(new AccelerateRoutine());
-		list.add(new ExampleRoutine());
+		list.add(Routine.exampleRoutine);
+		list.add(Routine.accelerateRoutine);
+		list.add(Routine.stopAll);
 		return list;
 	}
 
+	/**
+	 * Loads all the routines files (.rou) from the directories specified as
+	 * parameters, the routines that were parsed correctly can be found with
+	 * {@link #getRoutines()}. Routines are considerd equal and hence are not
+	 * duplicated in the list on the base of the {@link Routine#equals()}
+	 * method.
+	 * 
+	 * @param directories
+	 */
 	public static void loadFrom(File... directories) {
+		if (directories == null)
+			throw new IllegalArgumentException();
 		for (File d : directories)
 			if (d.isDirectory() && d.canRead())
 				for (File f : d.listFiles(new FilenameFilter() {
@@ -31,106 +43,132 @@ public class RoutineLoader {
 					public boolean accept(File dir, String name) {
 						return name.endsWith(".rou");
 					}
-				}))
-					list.add(parseFile(f));
+				})) {
+					try {
+						Routine r = parseFile(f);
+						if (!list.contains(r))
+							list.add(r);
+					} catch (IOException | FileFormatException e) {
+						e.printStackTrace();
+					}
+				}
 	}
 
-	private static Routine parseFile(File f) {
-		try (BufferedReader r = new BufferedReader(new FileReader(f))) {
+	/**
+	 * Parses a .rou file in the following way.<br>
+	 * The first line must be the name of the routine.<br>
+	 * The second line must contain a comma separated list of telemetry
+	 * parameters written as they are in {@link TelemetryParameter}<br>
+	 * The following lines must contain valid instructions for the Esc, with
+	 * their parameters preceeded by ':' and separated by spaces if needed. <br>
+	 * Empty lines or lines starting with '#' are skipped.<br>
+	 * <br>
+	 * An example of a valid routine file is the following:<br>
+	 * <br>
+	 * <code>
+	 * Rapid acceleration from 2000 to 6000 rpm<br>
+	 * RPM, AMPS AVG, MOTOR VOLTS<br>
+	 * arm<br>
+	 * start<br>
+	 * rpm: 2000<br>
+	 * sleep: 10000<br>
+	 * telemetry: 50<br>
+	 * sleep: 1000<br>
+	 *<br>
+	 * accelerate: 2000 6000 1200<br>
+	 * accelerate 6000 1000 -400<br>
+	 * # It is impossible for the AutoquadEsc32 to decelerate faster than -400 rpm/s
+	 * <br>
+	 * sleep: 5000<br>
+	 * stop telemetry<br>
+	 * stop<br>
+	 * disarm<br>
+	 * </code>
+	 * 
+	 * @param file
+	 *            the file to parse
+	 * @return
+	 * @throws FileNotFoundException
+	 */
+	private static Routine parseFile(File file) throws IOException, FileFormatException {
+		assert file != null && file.getName().endsWith(".rou");
 
-			String name = r.readLine();
-			if (name == null)
-				throw new FileFormatException("Non c'è nome nel file" + f.getName());
-			ArrayList<TelemetryParameter> params = new ArrayList<>();
+		BufferedReader r = new BufferedReader(new FileReader(file));
+		String name = r.readLine();
+		if (name == null)
+			throw new FileFormatException("Non c'è nome nel file" + file.getName());
 
-			String paramsLine = r.readLine();
-			if (paramsLine == null)
-				throw new FileFormatException("Non ci sono parametri nel file" + f.getName());
-			StringTokenizer st = new StringTokenizer(paramsLine, ",");
-			while (st.hasMoreTokens())
+		ArrayList<TelemetryParameter> params = new ArrayList<>();
+		String paramsLine = r.readLine();
+		if (paramsLine == null)
+			throw new FileFormatException("Non ci sono parametri nel file" + file.getName());
+		StringTokenizer st = new StringTokenizer(paramsLine, ",");
+		while (st.hasMoreTokens())
+			try {
+				String paramName = st.nextToken().trim().toUpperCase();
+				TelemetryParameter p = TelemetryParameter.parse(paramName);
+				params.add(p);
+			} catch (IllegalArgumentException e) {
+				throw new FileFormatException("Errore nei parametri nel file" + file.getName(), e);
+			}
+
+		List<Instruction> instructions = new ArrayList<>();
+		String line;
+		while ((line = r.readLine()) != null) {
+			if (!line.isEmpty() && !line.startsWith("#")) {
+				st = new StringTokenizer(line);
+				String type = st.nextToken(":");
+				InstructionType t = InstructionType.parse(type);
+				if (t == null)
+					throw new FileFormatException("Istruzione non riconosciuta: " + line);
+
+				// some instructions need to parse some parameters
 				try {
-					String paramName = st.nextToken().trim().toUpperCase();
-					TelemetryParameter p = TelemetryParameter.parse(paramName);
-					params.add(p);
-				} catch (IllegalArgumentException e) {
-					throw new FileFormatException("Errore nei parametri nel file" + f.getName(), e);
+					switch (t) {
+					case SET_RPM:
+						int rpm = Integer.parseInt(st.nextToken(": "));
+						instructions.add(Instruction.newSetRpm(rpm));
+						break;
+					case SLEEP:
+						int millis = Integer.parseInt(st.nextToken(": "));
+						instructions.add(Instruction.newSleep(millis));
+						break;
+					case START_TELEMETRY:
+						int frequency = Integer.parseInt(st.nextToken(": "));
+						instructions.add(Instruction.newSetTelemetry(frequency));
+						break;
+					case ACCELERATE:
+						int from = Integer.parseInt(st.nextToken(": "));
+						int to = Integer.parseInt(st.nextToken(": "));
+						double pace = Double.parseDouble(st.nextToken(": "));
+						instructions.add(Instruction.newAcceleration(from, to, pace));
+						break;
+					case DIRECTION:
+						String direction = st.nextToken(": ");
+						instructions.add(Instruction.newDirection(direction));
+						break;
+					case ARM:
+						instructions.add(Instruction.ARM);
+						break;
+					case STOP:
+						instructions.add(Instruction.STOP);
+						break;
+					case STOP_TELEMETRY:
+						instructions.add(Instruction.STOP_TELEMETRY);
+						break;
+					case DISARM:
+						instructions.add(Instruction.DISARM);
+						break;
+					case START:
+						instructions.add(Instruction.START);
+						break;
+					}
+				} catch (NumberFormatException e) {
+					throw new FileFormatException("Errore alla linea: " + line, e);
 				}
-
-			List<Instruction> instructions = new ArrayList<>();
-			String command;
-			while ((command = r.readLine()) != null)
-				for (InstructionType t : InstructionType.values())
-					if (command.trim().toUpperCase().startsWith(t.toString()))
-						switch (t) {
-						case SET_RPM:
-							st = new StringTokenizer(command);
-							try {
-								st.nextToken();
-								st.nextToken();
-								int rpm = Integer.parseInt(st.nextToken());
-								instructions.add(Instruction.newSetRpm(rpm));
-							} catch (NumberFormatException e) {
-								throw new FileFormatException("Errore alla linea: " + command, e);
-							}
-							break;
-						case SLEEP:
-							st = new StringTokenizer(command);
-							try {
-								st.nextToken();
-								int millis = Integer.parseInt(st.nextToken());
-								instructions.add(Instruction.newSleep(millis));
-							} catch (NumberFormatException e) {
-								throw new FileFormatException("Errore alla linea: " + command, e);
-							}
-							break;
-						case STOP_TELEMETRY:
-							instructions.add(Instruction.STOP_TELEMETRY);
-							break;
-						case START_TELEMETRY:
-							st = new StringTokenizer(command);
-							try {
-								st.nextToken();
-								int frequency = Integer.parseInt(st.nextToken());
-								instructions.add(Instruction.newSetTelemetry(frequency));
-							} catch (NumberFormatException e) {
-								throw new FileFormatException("Errore alla linea: " + command, e);
-							}
-							break;
-						case ACCELERATE:
-							st = new StringTokenizer(command);
-							try {
-								st.nextToken();
-								int from = Integer.parseInt(st.nextToken());
-								int to = Integer.parseInt(st.nextToken());
-								double pace = Double.parseDouble(st.nextToken());
-								instructions.add(Instruction.newAcceleration(from, to, pace));
-							} catch (NumberFormatException e) {
-								throw new FileFormatException("Errore alla linea: " + command, e);
-							}
-							break;
-						case DIRECTION:
-							st = new StringTokenizer(command);
-							try {
-								st.nextToken();
-								String direction = st.nextToken();
-								instructions.add(Instruction.newDirection(direction));
-							} catch (NumberFormatException e) {
-								throw new FileFormatException("Errore alla linea: " + command, e);
-							}
-							break;
-						default:
-							instructions.add(new Instruction(t, null));
-						}
-			return new Routine(name, params, instructions);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		} catch (FileFormatException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
+			}
 		}
+		r.close();
+		return new Routine(name, params, instructions);
 	}
 }

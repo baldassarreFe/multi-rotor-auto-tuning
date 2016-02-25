@@ -1,39 +1,39 @@
 10 accelerazioni diverse tra 2000 e 3000
 RPM, AMPS AVG, MOTOR VOLTS, INPUT MODE, ESC STATE, RUN MODE
 arm
-direction backward
+direction: backward
 start
-sleep 1000
-rpm 3000
-sleep 10000
-telemetry 60
-sleep 1000
+sleep: 1000
+rpm: 3000
+sleep: 10000
+telemetry: 60
+sleep: 1000
 
-accelerate 3000 2000 -400
+accelerate: 3000 2000 -400
 
-accelerate 2000 3000 10
-accelerate 3000 2000 -400
-accelerate 2000 3000 20
-accelerate 3000 2000 -400
-accelerate 2000 3000 30
-accelerate 3000 2000 -400
-accelerate 2000 3000 40
-accelerate 3000 2000 -400
-accelerate 2000 3000 50
-accelerate 3000 2000 -400
+accelerate: 2000 3000 10
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 20
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 30
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 40
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 50
+accelerate: 3000 2000 -400
 
-accelerate 2000 3000 10
-accelerate 3000 2000 -400
-accelerate 2000 3000 20
-accelerate 3000 2000 -400
-accelerate 2000 3000 30
-accelerate 3000 2000 -400
-accelerate 2000 3000 40
-accelerate 3000 2000 -400
-accelerate 2000 3000 50
-accelerate 3000 2000 -400
+accelerate: 2000 3000 10
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 20
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 30
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 40
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 50
+accelerate: 3000 2000 -400
 
-telemetry 0
-sleep 5000
+stop telemetry
+sleep: 5000
 stop
 disarm
