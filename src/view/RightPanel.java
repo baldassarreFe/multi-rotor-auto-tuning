@@ -25,6 +25,21 @@ import analyzer.AnalyzersFactory;
 import controller.Controller;
 import esc.FileFormatException;
 
+/**
+ * In RightPanel are displayed all the options concerning log file analysis,
+ * using two file chooser, a combo box and two button. <br>
+ * The first file chooser allows you to select a .csv file in which are stored
+ * data from a previous run of the rotor.<br>
+ * The second file chooser allows you to choose a .properties file in which are
+ * located eventual parameter for the analyzer. This file is not compulsory,
+ * since a well done GUI will ask you for these parameters if no .properties
+ * file is selected.<br>
+ * The combo box lets you select the analyzer implementation that will analyze
+ * data stored in the file.<br>
+ * The button OPEN starts the file analysis.<br>
+ * The button VIEW GRAPH draws graphs of the previous run of the rotor
+ * represented by the file.
+ */
 public class RightPanel extends JPanel {
 	private static final long serialVersionUID = 2486037060223064661L;
 	private JComboBox<Class<? extends Analyzer>> analyzersList;
@@ -35,6 +50,25 @@ public class RightPanel extends JPanel {
 	private final Controller controller;
 	private JButton graphs;
 
+	/**
+	 * Creates two file chooser to choose data file and properties file (with
+	 * filter for .csv and .properties file respectively), populates a Analyzers
+	 * combo box using {@link AnalyzersFactory#getAnalyzersList()} and create
+	 * the two buttons for launch analysis and view graphs.<br>
+	 * The button OPEN triggers the creation of the selected implementation of
+	 * an Analyzer using
+	 * {@link AnalyzersFactory#newInstanceOf(Class, File, File)} and passing the
+	 * selected files, and launch another specifically frame (see
+	 * {@link Controller#startAnalysis(Analyzer)} for displaying results and
+	 * interacting with the user.<br>
+	 * The button VIEW GRAPH trigger the displaying of another frame (eg.
+	 * {@link GraphsFrame}) to display the graphs recreated basing on the data
+	 * file.
+	 * 
+	 * @param cont
+	 *            the controller that allows to perform the operations such as
+	 *            starting the analysis.
+	 */
 	public RightPanel(Controller cont) {
 		controller = cont;
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));

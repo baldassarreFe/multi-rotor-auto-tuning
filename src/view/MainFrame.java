@@ -16,6 +16,13 @@ import javax.swing.JOptionPane;
 
 import controller.Controller;
 
+/**
+ * MainFrame è la classe principale della GUI, nella quale vengono mostrati
+ * {@link LeftPanel} e {@link RightPanel} e quindi si ha la possibilità di
+ * selezionare l'esc e la porta e far partire la routine, o selezionare un file
+ * di dati ed eventualmente di properties per analizzarlo.
+ *
+ */
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final String DATE = "March 2016";
@@ -25,6 +32,13 @@ public class MainFrame extends JFrame {
 			+ "\nAlma Mater Studiorum - Università di Bologna" + "\nVersion: " + VERSION + " " + DATE;
 	private Controller controller;
 
+	/**
+	 * This constructor instantiate an object MainFrame passing a
+	 * {@link Controller} from which both the analysis and the routines will be
+	 * launched, and starts the main GUI.
+	 * 
+	 * @param controller
+	 */
 	public MainFrame(final Controller controller) {
 		this.controller = controller;
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -35,9 +49,14 @@ public class MainFrame extends JFrame {
 				System.exit(0);
 			}
 		});
+		initGraphics();
 	}
 
-	public void initGraphic() {
+	/**
+	 * The main frame is divided between a {@link LeftPanel} and a
+	 * {@link RightPanel} obviously located as the names suggest.
+	 */
+	public void initGraphics() {
 		this.setLayout(new GridLayout(1, 2));
 		this.setTitle("Rotor Model Identification System");
 		this.add(new LeftPanel(controller));

@@ -28,6 +28,17 @@ import routine.Routine;
 import routine.RoutineLoader;
 import serialPorts.PortSelector;
 
+/**
+ * In LeftPanel are displayed all the options concerning routines and escs,
+ * using three combo box and a button. <br>
+ * The first combo box allows you to select which serial port you need to use,
+ * showing "No ports available" if none available.<br>
+ * The second combo box allows you to choose which implementation of an esc you
+ * want to use.<br>
+ * The third one lets you select the routine you want to launch on the selected
+ * esc and associated motor.<br>
+ * The button START launch the selected routine.
+ */
 public class LeftPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private CommPortIdentifier portId;
@@ -38,6 +49,18 @@ public class LeftPanel extends JPanel {
 	private JComboBox<Routine> routines;
 	private Controller controller;
 
+	/**
+	 * Instantiate a LeftPanel which operates using the {@link Controller}
+	 * passed as a parameter. Generates three combo boxes populated respectively
+	 * using {@link PortSelector#scanPorts()}, {@link EscFactory#getEscsList()}
+	 * and {@link RoutineLoader#loadFrom(File...)}. Then adds a button START
+	 * which launches the selected routine on the selected esc from the
+	 * controller, opening another panel in which datas will be displayed in the
+	 * most appropriate form (see {@link Controller#startRoutine(Routine)}) .
+	 * 
+	 * @param cont,
+	 *            the controller needed to operate from the main frame.
+	 */
 	public LeftPanel(Controller cont) {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		controller = cont;
@@ -84,6 +107,14 @@ public class LeftPanel extends JPanel {
 		this.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
 	}
 
+	/**
+	 * Istantiate the selected implementation of {@link AbstractEsc} using the
+	 * method {@link EscFactory#newInstanceOf(Class, SerialPort)} based on the
+	 * selected port, and opens the connection. Catch every eventual error and
+	 * exception showing a specifical message error on the GUI.
+	 * 
+	 * @return the connected esc based on parameters selection.
+	 */
 	@SuppressWarnings("unchecked")
 	public AbstractEsc getConnectedEsc() {
 		portId = (CommPortIdentifier) portList.getSelectedItem();

@@ -10,8 +10,7 @@ import view.MainFrame;
 public class Controller {
 
 	public static void main(String[] args) {
-		MainFrame mainView = new MainFrame(new Controller());
-		mainView.initGraphic();
+		new MainFrame(new Controller());
 	}
 
 	private AbstractEsc esc;
