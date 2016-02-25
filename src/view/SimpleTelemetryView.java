@@ -18,8 +18,6 @@ import java.util.Map.Entry;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import org.jfree.data.xy.XYSeries;
-
 import esc.AutoQuadEsc32;
 import esc.TelemetryParameter;
 import routine.Routine;

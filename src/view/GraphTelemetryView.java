@@ -192,7 +192,6 @@ public class GraphTelemetryView extends JFrame {
 				renderer.setBaseShapesFilled(true);
 			}
 			ChartPanel panel = new ChartPanel(chart);
-			// panel.setSize(200, 100);
 			graphPanel.add(panel);
 		}
 
