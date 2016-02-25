@@ -28,46 +28,51 @@ public class GraphsFrame extends JFrame {
 		BufferedReader reader = new BufferedReader(new FileReader(logFile));
 		dataSeries = new HashMap<String, XYSeries>();
 
-		// parsing dell'header
-		String header = reader.readLine();
-		String[] parameters = header.split(",");
-		for (int i = 1; i < parameters.length; i++)
-			dataSeries.put(parameters[i], new XYSeries(parameters[i]));
+		try {
+			// parsing dell'header
+			String header = reader.readLine();
+			String[] parameters = header.split(",");
+			for (int i = 1; i < parameters.length; i++)
+				dataSeries.put(parameters[i], new XYSeries(parameters[i]));
 
-		// creazione dei grafici
-		this.setLayout(new GridLayout(2, (int) Math.ceil(parameters.length / 2.0)));
-		for (XYSeries xys : dataSeries.values()) {
-			JFreeChart chart = ChartFactory.createXYLineChart(xys.getDescription(), null, null,
-					new XYSeriesCollection(xys), PlotOrientation.VERTICAL, true, true, false);
-			XYItemRenderer r = ((XYPlot) chart.getPlot()).getRenderer();
-			if (r instanceof XYLineAndShapeRenderer) {
-				XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-				renderer.setBaseShapesVisible(true);
-				renderer.setBaseShapesFilled(true);
-			}
-			ChartPanel panel = new ChartPanel(chart);
-			panel.setSize(200, 100);
-			this.add(panel);
-		}
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.pack();
-		this.setVisible(true);
-
-		// lettura e aggiunta dei dati
-		String line;
-		while ((line = reader.readLine()) != null) {
-			String[] values = line.split(",");
-			for (int i = 1; i < values.length; i++)
-				try {
-					Double timestamp = Double.valueOf(values[0]);
-					Double value = Double.valueOf(values[i]);
-					dataSeries.get(parameters[i]).add(timestamp, value);
-				} catch (ArrayIndexOutOfBoundsException | NumberFormatException ignore) {
-					System.err.println("Errore alla riga: " + line);
-					ignore.printStackTrace();
+			// creazione dei grafici
+			this.setLayout(new GridLayout(2, (int) Math.ceil(parameters.length / 2.0)));
+			for (XYSeries xys : dataSeries.values()) {
+				JFreeChart chart = ChartFactory.createXYLineChart(xys.getDescription(), null, null,
+						new XYSeriesCollection(xys), PlotOrientation.VERTICAL, true, true, false);
+				XYItemRenderer r = ((XYPlot) chart.getPlot()).getRenderer();
+				if (r instanceof XYLineAndShapeRenderer) {
+					XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
+					renderer.setBaseShapesVisible(true);
+					renderer.setBaseShapesFilled(true);
 				}
+				ChartPanel panel = new ChartPanel(chart);
+				panel.setSize(200, 100);
+				this.add(panel);
+			}
+			setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			this.pack();
+			this.setVisible(true);
+
+			// lettura e aggiunta dei dati
+			String line;
+			while ((line = reader.readLine()) != null) {
+				String[] values = line.split(",");
+				for (int i = 1; i < values.length; i++)
+					try {
+						Double timestamp = Double.valueOf(values[0]);
+						Double value = Double.valueOf(values[i]);
+						dataSeries.get(parameters[i]).add(timestamp, value);
+					} catch (ArrayIndexOutOfBoundsException | NumberFormatException ignore) {
+						System.err.println("Errore alla riga: " + line);
+						ignore.printStackTrace();
+					}
+			}
+		} catch (NullPointerException e) {
+			throw new IOException();
+		} finally {
+			reader.close();
 		}
-		reader.close();
 	}
 
 }
