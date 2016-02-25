@@ -34,10 +34,10 @@ public class AnalyzerFrame extends JFrame {
 		this.analyzer = analyzer;
 		resultMap = new HashMap<>();
 		parametersMap = new HashMap<>();
-		initGraphic();
+		initGraphics();
 	}
 
-	public void initGraphic() {
+	public void initGraphics() {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		parametersPanel = new JPanel(new GridLayout(analyzer.parametersRequired.size(), 2, 20, 10));

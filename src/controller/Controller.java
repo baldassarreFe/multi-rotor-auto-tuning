@@ -11,13 +11,17 @@ public class Controller {
 
 	public static void main(String[] args) {
 		MainFrame mainView = new MainFrame(new Controller());
-		mainView.initGraphic();
 	}
 
 	private AbstractEsc esc;
 
 	private Routine routine;
 
+	/**
+	 * Set the ESC associated with the controller
+	 * 
+	 * @param esc
+	 */
 	public void setEsc(AbstractEsc esc) {
 		this.esc = esc;
 	}

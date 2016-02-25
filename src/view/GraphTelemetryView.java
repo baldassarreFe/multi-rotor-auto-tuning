@@ -35,10 +35,31 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import esc.AutoQuadEsc32;
 import esc.TelemetryParameter;
 import routine.Routine;
 
+/**
+ * This class represents a frame in which the data collected during the run of
+ * the motor are displayed in the most proper way. Every data which comes in
+ * numeric form is dynamically put into a graph in function of time passing,
+ * while any parameter that comes in text is put into a text box constantly
+ * updated. This class is also trusted with the task of writing the data coming
+ * from the rotor into the specific .csv file.
+ *
+ */
 public class GraphTelemetryView extends JFrame {
+	/**
+	 * This thread is made to receives data in bundles (Map of
+	 * <TelelemetryParameter,Object>) from the ReaderThread in
+	 * {@link AutoQuadEsc32}. Once received this map, the thread controls if the
+	 * object is an instance of a String or a Number and subsequently put it in
+	 * the {@link XYSeries} (graph) or the {@link JTextField} found as values
+	 * associated to the specific {@link TelemetryParameter} of the object
+	 * received. Also, the thread writes in a properly formatted way the file
+	 * ".csv" associated with the current run of the rotor.
+	 *
+	 */
 	private class Updater extends Thread {
 
 		private ObjectInputStream dis;

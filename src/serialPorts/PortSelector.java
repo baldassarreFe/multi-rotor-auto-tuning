@@ -18,6 +18,17 @@ public class PortSelector {
 
 	static final int TIMEOUT = 2000;
 
+	/**
+	 * Opens the connection with a {@link SerialPort} using the method open in
+	 * the istance of {@link CommPortIdentifier} passed as parameter. Several
+	 * parameters could be set on the serial connection, at the moment those
+	 * parameters are hard coded for test purposes.
+	 * 
+	 * @param selectedPortIdentifier
+	 * @return
+	 * @throws PortInUseException
+	 * @throws UnsupportedCommOperationException
+	 */
 	public static SerialPort connect(CommPortIdentifier selectedPortIdentifier)
 			throws PortInUseException, UnsupportedCommOperationException {
 		SerialPort serialPort = null;
@@ -31,11 +42,23 @@ public class PortSelector {
 		return serialPort;
 	}
 
+	/**
+	 * Close the connection with a SerialPort, see {@link SerialPort#close()}
+	 * 
+	 * @param serialPort
+	 */
 	public static void disconnect(SerialPort serialPort) {
 		System.out.println("Closing connection");
 		serialPort.close();
 	}
 
+	/**
+	 * Scan all the ports using {@link CommPortIdentifier#getPortIdentifiers()}
+	 * and finds those associated with serial ports, putting them into a list.
+	 * 
+	 * @return a {@link List} of {@link CommPortIdentifier}, only associated
+	 *         with SerialPorts. If none available prints an error message.
+	 */
 	@SuppressWarnings("unchecked")
 	public static List<CommPortIdentifier> scanPorts() {
 		List<CommPortIdentifier> portList = new ArrayList<CommPortIdentifier>();

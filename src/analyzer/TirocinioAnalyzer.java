@@ -14,8 +14,9 @@ import esc.FileFormatException;
 
 /**
  * Questa implementazione di {@link Analyzer} compie i seguenti passi per
- * calcolare Ke, Kq, Ra: 1. trovare gli N subset di valori per i quali si ha la
- * derivata di rpm positiva (accelerazione)<br>
+ * calcolare Ke, Kq, Ra: <br>
+ * 1. trovare gli N subset di valori per i quali si ha la derivata di rpm
+ * positiva (accelerazione)<br>
  * 2. per ogni subset fare il calcolo dei coefficienti:<br>
  * 2a. calcolare accelerazione angolare con regressione lineare sugli rpm<br>
  * 2b. calcolare la coppia applicata dal motore come acc. per inerzia<br>
