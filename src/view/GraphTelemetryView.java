@@ -35,6 +35,7 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import esc.AbstractEsc;
 import esc.AutoQuadEsc32;
 import esc.TelemetryParameter;
 import routine.Routine;
@@ -122,6 +123,15 @@ public class GraphTelemetryView extends JFrame {
 	private PrintWriter fileWriter;
 
 	/**
+	 * The constructor instantiate a {@link PipedInputStream} connected to the
+	 * other end point originally generated in the connected {@link AbstractEsc}
+	 * , passed to the routine and retrieved with {@link Routine#getOutput()}.
+	 * In the constructor there is a synchronized block that notifies the esc as
+	 * soon as the piped stream is connected, waking it up from its waiting
+	 * state and letting him create an {@link ObjectInputStream} on the piped
+	 * stream to communicate data. See ReaderThread in {@link AutoQuadEsc32} for
+	 * further information.
+	 * 
 	 * @param routine
 	 */
 	public GraphTelemetryView(Routine routine) {
@@ -163,6 +173,11 @@ public class GraphTelemetryView extends JFrame {
 		new Updater(pis).start();
 	}
 
+	/**
+	 * This method starts the graphics on the frame, creating a chart for every
+	 * numeric data and a panel with text boxes for text data, putting them into
+	 * a grid layout. To create charts we use the {@link JFreeChart} library. 
+	 */
 	private void initGraphics() {
 		JPanel graphPanel = new JPanel();
 		graphPanel.setLayout(new GridLayout(2, (int) Math.ceil(dataSeries.keySet().size() + 1 / 2.0)));

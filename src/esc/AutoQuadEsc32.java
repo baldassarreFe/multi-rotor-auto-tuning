@@ -32,7 +32,11 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		/**
 		 * Alla creazione si imposta la frequenza della telemetria cos� che ai
 		 * dati letti venga associato un timestamp indipendente dall'orologio
-		 * della JVM che esegue la lettura
+		 * della JVM che esegue la lettura. <br>
+		 * Se il pipedOutput di {@link AbstractEsc} non � stato
+		 * collegato a un pipedInput fallisce la creazione di un
+		 * ObjectOutputStream. Per questo motivo dopo un primo fallimento il ReaderThread si
+		 * mette in attesa che un altro thread chiami notify() su pipedOutput
 		 * 
 		 * @param telemetryFrequency
 		 */
@@ -140,11 +144,11 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	 * di RPM. A partire dagli RPM di partenza aumenta di 1 ogni intervallo di
 	 * tempo deltaT calcolato in base alla accelerazione fino a raggiungere gli
 	 * RPM desiderati. In questo modello di ESC vi è un limite alla
-	 * decelerazione di circa -400 rpm/s. Per cambiamenti più rapidi si nota
-	 * che l'esc pone a 0V i motor volts e non ottiene la decelerazione
-	 * richiesta. Per quanto riguarda l'accelerazione questa sarà limitata
-	 * superiormente dal valore per il quale l'esc mette i motor volts a 15V
-	 * (tensione di alimentazione).
+	 * decelerazione di circa -400 rpm/s. Per cambiamenti più rapidi si nota che
+	 * l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta.
+	 * Per quanto riguarda l'accelerazione questa sarà limitata superiormente
+	 * dal valore per il quale l'esc mette i motor volts a 15V (tensione di
+	 * alimentazione).
 	 *
 	 * @param from
 	 *            starting rpm
