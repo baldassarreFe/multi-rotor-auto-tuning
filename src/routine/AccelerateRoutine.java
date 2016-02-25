@@ -21,14 +21,14 @@ public class AccelerateRoutine extends Routine {
 	public AccelerateRoutine() {
 		super("Accelera 1000->2000 a 50 rpm/s", Arrays.asList(TelemetryParameter.values()), new ArrayList<Instruction>());
 		List<Instruction> instrs = new ArrayList<>();
-		instrs.add(Instruction.ARM);
-		instrs.add(Instruction.START);
+		instrs.add(Instruction.newArm());
+		instrs.add(Instruction.newStart());
 		instrs.add(Instruction.newSleep(3000));
 		instrs.add(Instruction.newSetTelemetry(10));
 		instrs.add(Instruction.newAcceleration(1000, 2000, 50));
 		instrs.add(Instruction.newSleep(3000));
-		instrs.add(Instruction.STOP);
-		instrs.add(Instruction.DISARM);
+		instrs.add(Instruction.newStop());
+		instrs.add(Instruction.newDisarm());
 		this.instructions = instrs;
 	}
 }

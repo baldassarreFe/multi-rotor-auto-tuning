@@ -1,5 +1,9 @@
 package routine;
 
+/**
+ * An enumeration representing the types of instructions available to an Esc
+ *
+ */
 public enum InstructionType {
 	ARM("ARM"), DISARM("DISARM"), SLEEP("SLEEP"), START("START"), STOP("STOP"), SET_RPM("RPM"), ACCELERATE(
 			"ACCELERATE"), START_TELEMETRY("TELEMETRY"), STOP_TELEMETRY("STOP TELEMETRY"), DIRECTION("DIRECTION");
