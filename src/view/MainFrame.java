@@ -27,9 +27,12 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final String DATE = "March 2016";
 	private static final String VERSION = "1.0";
+	private static final String TITLE = "Rotor Model Identification System";
 	protected static final String ABOUT = "Developed by Federico Baldassarre e Federico Venturini\n"
 			+ "CASY (Center for Research on Complex Automated Systems)"
-			+ "\nAlma Mater Studiorum - Università di Bologna" + "\nVersion: " + VERSION + " " + DATE;
+			+ "\nAlma Mater Studiorum - Università di Bologna"
+			+ "\nVersion: "
+			+ VERSION + " " + DATE;
 	private Controller controller;
 
 	/**
@@ -58,7 +61,7 @@ public class MainFrame extends JFrame {
 	 */
 	public void initGraphics() {
 		this.setLayout(new GridLayout(1, 2));
-		this.setTitle("Rotor Model Identification System");
+		this.setTitle(TITLE);
 		this.add(new LeftPanel(controller));
 		this.add(new RightPanel(controller));
 		this.setSize(600, 300);

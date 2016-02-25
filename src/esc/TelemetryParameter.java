@@ -2,7 +2,7 @@ package esc;
 
 /**
  * Parameters that can be read from the telemetry of a generic esc (names
- * inspired from the modele AutoquadEsc32). Each parameter has associated a
+ * inspired from the model AutoquadEsc32). Each parameter has associated a
  * string that identifies that parameter in the telemetry output of the ESC and
  * a class type that determines the kind of value associated with the parameter.
  */

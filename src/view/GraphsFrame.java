@@ -20,6 +20,8 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import esc.TelemetryParameter;
+
 /**
  * This class implements a simple JFrame which display the data extracted from
  * the data file in a previous run in a series of ctarts as done in
@@ -51,7 +53,8 @@ public class GraphsFrame extends JFrame {
 							Double timestamp = Double.valueOf(values[0]);
 							Double value = Double.valueOf(values[i]);
 							dataSeries.get(parameters[i]).add(timestamp, value);
-						} catch (ArrayIndexOutOfBoundsException | NumberFormatException ignore) {
+						} catch (ArrayIndexOutOfBoundsException
+								| NumberFormatException ignore) {
 							System.err.println("Errore alla riga: " + line);
 							ignore.printStackTrace();
 						}
@@ -92,7 +95,9 @@ public class GraphsFrame extends JFrame {
 		parameters = header.split(",");
 		dataSeries = new HashMap<String, XYSeries>();
 		for (int i = 1; i < parameters.length; i++)
-			dataSeries.put(parameters[i], new XYSeries(parameters[i]));
+			if (Number.class.isAssignableFrom(TelemetryParameter
+					.parse(parameters[i]).valueClass))
+				dataSeries.put(parameters[i], new XYSeries(parameters[i]));
 	}
 
 	/**
@@ -100,10 +105,12 @@ public class GraphsFrame extends JFrame {
 	 * {@link #parameters}
 	 */
 	private void initGraphics() {
-		this.setLayout(new GridLayout(2, (int) Math.ceil(parameters.length / 2.0)));
+		this.setLayout(new GridLayout(2, (int) Math
+				.ceil(parameters.length / 2.0)));
 		for (XYSeries xys : dataSeries.values()) {
-			JFreeChart chart = ChartFactory.createXYLineChart(xys.getDescription(), null, null,
-					new XYSeriesCollection(xys), PlotOrientation.VERTICAL, true, true, false);
+			JFreeChart chart = ChartFactory.createXYLineChart(xys
+					.getDescription(), null, null, new XYSeriesCollection(xys),
+					PlotOrientation.VERTICAL, true, true, false);
 			XYItemRenderer r = ((XYPlot) chart.getPlot()).getRenderer();
 			if (r instanceof XYLineAndShapeRenderer) {
 				XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
