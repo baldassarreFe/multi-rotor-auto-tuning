@@ -9,7 +9,7 @@ import esc.TelemetryParameter;
 
 /**
  * Used only for test purposes, custom routines can be created passing a list of
- * {@link Instruction} to {@link Routine#Routine(List)}, even if the best way to
+ * {@link Instruction} to {@link Routine#Routine(String, List, List)}, even if the best way to
  * define a routine is by creating a .rou file that can be parsed through a
  * {@link RoutineLoader}
  */

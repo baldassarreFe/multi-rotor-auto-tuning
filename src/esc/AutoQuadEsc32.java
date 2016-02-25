@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.io.PipedOutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -33,17 +34,18 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		 * Alla creazione si imposta la frequenza della telemetria cos� che ai
 		 * dati letti venga associato un timestamp indipendente dall'orologio
 		 * della JVM che esegue la lettura. <br>
-		 * Se il pipedOutput di {@link AbstractEsc} non � stato
-		 * collegato a un pipedInput fallisce la creazione di un
-		 * ObjectOutputStream. Per questo motivo dopo un primo fallimento il ReaderThread si
-		 * mette in attesa che un altro thread chiami notify() su pipedOutput
+		 * Se il pipedOutput di {@link AbstractEsc} non � stato collegato a un
+		 * pipedInput fallisce la creazione di un ObjectOutputStream. Per questo
+		 * motivo dopo un primo fallimento il ReaderThread si mette in attesa
+		 * che un altro thread chiami notify() su pipedOutput
 		 * 
 		 * @param telemetryFrequency
 		 */
 		public ReaderThread(int telemetryFrequency) {
 			this.setName("ReaderThread");
 			period = 1.0 / telemetryFrequency;
-			// Se il pipedOutput non � stato collegato a un pipedInput fallisce
+			// Se il pipedOutput non � stato collegato a un pipedInput
+			// fallisce
 			// la creazione di un ObjectOutputStream
 			// perci� dopo un primo fallimento il ReaderThread si mette in
 			// attesa che un altro thread chiami notify()
@@ -71,7 +73,20 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		}
 
 		/**
-		 * 
+		 * Se la telemetria � attiva, il thread legge a caratteri dallo stream
+		 * della porta seriale fino alla fine dello stream. Una volta raggiunto
+		 * un fine linea, il thread analizza la stringa appena trovata. Se la
+		 * prima parte di essa identifica un parametro di interesse per la
+		 * routine, il {@link TelemetryParameter} e il valore di esso che viene
+		 * letto vengono aggiunti ad una mappa appositamente creata. Una volta
+		 * che avviene una lettura per ogni parametro di interesse la mappa con
+		 * i dati viene inviata sul {@link PipedOutputStream} e riinizializzata.
+		 * Nel caso di errori nella lettura di un valore esso viene comunque
+		 * inserito nella mappa con valore nullo, sar� compito dell'oggetto che
+		 * si occupa dell'analisi dei dati o della rappresentazione di essi di
+		 * gestire l'errore. Nel caso di errore nella lettura di un tipo di
+		 * parametro invece, l'intero bundle di dati viene scartato e si attende
+		 * la successiva lettura.
 		 */
 		@Override
 		public void run() {
@@ -144,11 +159,11 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	 * di RPM. A partire dagli RPM di partenza aumenta di 1 ogni intervallo di
 	 * tempo deltaT calcolato in base alla accelerazione fino a raggiungere gli
 	 * RPM desiderati. In questo modello di ESC vi è un limite alla
-	 * decelerazione di circa -400 rpm/s. Per cambiamenti più rapidi si nota che
-	 * l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta.
-	 * Per quanto riguarda l'accelerazione questa sarà limitata superiormente
-	 * dal valore per il quale l'esc mette i motor volts a 15V (tensione di
-	 * alimentazione).
+	 * decelerazione di circa -400 rpm/s. Per cambiamenti più rapidi si nota
+	 * che l'esc pone a 0V i motor volts e non ottiene la decelerazione
+	 * richiesta. Per quanto riguarda l'accelerazione questa sarà limitata
+	 * superiormente dal valore per il quale l'esc mette i motor volts a 15V
+	 * (tensione di alimentazione).
 	 *
 	 * @param from
 	 *            starting rpm

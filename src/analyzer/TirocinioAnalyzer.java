@@ -42,11 +42,16 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * 4. calcolare Kq come rapporto tra coppia e corrente media
 	 *
 	 * @param omegas
+	 *            array of angular speed values
 	 * @param currents
+	 *            array of motor current values
 	 * @param I
+	 *            moment of inertia
 	 * @param deltaI
+	 *            moment of inertia error
 	 * @param times
-	 * @return
+	 *            array of time values
+	 * @return calculated torque constant
 	 */
 	private static double[] calculateKq(double[] omegas, double[] currents, double I, double deltaI, double[] times) {
 		// calcolare accelerazione angolare con regressione lineare sugli rpm
@@ -70,6 +75,19 @@ public class TirocinioAnalyzer extends Analyzer {
 				torque / current_mean * (delta_torque / torque + delta_current_mean / current_mean) };
 	}
 
+	/**
+	 * Calcola la corrente media con media sui valori della corrente, l'errore
+	 * di essa come deviazione standard e ottiene Ra come intercetta /
+	 * mean_current della regressione lineare tra tensione e velocit� angolare,
+	 * 
+	 * @param tensions
+	 *            array of motor tension values
+	 * @param omegas
+	 *            array of motor angular speed values
+	 * @param currents
+	 *            array of motor current values
+	 * @return calculated motor internal resistance
+	 */
 	private static double[] calculateRa(double[] tensions, double[] omegas, double[] currents) {
 		// calcolare Ra come intercept/mean_current della regressione lineare
 		// tra tensione e velocità angolare
@@ -114,12 +132,12 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * oltre che al numero di acelerazioni individuate durante l'analisi.<br>
 	 * Informazioni più dettagliate sui risultati intermedi dei calcoli possono
 	 * essere lette in un nuovo file chiamato come il file dei dati con
-	 * l'aggiunta di "-ANALYSIS"
+	 * l'aggiunta di "-ANALYSIS"<br>
 	 *
 	 * @param dataFile
 	 * @param propertyFile
 	 * @throws IOException
-	 * @see {@link Analyzer#Analyzer(File, File)}
+
 	 */
 	public TirocinioAnalyzer(File dataFile, File propertyFile) throws FileFormatException, IOException {
 		super(dataFile, propertyFile);

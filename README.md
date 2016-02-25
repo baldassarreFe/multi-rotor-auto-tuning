@@ -68,28 +68,28 @@ Le pi� comuni istruzioni che � possibile inviare ad un esc. Alcune di esse p
 ## Routines
 Le routines utilizzabili in questo applicativo sono scritte in file con estensioni .rou con il seguente formato:
 * la prima riga contiene il nome della routine
-* la seconda rica contiene una lista di parametri da utilizzare nella telemetry sottoforma di stringhe separate da virgole(vedere la classe TelemetryParameter per le specifiche stringhe). 
+* la seconda riga contiene una lista di parametri da utilizzare nella telemetry sottoforma di stringhe separate da virgole(vedere la classe TelemetryParameter per le specifiche stringhe). 
 * le righe successive devono contenere una valida istruzione per l'ESC, così come specificate nella classe Instruction. Se l'istruzione necessita parametri aggiuntivi questi vanno specificati dopo il nome dell'istruzione e un ':', ogni parametro separato da uno spazio. Le linee vuote e quelle che iniziano per '#' vengono ignorate.  
 Un esempio di file di routine valido è il seguente:  
 
-    Rapid acceleration from 2000 to 6000 rpm
+    Rapid acceleration from 2000 to 6000 rpm  
     RPM, AMPS AVG, MOTOR VOLTS
     
-    arm
-    start
-    rpm: 2000
-    sleep: 10000
-    telemetry: 50
-    sleep: 1000
+    arm  
+    start  
+    rpm: 2000  
+    sleep: 10000  
+    telemetry: 50  
+    sleep: 1000  
     
-    # accelerate at 1200 rpm/s
-    accelerate: 2000 6000 1200
-    accelerate: 6000 1000 -400
+    \# accelerate at 1200 rpm/s  
+    accelerate: 2000 6000 1200  
+    accelerate: 6000 1000 -400  
     
-    sleep: 5000
-    stop telemetry
-    stop
-    disarm
+    sleep: 5000  
+    stop telemetry  
+    stop  
+    disarm  
 
 ## Dependencies
 Il codice � scritto utilizzando Java 1.7, accompagnato dalle seguenti librerie:

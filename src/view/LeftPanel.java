@@ -56,7 +56,7 @@ public class LeftPanel extends JPanel {
 	 * and {@link RoutineLoader#loadFrom(File...)}. Then adds a button START
 	 * which launches the selected routine on the selected esc from the
 	 * controller, opening another panel in which datas will be displayed in the
-	 * most appropriate form (see {@link Controller#startRoutine(Routine)}) .
+	 * most appropriate form (see {@link Controller#startRoutine(Routine, AbstractEsc)}) .
 	 * 
 	 * @param cont,
 	 *            the controller needed to operate from the main frame.
