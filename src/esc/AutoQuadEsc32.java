@@ -378,7 +378,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	 *         chaining di comandi in successione
 	 */
 	private AutoQuadEsc32 startTelemetry(int frequency) {
-		if (frequency < 0 || frequency > 100)
+		if (frequency < 0 || frequency > 30)
 			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
 		if (frequency == 0)
 			return stopTelemetry();

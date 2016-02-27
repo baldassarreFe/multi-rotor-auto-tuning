@@ -5,7 +5,7 @@ direction: backward
 start
 rpm: 1000
 sleep: 5000
-telemetry: 60
+telemetry: 30
 sleep: 1000
 
 accelerate: 5000 7000 500

@@ -6,7 +6,7 @@ start
 sleep: 1000
 rpm: 3000
 sleep: 10000
-telemetry: 60
+telemetry: 30
 sleep: 1000
 
 accelerate: 3000 2000 -400

@@ -4,7 +4,7 @@ arm
 start
 rpm: 2000
 sleep: 10000
-telemetry: 50
+telemetry: 30
 sleep: 1000
 
 accelerate: 2000 6000 1200
