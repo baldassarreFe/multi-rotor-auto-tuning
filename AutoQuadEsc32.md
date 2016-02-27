@@ -18,7 +18,7 @@ Inoltre, tramite regressione lineare tra gli rpm e la tensione del motore si ott
 L'analisi qui descritta è condotta tramite un software appositamente sviluppato per gestire la comunicazione tramite seriale con un motore collegato a un ESC, la raccolta dei dati della telemetria e la loro analisi.
 
 ## Osservazioni sull'analisi
-- Come già descritto nella precedente sezione, per effettuare le procedure di calcolo dei coefficienti sul motore, è necessario avere profili di velocità crescente con accelerazione e corrente costante. Per questo motivo la routine scelta è composta da una serie di 5 accelerazioni tra 2000 e 3000 rpm, con vari profili di accelerazione costante (da 10 a 50 rpm/s), ripetute per due volte. Tra ogni accelerazione e la successiva vi è una decelerazione tra 3000 e 2000, alla massima rapidità consentita dal motore, ininfluente per il computo dei dati. Si osserva che per mantenere la corrente che scorre nel motore costante, è necessario mantenere velocità angolari e accelerazioni angolari basse.
+Come già descritto nella precedente sezione, per effettuare le procedure di calcolo dei coefficienti sul motore, è necessario avere profili di velocità crescente con accelerazione e corrente costante. Per questo motivo la routine scelta è composta da una serie di 5 accelerazioni tra 2000 e 3000 rpm, con vari profili di accelerazione costante (da 10 a 50 rpm/s), ripetute per due volte. Tra ogni accelerazione e la successiva vi è una decelerazione tra 3000 e 2000, alla massima rapidità consentita dal motore, ininfluente per il computo dei dati. Si osserva che per mantenere la corrente che scorre nel motore costante, è necessario mantenere velocità angolari e accelerazioni angolari basse.
 ```
 accelerate: 2000 3000 10
 accelerate: 3000 2000 -400
@@ -42,16 +42,17 @@ accelerate: 3000 2000 -400
 accelerate: 2000 3000 50
 accelerate: 3000 2000 -400
 ```
-- Per quanto riguarda la telemetria, si è scelto di utilizzare una frequenza di 30 Hz, che dopo alcune prove sperimentali risulta essere il limite superiore dettato dall'ESC. 
-- Durante la sperimentazione e lo studio dei dati, si osserva che in questo modello di ESC vi è un limite alla decelerazione di circa -400 rpm/s. Infatti si nota che, se si impongono cambiamenti più rapidi, l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta. Per quanto riguarda l'accelerazione invece, questa sarà limitata superiormente dal valore per il quale l'esc utiliza una tensione pari a 15 V, ossia la tensione di alimentazione.
-- Si osserva inoltre che i dati ottenuti durante un'accelerazione con valori molto bassi, con una frequenza di telemetria abbastanza elevata, sono significativamente scattered, ossia senza un andamento strettamente crescente come dovrebbe essere, ma con valori che oscillanti. Questo è probabilmente dettato dalla limitata accuratezza dell'analisi dell'ESC e dalla scelta implementativa della procedura di accelerazione in codice. 
+Per quanto riguarda la telemetria, si è scelto di utilizzare una frequenza di 30 Hz, che dopo alcune prove sperimentali risulta essere il limite superiore dettato dall'ESC.   
+Durante la sperimentazione e lo studio dei dati, si osserva che in questo modello di ESC vi è un limite alla decelerazione di circa -400 rpm/s. Infatti si nota che, se si impongono cambiamenti più rapidi, l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta. Per quanto riguarda l'accelerazione invece, questa sarà limitata superiormente dal valore per il quale l'esc utiliza una tensione pari a 15 V, ossia la tensione di alimentazione.  
+Si osserva inoltre che i dati ottenuti durante un'accelerazione con valori molto bassi, con una frequenza di telemetria abbastanza elevata, sono significativamente scattered, ossia senza un andamento strettamente crescente come dovrebbe essere, ma con valori che oscillanti. Questo è probabilmente dettato dalla limitata accuratezza dell'analisi dell'ESC e dalla scelta implementativa della procedura di accelerazione in codice. 
 
 ## Risultati ottenuti
-Le incertezze associate ai coefficienti calcolati ad ogni singola analisi di un profilo di accelerazione sono quelle ottenute tramite gli strumenti matematici di regressione lineare e deviazione standard, pertanto rappresentano una stima statistica e non una reale incertezza dovuta agli errori di misura. Per quanto riguarda il valore finale dei coefficienti si è scelto di calcolarlo come media matematica dei valori e delle incertezze ad essi associate.  
-Durante l'analisi, si osserva che talvolta, per una errata gestione della comunicazione dei dati da parte dell'ESC, la telemetria contiene valori spuri o non leggibili. L'implementazione in codice è per lo più in grado di individuare questi valori e scartarli. Talvolta però, si possono trovare valori esageratamente inaspettati tra i dati, e pertanto si consiglia di osservare con attenzione le analisi effettuate e ripetere la routine se necessario.
-![RISULTATO DELL'ANALISI](/assets/analysisResults.png)
-E' importante osservare che l'ipotesi di corrente costante (necessaria per la veridicità dei calcoli) è verificata solo per un ristretto range di rpm con valori bassi e senza l'uso di brusche accelerazioni, pertanto è necessario affermare che i coefficienti così calcolati hanno significato fisico solo al di sotto di queste limitazioni. Se risultasse necessario usare questi valori in situazioni d'uso diverse, essi potrebbero non essere validi.
+- come abbiamo calcolato le incertezze
+- ogni tanto l'esc sbanana la telemetry, ma la procedura è in grado di scartare i valori spuri
+- foto
+- commento sulla valutazione delle incertezze
+- l'ipotesi di corrente costante è verificata solo per il ristretto range 2000-3000 quindi i coeff che calcoliamo hanno significato fisico solo in questo range, per usare il motore in situazioni diverse, questi parametri possono non essere validi
 
 ## Possibili sviluppi
-- provare altri motori e confrontare i risulati con i datasheet dei motori
-- provare con lo stesso motore ed altri esc
+La procedura di identificazione è progettata per essere indipendente dall'ESC utilizzato, che rappresenta solamente uno strumento di comunicazione e misura. Pertanto ripetere l'analisi sullo stesso motore con ESC diversi deve risultare in valori compatibili dei parametri. L'ESC ha incidenza solamente sulle performance delle routines e sugli errori associati alle misure della telemetria, ma in linea di massima non dovrebbe modificare il comportamento di un motore. Grazie alle astrazioni introdotte nel software è possibile testare altri ESC scrivendo solamente la classe che li implementa, lasciando inalterato il resto del codice.
+Un ulteriore sviluppo futuro di questa procedura di analisi è testare altri motori per stimarne i coefficienti, confrontandoli inoltre con quelli forniti dal datasheet del motore se disponibili. In questo modo è possibile valutare l'accuratezza e il campo di validità dei metodi utilizzati.
