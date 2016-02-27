@@ -142,7 +142,7 @@ public class RoutineLoader {
 						break;
 					case START_TELEMETRY:
 						int frequency = Integer.parseInt(st.nextToken(": "));
-						instructions.add(Instruction.newSetTelemetry(frequency));
+						instructions.add(Instruction.newStartTelemetry(frequency));
 						break;
 					case ACCELERATE:
 						int from = Integer.parseInt(st.nextToken(": "));

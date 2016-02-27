@@ -61,7 +61,7 @@ public class Instruction {
 		return new Instruction(InstructionType.SET_RPM, map);
 	}
 
-	public static final Instruction newSetTelemetry(int frequency) {
+	public static final Instruction newStartTelemetry(int frequency) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("frequency", frequency);
 		return new Instruction(InstructionType.START_TELEMETRY, map);

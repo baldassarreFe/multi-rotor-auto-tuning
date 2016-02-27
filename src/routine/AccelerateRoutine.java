@@ -24,7 +24,7 @@ public class AccelerateRoutine extends Routine {
 		instrs.add(Instruction.newArm());
 		instrs.add(Instruction.newStart());
 		instrs.add(Instruction.newSleep(3000));
-		instrs.add(Instruction.newSetTelemetry(10));
+		instrs.add(Instruction.newStartTelemetry(10));
 		instrs.add(Instruction.newAcceleration(1000, 2000, 50));
 		instrs.add(Instruction.newSleep(3000));
 		instrs.add(Instruction.newStop());
