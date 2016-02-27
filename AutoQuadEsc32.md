@@ -47,11 +47,10 @@ accelerate: 3000 2000 -400
 - Si osserva inoltre che i dati ottenuti durante un'accelerazione con valori molto bassi, con una frequenza di telemetria abbastanza elevata, sono significativamente scattered, ossia senza un andamento strettamente crescente come dovrebbe essere, ma con valori che oscillanti. Questo è probabilmente dettato dalla limitata accuratezza dell'analisi dell'ESC e dalla scelta implementativa della procedura di accelerazione in codice. 
 
 ## Risultati ottenuti
-- come abbiamo calcolato le incertezze
-- ogni tanto l'esc sbanana la telemetry, ma la procedura è in grado di scartare i valori spuri
-- foto
-- commento sulla valutazione delle incertezze
-- l'ipotesi di corrente costante è verificata solo per il ristretto range 2000-3000 quindi i coeff che calcoliamo hanno significato fisico solo in questo range, per usare il motore in situazioni diverse, questi parametri possono non essere validi
+Le incertezze associate ai coefficienti calcolati ad ogni singola analisi di un profilo di accelerazione sono quelle ottenute tramite gli strumenti matematici di regressione lineare e deviazione standard, pertanto rappresentano una stima statistica e non una reale incertezza dovuta agli errori di misura. Per quanto riguarda il valore finale dei coefficienti si è scelto di calcolarlo come media matematica dei valori e delle incertezze ad essi associate.  
+Durante l'analisi, si osserva che talvolta, per una errata gestione della comunicazione dei dati da parte dell'ESC, la telemetria contiene valori spuri o non leggibili. L'implementazione in codice è per lo più in grado di individuare questi valori e scartarli. Talvolta però, si possono trovare valori esageratamente inaspettati tra i dati, e pertanto si consiglia di osservare con attenzione le analisi effettuate e ripetere la routine se necessario.
+![RISULTATO DELL'ANALISI](/assets/analysisResults.png)
+E' importante osservare che l'ipotesi di corrente costante (necessaria per la veridicità dei calcoli) è verificata solo per un ristretto range di rpm con valori bassi e senza l'uso di brusche accelerazioni, pertanto è necessario affermare che i coefficienti così calcolati hanno significato fisico solo al di sotto di queste limitazioni. Se risultasse necessario usare questi valori in situazioni d'uso diverse, essi potrebbero non essere validi.
 
 ## Possibili sviluppi
 - provare altri motori e confrontare i risulati con i datasheet dei motori
