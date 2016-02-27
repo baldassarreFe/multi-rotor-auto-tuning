@@ -93,9 +93,9 @@ Un esempio di file di routine valido è il seguente:
 ```
 ## Dependencies
 Il codice è scritto utilizzando Java 1.7, accompagnato dalle seguenti librerie:
-* RxTx rxtx.qbang.org
+* RxTx http://rxtx.qbang.org
 * JFreeChart www.jfree.org/jfreechart
-* Commons Math commons.apache.org/proper/commons-math
+* Commons Math http://commons.apache.org/proper/commons-math
 * Reflections https://code.google.com/archive/p/reflections
 
 [1] M. Bangura, H. Lim, H. Kim, and R. Mahony, "Aerodynamic power control for multirotor aerial vehicles", in *Robotics and Automation (ICRA), 2014 IEEE International Conference on*, May 2014, pp 529-536
