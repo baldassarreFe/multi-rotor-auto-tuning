@@ -65,10 +65,10 @@ public class AnalyzerFrame extends JFrame {
 	 * any problem in parsing values, an error message is displayed.
 	 */
 	public void initGraphics() {
-		this.setTitle("Data analysis");
-		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-		this.getRootPane().setBorder(
-				BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		setTitle("Data analysis");
+		setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+		getRootPane()
+				.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		parametersPanel = new JPanel(new GridLayout(
 				analyzer.parametersRequired.size(), 2, 20, 10));
 		for (String s : analyzer.parametersRequired.keySet()) {
@@ -137,7 +137,7 @@ public class AnalyzerFrame extends JFrame {
 		this.add(Box.createRigidArea(new Dimension(0, 30)));
 		this.add(analyze);
 
-		this.pack();
-		this.setVisible(true);
+		pack();
+		setVisible(true);
 	}
 }

@@ -1,5 +1,7 @@
 package esc;
 
+import gnu.io.SerialPort;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import gnu.io.SerialPort;
 import routine.Instruction;
 import routine.InstructionType;
 
@@ -32,8 +33,8 @@ public abstract class AbstractEsc {
 	 * Genera contenstualmente una {@link PipedOutputStream} utile per la
 	 * gestione dei dati ricevuti dal motore
 	 *
-	 * @param port,
-	 *            istanza di {@link SerialPort} dalla quale vengono estratti
+	 * @param port
+	 *            , istanza di {@link SerialPort} dalla quale vengono estratti
 	 *            input ed output stream per la comunicazione con il motore
 	 * @throws IOException
 	 */

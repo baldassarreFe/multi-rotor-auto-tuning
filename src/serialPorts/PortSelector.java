@@ -1,5 +1,10 @@
 package serialPorts;
 
+import gnu.io.CommPortIdentifier;
+import gnu.io.PortInUseException;
+import gnu.io.SerialPort;
+import gnu.io.UnsupportedCommOperationException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,11 +13,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
-
-import gnu.io.CommPortIdentifier;
-import gnu.io.PortInUseException;
-import gnu.io.SerialPort;
-import gnu.io.UnsupportedCommOperationException;
 
 public class PortSelector {
 
@@ -33,11 +33,13 @@ public class PortSelector {
 			throws PortInUseException, UnsupportedCommOperationException {
 		SerialPort serialPort = null;
 		// the method below returns an object of type SerialPort
-		serialPort = (SerialPort) selectedPortIdentifier.open("multi-rotor-auto-tuning", TIMEOUT);
+		serialPort = (SerialPort) selectedPortIdentifier.open(
+				"multi-rotor-auto-tuning", TIMEOUT);
 		// TODO permettere all'utente di modificare questi parametri da
 		// interfaccia grafica o caricarli da file .properties
 		// Questi vanno bene per AutoquadEsc32
-		serialPort.setSerialPortParams(230400, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+		serialPort.setSerialPortParams(230400, SerialPort.DATABITS_8,
+				SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
 		System.out.println("Connection Established");
 		return serialPort;
 	}
@@ -64,7 +66,8 @@ public class PortSelector {
 		List<CommPortIdentifier> portList = new ArrayList<CommPortIdentifier>();
 
 		// for containing the ports that will be found
-		Enumeration<CommPortIdentifier> ports = CommPortIdentifier.getPortIdentifiers();
+		Enumeration<CommPortIdentifier> ports = CommPortIdentifier
+				.getPortIdentifiers();
 
 		if (!ports.hasMoreElements())
 			System.out.println("No Ports Available");
@@ -84,18 +87,21 @@ public class PortSelector {
 	 * @return
 	 */
 	@Deprecated
-	public static CommPortIdentifier selectPort(Map<String, CommPortIdentifier> portMap) {
+	public static CommPortIdentifier selectPort(
+			Map<String, CommPortIdentifier> portMap) {
 		CommPortIdentifier selectedPortIdentifier;
 		for (CommPortIdentifier c : portMap.values())
 			System.out.println(c.getName());
 		if (portMap.size() == 1) {
-			selectedPortIdentifier = portMap.values().toArray(new CommPortIdentifier[1])[0];
+			selectedPortIdentifier = portMap.values().toArray(
+					new CommPortIdentifier[1])[0];
 			return selectedPortIdentifier;
 		}
 		selectedPortIdentifier = null;
 		BufferedReader console = null;
 		try {
-			console = new BufferedReader(new InputStreamReader(System.in, "CP850"));
+			console = new BufferedReader(new InputStreamReader(System.in,
+					"CP850"));
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}

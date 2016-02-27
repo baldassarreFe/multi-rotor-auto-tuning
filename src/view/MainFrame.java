@@ -44,8 +44,8 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame(final Controller controller) {
 		this.controller = controller;
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new WindowAdapter() {
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				controller.stopRoutineAndDisconnectEsc();
@@ -60,8 +60,8 @@ public class MainFrame extends JFrame {
 	 * {@link RightPanel} obviously located as the names suggest.
 	 */
 	public void initGraphics() {
-		this.setLayout(new GridLayout(1, 2));
-		this.setTitle(TITLE);
+		setLayout(new GridLayout(1, 2));
+		setTitle(TITLE);
 		this.add(new LeftPanel(controller));
 		this.add(new RightPanel(controller));
 		this.setSize(600, 300);
@@ -83,8 +83,8 @@ public class MainFrame extends JFrame {
 		menuBar.add(Box.createHorizontalGlue());
 		menuBar.add(help);
 
-		this.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 
-		this.setVisible(true);
+		setVisible(true);
 	}
 }

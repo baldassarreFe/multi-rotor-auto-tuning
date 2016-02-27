@@ -31,7 +31,8 @@ public class TirocinioAnalyzer extends Analyzer {
 		// velocità angolare
 		SimpleRegression regression = new SimpleRegression();
 		regression.addData(toMatrix(omegas, tensions));
-		return new double[] { regression.getSlope(), regression.getSlopeStdErr() };
+		return new double[] { regression.getSlope(),
+				regression.getSlopeStdErr() };
 	}
 
 	/**
@@ -53,7 +54,8 @@ public class TirocinioAnalyzer extends Analyzer {
 	 *            array of time values
 	 * @return calculated torque constant
 	 */
-	private static double[] calculateKq(double[] omegas, double[] currents, double I, double deltaI, double[] times) {
+	private static double[] calculateKq(double[] omegas, double[] currents,
+			double I, double deltaI, double[] times) {
 		// calcolare accelerazione angolare con regressione lineare sugli rpm
 		SimpleRegression regression = new SimpleRegression();
 		regression.addData(toMatrix(times, omegas));
@@ -71,8 +73,12 @@ public class TirocinioAnalyzer extends Analyzer {
 		double delta_current_mean = sd.evaluate(currents, current_mean);
 
 		// calcolare Kq come rapporto tra coppia e corrente media
-		return new double[] { torque / current_mean,
-				torque / current_mean * (delta_torque / torque + delta_current_mean / current_mean) };
+		return new double[] {
+				torque / current_mean,
+				torque
+						/ current_mean
+						* (delta_torque / torque + delta_current_mean
+								/ current_mean) };
 	}
 
 	/**
@@ -88,7 +94,8 @@ public class TirocinioAnalyzer extends Analyzer {
 	 *            array of motor current values
 	 * @return calculated motor internal resistance
 	 */
-	private static double[] calculateRa(double[] tensions, double[] omegas, double[] currents) {
+	private static double[] calculateRa(double[] tensions, double[] omegas,
+			double[] currents) {
 		// calcolare Ra come intercept/mean_current della regressione lineare
 		// tra tensione e velocità angolare
 		SimpleRegression regression = new SimpleRegression();
@@ -102,8 +109,12 @@ public class TirocinioAnalyzer extends Analyzer {
 		StandardDeviation sd = new StandardDeviation();
 		double delta_current_mean = sd.evaluate(currents, current_mean);
 
-		return new double[] { intercept / current_mean,
-				intercept / current_mean * (delta_current_mean / current_mean + delta_intercept / intercept) };
+		return new double[] {
+				intercept / current_mean,
+				intercept
+						/ current_mean
+						* (delta_current_mean / current_mean + delta_intercept
+								/ intercept) };
 	}
 
 	private static double[][] toMatrix(double[] x, double[] y) {
@@ -126,8 +137,7 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * sua incertezza (deltaI) e la dimensione minima che deve avere un subset
 	 * di misure di rpm crescenti per essere considerato come un'accelerazione
 	 * ai fini dell'analisi.<br>
-	 * Come colonne nel file sono richieste TIME, RPM, AMPS AVG e MOTOR VOLTS.
-	 * <br>
+	 * Come colonne nel file sono richieste TIME, RPM, AMPS AVG e MOTOR VOLTS. <br>
 	 * Come risultati vengono restituiti Ke, Kq e Ra con le relative incertezze,
 	 * oltre che al numero di acelerazioni individuate durante l'analisi.<br>
 	 * Informazioni più dettagliate sui risultati intermedi dei calcoli possono
@@ -137,13 +147,14 @@ public class TirocinioAnalyzer extends Analyzer {
 	 * @param dataFile
 	 * @param propertyFile
 	 * @throws IOException
-
 	 */
-	public TirocinioAnalyzer(File dataFile, File propertyFile) throws FileFormatException, IOException {
+	public TirocinioAnalyzer(File dataFile, File propertyFile)
+			throws FileFormatException, IOException {
 		super(dataFile, propertyFile);
 
-		pw = new PrintWriter(
-				new File(dataFile.getName().substring(0, dataFile.getName().length() - 4) + "-ANALYSIS.csv"));
+		pw = new PrintWriter(new File(dataFile.getName().substring(0,
+				dataFile.getName().length() - 4)
+				+ "-ANALYSIS.csv"));
 
 		parametersRequired.put("I", null);
 		parametersRequired.put("deltaI", null);
@@ -199,13 +210,18 @@ public class TirocinioAnalyzer extends Analyzer {
 
 			int first = set[0];
 			int last = set[1];
-			double[] times = toPrimitiveType(table.get("TIME").subList(first, last + 1));
-			double[] rpms = toPrimitiveType(table.get("RPM").subList(first, last + 1));
-			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(first, last + 1));
-			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(first, last + 1));
+			double[] times = toPrimitiveType(table.get("TIME").subList(first,
+					last + 1));
+			double[] rpms = toPrimitiveType(table.get("RPM").subList(first,
+					last + 1));
+			double[] currents = toPrimitiveType(table.get("AMPS AVG").subList(
+					first, last + 1));
+			double[] volts = toPrimitiveType(table.get("MOTOR VOLTS").subList(
+					first, last + 1));
 
-			double[] tempKq = calculateKq(rpms, currents, parametersRequired.get("I"), parametersRequired.get("deltaI"),
-					times);
+			double[] tempKq = calculateKq(rpms, currents,
+					parametersRequired.get("I"),
+					parametersRequired.get("deltaI"), times);
 			double[] tempKe = calculateKe(volts, rpms);
 			double[] tempRa = calculateRa(volts, rpms, currents);
 
@@ -214,8 +230,10 @@ public class TirocinioAnalyzer extends Analyzer {
 			RasAndDelta.add(tempRa);
 
 			StringBuilder sb = new StringBuilder();
-			sb.append(tempKq[0] + "," + tempKq[1] + "," + tempKe[0] + "," + tempKe[1] + "," + tempRa[0] + ","
-					+ tempRa[1] + "," + set[0] + "," + set[1] + "," + (set[1] - set[0] + 1) + "\n");
+			sb.append(tempKq[0] + "," + tempKq[1] + "," + tempKe[0] + ","
+					+ tempKe[1] + "," + tempRa[0] + "," + tempRa[1] + ","
+					+ set[0] + "," + set[1] + "," + (set[1] - set[0] + 1)
+					+ "\n");
 			pw.write(sb.toString());
 
 		}
@@ -267,13 +285,15 @@ public class TirocinioAnalyzer extends Analyzer {
 		int last = 0;
 		int samplesToConsider = 20;
 
-		for (int i = samplesToConsider / 2; i < table.get("TIME").size() - samplesToConsider / 2
-				- samplesToConsider % 2; i++) {
+		for (int i = samplesToConsider / 2; i < table.get("TIME").size()
+				- samplesToConsider / 2 - samplesToConsider % 2; i++) {
 
 			double avgNextDerivatives = 0;
 			for (int j = 1; j <= samplesToConsider / 2; j++) {
-				avgNextDerivatives += table.get("RPM").get(i + j) - table.get("RPM").get(i);
-				avgNextDerivatives += table.get("RPM").get(i) - table.get("RPM").get(i - j);
+				avgNextDerivatives += table.get("RPM").get(i + j)
+						- table.get("RPM").get(i);
+				avgNextDerivatives += table.get("RPM").get(i)
+						- table.get("RPM").get(i - j);
 			}
 			avgNextDerivatives /= samplesToConsider;
 

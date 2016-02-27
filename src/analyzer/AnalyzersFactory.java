@@ -19,7 +19,8 @@ public class AnalyzersFactory {
 	public static List<Class<? extends Analyzer>> getAnalyzersList() {
 		// https://code.google.com/archive/p/reflections/
 		Reflections reflections = new Reflections("");
-		Set<Class<? extends Analyzer>> subTypes = reflections.getSubTypesOf(Analyzer.class);
+		Set<Class<? extends Analyzer>> subTypes = reflections
+				.getSubTypesOf(Analyzer.class);
 		return new ArrayList<>(subTypes);
 	}
 
@@ -41,11 +42,14 @@ public class AnalyzersFactory {
 	 * @throws NoSuchMethodException
 	 * @throws SecurityException
 	 */
-	public static Analyzer newInstanceOf(Class<? extends Analyzer> analyzerSubclass, File dataFile, File propertyFile)
-			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException {
+	public static Analyzer newInstanceOf(
+			Class<? extends Analyzer> analyzerSubclass, File dataFile,
+			File propertyFile) throws InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException {
 		if (analyzerSubclass == null || dataFile == null)
 			throw new IllegalArgumentException();
-		return analyzerSubclass.getConstructor(File.class, File.class).newInstance(dataFile, propertyFile);
+		return analyzerSubclass.getConstructor(File.class, File.class)
+				.newInstance(dataFile, propertyFile);
 	}
 }

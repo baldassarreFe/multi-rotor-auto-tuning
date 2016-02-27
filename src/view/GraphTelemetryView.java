@@ -35,10 +35,10 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import routine.Routine;
 import esc.AbstractEsc;
 import esc.AutoQuadEsc32;
 import esc.TelemetryParameter;
-import routine.Routine;
 
 /**
  * This class represents a frame in which the data collected during the run of
@@ -74,30 +74,38 @@ public class GraphTelemetryView extends JFrame {
 		}
 
 		@Override
-		@SuppressWarnings("unchecked") // da un lato invio una map di
-										// <TelemeryParameter, Object>, da qua
-										// la leggo senza problemi
+		@SuppressWarnings("unchecked")
+		// da un lato invio una map di
+		// <TelemeryParameter, Object>, da qua
+		// la leggo senza problemi
 		public void run() {
 			try {
 				Map<TelemetryParameter, Object> bundle;
 				Double timestamp;
 				while ((timestamp = dis.readDouble()) != null
-						&& (bundle = (Map<TelemetryParameter, Object>) dis.readObject()) != null) {
+						&& (bundle = (Map<TelemetryParameter, Object>) dis
+								.readObject()) != null) {
 					// letto un bundle, aggiungo ogni valore non null al grafico
 					// corrispondente
-					for (Entry<TelemetryParameter, Object> entry : bundle.entrySet())
+					for (Entry<TelemetryParameter, Object> entry : bundle
+							.entrySet())
 						if (entry.getValue() != null)
-							if (Number.class.isAssignableFrom(entry.getValue().getClass()))
-								dataSeries.get(entry.getKey()).add(timestamp, (Number) entry.getValue());
+							if (Number.class.isAssignableFrom(entry.getValue()
+									.getClass()))
+								dataSeries.get(entry.getKey()).add(timestamp,
+										(Number) entry.getValue());
 							else
-								dataBox.get(entry.getKey()).setText((String) entry.getValue());
+								dataBox.get(entry.getKey()).setText(
+										(String) entry.getValue());
 
 					// scrittura ordinata anche nel file
-					StringBuilder sb = new StringBuilder(timestamp.toString() + ",");
+					StringBuilder sb = new StringBuilder(timestamp.toString()
+							+ ",");
 					for (int i = 0; i < parameters.size(); i++) {
 						TelemetryParameter p = parameters.get(i);
 						Object value = bundle.get(p);
-						sb.append((value == null ? "" : value) + (i == parameters.size() - 1 ? "\n" : ","));
+						sb.append((value == null ? "" : value)
+								+ (i == parameters.size() - 1 ? "\n" : ","));
 					}
 					fileWriter.print(sb.toString());
 				}
@@ -152,7 +160,8 @@ public class GraphTelemetryView extends JFrame {
 		try {
 			Date date = new Date();
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-			fileWriter = new PrintWriter("Motor_data_" + df.format(date) + ".csv");
+			fileWriter = new PrintWriter("Motor_data_" + df.format(date)
+					+ ".csv");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -167,7 +176,8 @@ public class GraphTelemetryView extends JFrame {
 				textField.setEditable(false);
 				dataBox.put(p, textField);
 			}
-			fileWriter.print(p.name + (i == parameters.size() - 1 ? "\n" : ","));
+			fileWriter
+					.print(p.name + (i == parameters.size() - 1 ? "\n" : ","));
 		}
 		initGraphics();
 		new Updater(pis).start();
@@ -176,15 +186,17 @@ public class GraphTelemetryView extends JFrame {
 	/**
 	 * This method starts the graphics on the frame, creating a chart for every
 	 * numeric data and a panel with text boxes for text data, putting them into
-	 * a grid layout. To create charts we use the {@link JFreeChart} library. 
+	 * a grid layout. To create charts we use the {@link JFreeChart} library.
 	 */
 	private void initGraphics() {
 		JPanel graphPanel = new JPanel();
-		graphPanel.setLayout(new GridLayout(2, (int) Math.ceil(dataSeries.keySet().size() + 1 / 2.0)));
+		graphPanel.setLayout(new GridLayout(2, (int) Math.ceil(dataSeries
+				.keySet().size() + 1 / 2.0)));
 
 		for (XYSeries xys : dataSeries.values()) {
-			JFreeChart chart = ChartFactory.createXYLineChart(xys.getDescription(), null, null,
-					new XYSeriesCollection(xys), PlotOrientation.VERTICAL, true, true, false);
+			JFreeChart chart = ChartFactory.createXYLineChart(xys
+					.getDescription(), null, null, new XYSeriesCollection(xys),
+					PlotOrientation.VERTICAL, true, true, false);
 			XYItemRenderer r = ((XYPlot) chart.getPlot()).getRenderer();
 			if (r instanceof XYLineAndShapeRenderer) {
 				XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
@@ -201,19 +213,20 @@ public class GraphTelemetryView extends JFrame {
 			JLabel label = new JLabel(e.getKey().name);
 			label.setHorizontalAlignment(SwingConstants.RIGHT);
 			label.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
-			e.getValue().setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+			e.getValue().setBorder(
+					BorderFactory.createEmptyBorder(20, 10, 20, 10));
 			textPanel.add(label);
 			textPanel.add(e.getValue());
 		}
 		graphPanel.add(textPanel);
 
-		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
+		setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 		this.add(graphPanel);
 		pack();
 
-		this.setTitle("Telemetry view");
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new WindowAdapter() {
+		setTitle("Telemetry view");
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				try {

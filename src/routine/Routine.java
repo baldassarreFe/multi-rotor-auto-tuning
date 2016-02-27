@@ -22,9 +22,11 @@ public class Routine implements Runnable {
 
 	public final static Routine accelerateRoutine = new AccelerateRoutine();
 	public final static Routine exampleRoutine = new ConstantSpeedRoutine();
-	public final static Routine stopAll = new Routine("Stop", new ArrayList<TelemetryParameter>(),
-			new ArrayList<Instruction>(Arrays
-					.asList(new Instruction[] { Instruction.newStop(), Instruction.newStopTelemetry(), Instruction.newDisarm() })));
+	public final static Routine stopAll = new Routine("Stop",
+			new ArrayList<TelemetryParameter>(), new ArrayList<Instruction>(
+					Arrays.asList(new Instruction[] { Instruction.newStop(),
+							Instruction.newStopTelemetry(),
+							Instruction.newDisarm() })));
 
 	public AbstractEsc esc;
 	protected String name;
@@ -45,89 +47,14 @@ public class Routine implements Runnable {
 	 * @param instructions
 	 *            a {@link List} of {@link Instruction}
 	 */
-	public Routine(String name, List<TelemetryParameter> params, List<Instruction> instructions) {
+	public Routine(String name, List<TelemetryParameter> params,
+			List<Instruction> instructions) {
 		if (name == null || params == null || instructions == null)
 			throw new IllegalArgumentException();
 		this.name = name;
 		this.params = params;
 		this.instructions = instructions;
 		isRunning = new AtomicBoolean();
-	}
-
-	/**
-	 * @return the {@link PipedOutputStream} where the Esc writes its telemetry
-	 *         filtered by the {@link TelemetryParameter} specified when
-	 *         creating the routine
-	 */
-	public PipedOutputStream getOutput() {
-		return esc.getPipedOutput();
-	}
-
-	/**
-	 * @return the {@link List} of {@link TelemetryParameter} that can be read
-	 *         through the {@link PipedOutputStream} given by
-	 *         {@link #getOutput()}
-	 */
-	public List<TelemetryParameter> getParameters() {
-		return params;
-	}
-
-	/**
-	 * After setting the telemetry parameters on the Esc, continues sending the
-	 * instructions unless the routine is stopped with
-	 * {@link #stopImmediately()}
-	 */
-	@Override
-	public void run() {
-		isRunning.set(true);
-		if (instructions == null)
-			throw new IllegalStateException("Routine has null set of instructions");
-		if (esc == null)
-			throw new IllegalStateException("Routine has no ESC attached");
-		esc.setTelemetryParameters(params);
-		for (Instruction i : instructions)
-			if (isRunning.get() == true)
-				esc.executeInstruction(i);
-			else
-				return;
-	}
-
-	/**
-	 * Sets the Esc on which this routine will be run, must be called before a
-	 * thread is created and started with this routine
-	 * 
-	 * @param esc
-	 */
-	public void setEsc(AbstractEsc esc) {
-		this.esc = esc;
-	}
-
-	/**
-	 * Prevents the routine from sending other instructions to the Esc, has no
-	 * effect if the routine has not been started yet
-	 */
-	public void stopImmediately() {
-		isRunning.set(false);
-	}
-
-	@Override
-	public String toString() {
-		return name;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((instructions == null) ? 0 : instructions.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((params == null) ? 0 : params.hashCode());
-		return result;
 	}
 
 	/*
@@ -160,5 +87,84 @@ public class Routine implements Runnable {
 		} else if (!params.equals(other.params))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the {@link PipedOutputStream} where the Esc writes its telemetry
+	 *         filtered by the {@link TelemetryParameter} specified when
+	 *         creating the routine
+	 */
+	public PipedOutputStream getOutput() {
+		return esc.getPipedOutput();
+	}
+
+	/**
+	 * @return the {@link List} of {@link TelemetryParameter} that can be read
+	 *         through the {@link PipedOutputStream} given by
+	 *         {@link #getOutput()}
+	 */
+	public List<TelemetryParameter> getParameters() {
+		return params;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ (instructions == null ? 0 : instructions.hashCode());
+		result = prime * result + (name == null ? 0 : name.hashCode());
+		result = prime * result + (params == null ? 0 : params.hashCode());
+		return result;
+	}
+
+	/**
+	 * After setting the telemetry parameters on the Esc, continues sending the
+	 * instructions unless the routine is stopped with
+	 * {@link #stopImmediately()}
+	 */
+	@Override
+	public void run() {
+		Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+		isRunning.set(true);
+		if (instructions == null)
+			throw new IllegalStateException(
+					"Routine has null set of instructions");
+		if (esc == null)
+			throw new IllegalStateException("Routine has no ESC attached");
+		esc.setTelemetryParameters(params);
+		for (Instruction i : instructions)
+			if (isRunning.get() == true)
+				esc.executeInstruction(i);
+			else
+				return;
+	}
+
+	/**
+	 * Sets the Esc on which this routine will be run, must be called before a
+	 * thread is created and started with this routine
+	 * 
+	 * @param esc
+	 */
+	public void setEsc(AbstractEsc esc) {
+		this.esc = esc;
+	}
+
+	/**
+	 * Prevents the routine from sending other instructions to the Esc, has no
+	 * effect if the routine has not been started yet
+	 */
+	public void stopImmediately() {
+		isRunning.set(false);
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 }

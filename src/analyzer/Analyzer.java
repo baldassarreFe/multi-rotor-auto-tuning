@@ -64,7 +64,8 @@ public abstract class Analyzer {
 	 */
 	protected void loadParameters() {
 		if (!hasSuperBeenCalled)
-			throw new IllegalStateException("Implementation has not called the super constructor");
+			throw new IllegalStateException(
+					"Implementation has not called the super constructor");
 		if (propertyFile != null) {
 			Properties properties = new Properties();
 			try {
@@ -77,7 +78,7 @@ public abstract class Analyzer {
 			}
 			// provo a loadare tutti i parameters richiesti dalla mappa leggendo
 			// il file
-			for (String s : parametersRequired.keySet()) {
+			for (String s : parametersRequired.keySet())
 				try {
 					Double value = Double.valueOf((String) properties.get(s));
 					parametersRequired.put(s, value);
@@ -87,7 +88,6 @@ public abstract class Analyzer {
 					// key is present in the fle, but the number is not valid
 					e.printStackTrace();
 				}
-			}
 		}
 	}
 
@@ -103,7 +103,8 @@ public abstract class Analyzer {
 	 */
 	protected void readDataFromFile() throws IOException, FileFormatException {
 		if (!hasSuperBeenCalled)
-			throw new IllegalStateException("Implementation has not called the super constructor");
+			throw new IllegalStateException(
+					"Implementation has not called the super constructor");
 		BufferedReader reader = new BufferedReader(new FileReader(dataFile));
 
 		// Le colonne richieste dalla routine sono specificate nel campo table,
@@ -117,7 +118,8 @@ public abstract class Analyzer {
 		if (table.size() != cont) {
 			// nel file non ci sono le colonne necessarie all'analisi
 			reader.close();
-			throw new FileFormatException("File formatting problem: unable to find some columns");
+			throw new FileFormatException(
+					"File formatting problem: unable to find some columns");
 		}
 
 		while ((line = reader.readLine()) != null) {

@@ -18,9 +18,9 @@ import java.util.Map.Entry;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import routine.Routine;
 import esc.AutoQuadEsc32;
 import esc.TelemetryParameter;
-import routine.Routine;
 
 /**
  * The first prototype of a view able to display the changing values of a
@@ -32,9 +32,9 @@ public class SimpleTelemetryView extends JFrame {
 	/**
 	 * This thread is made to receive data in bundles ({@link Map} of
 	 * <TelelemetryParameter,Object>) from the ReaderThread in
-	 * {@link AutoQuadEsc32}. Every value in the map is used to update its corresponding text field 
-	 * Also, the thread writes in a properly formatted way the file
-	 * ".csv" associated with the current run of the rotor.
+	 * {@link AutoQuadEsc32}. Every value in the map is used to update its
+	 * corresponding text field Also, the thread writes in a properly formatted
+	 * way the file ".csv" associated with the current run of the rotor.
 	 *
 	 */
 	private class Updater extends Thread {
@@ -57,21 +57,26 @@ public class SimpleTelemetryView extends JFrame {
 				Map<TelemetryParameter, Object> bundle;
 				Double timestamp;
 				while ((timestamp = dis.readDouble()) != null
-						&& (bundle = (Map<TelemetryParameter, Object>) dis.readObject()) != null) {
+						&& (bundle = (Map<TelemetryParameter, Object>) dis
+								.readObject()) != null) {
 					// letto un bundle, aggiungo ogni valore non null al grafico
 					// corrispondente
-					for (Entry<TelemetryParameter, Object> entry : bundle.entrySet())
+					for (Entry<TelemetryParameter, Object> entry : bundle
+							.entrySet())
 						if (entry.getValue() != null) {
-							binding.get(entry.getKey()).setText(entry.getValue().toString());
+							binding.get(entry.getKey()).setText(
+									entry.getValue().toString());
 							binding.get(entry.getKey()).repaint();
 						}
 
 					// scrittura ordinata anche nel file
-					StringBuilder sb = new StringBuilder(timestamp.toString() + ",");
+					StringBuilder sb = new StringBuilder(timestamp.toString()
+							+ ",");
 					for (int i = 0; i < parameters.size(); i++) {
 						TelemetryParameter p = parameters.get(i);
 						Object value = bundle.get(p);
-						sb.append((value == null ? "" : value) + (i == parameters.size() - 1 ? "\n" : ","));
+						sb.append((value == null ? "" : value)
+								+ (i == parameters.size() - 1 ? "\n" : ","));
 					}
 					fileWriter.print(sb.toString());
 				}
@@ -115,14 +120,15 @@ public class SimpleTelemetryView extends JFrame {
 		fileWriter.print("TIME,");
 		for (int i = 0; i < parameters.size(); i++) {
 			TelemetryParameter p = parameters.get(i);
-			fileWriter.print(p.name + (i == parameters.size() - 1 ? "\n" : ","));
+			fileWriter
+					.print(p.name + (i == parameters.size() - 1 ? "\n" : ","));
 		}
 		initGraphics();
 		new Updater(pis).start();
 	}
 
 	private void initGraphics() {
-		this.setLayout(new GridLayout(parameters.size(), 2));
+		setLayout(new GridLayout(parameters.size(), 2));
 		for (TelemetryParameter p : parameters) {
 			this.add(new JTextField(p.name));
 			JTextField field = new JTextField();
@@ -130,8 +136,8 @@ public class SimpleTelemetryView extends JFrame {
 			this.add(field);
 		}
 		setSize(640, 480);
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(new WindowAdapter() {
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				try {

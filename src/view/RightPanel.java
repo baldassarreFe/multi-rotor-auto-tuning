@@ -71,14 +71,15 @@ public class RightPanel extends JPanel {
 	 */
 	public RightPanel(Controller cont) {
 		controller = cont;
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		analyzers = AnalyzersFactory.getAnalyzersList();
 		analyzersList = new JComboBox<>();
 		for (Class<? extends Analyzer> c : analyzers)
 			analyzersList.addItem(c);
 		analyzersList.setRenderer(new CustomClassRenderer());
-		analyzersList.setMaximumSize(new Dimension(400, (int) analyzersList.getPreferredSize().getHeight() + 10));
+		analyzersList.setMaximumSize(new Dimension(400, (int) analyzersList
+				.getPreferredSize().getHeight() + 10));
 
 		analyze = new JButton("OPEN");
 		analyze.setEnabled(false);
@@ -88,23 +89,28 @@ public class RightPanel extends JPanel {
 				try {
 					@SuppressWarnings("unchecked")
 					Analyzer analyzer = AnalyzersFactory.newInstanceOf(
-							(Class<? extends Analyzer>) analyzersList.getSelectedItem(), logFile, parametersFile);
+							(Class<? extends Analyzer>) analyzersList
+									.getSelectedItem(), logFile, parametersFile);
 					controller.startAnalysis(analyzer);
 				} catch (InvocationTargetException ite) {
 					if (ite.getCause() instanceof FileFormatException) {
 						ite.getCause().printStackTrace();
-						JOptionPane.showMessageDialog(getParent(), "Problema nel parsing del file");
+						JOptionPane.showMessageDialog(getParent(),
+								"Problema nel parsing del file");
 					} else if (ite.getCause() instanceof IOException) {
 						ite.getCause().printStackTrace();
-						JOptionPane.showMessageDialog(getParent(), "Problema nella lettura del file");
+						JOptionPane.showMessageDialog(getParent(),
+								"Problema nella lettura del file");
 					} else { // eccezione generica generata dai costruttori
-								// delle future sottoclassi
+						// delle future sottoclassi
 						ite.getCause().printStackTrace();
-						JOptionPane.showMessageDialog(getParent(), "Problema: " + ite.getCause().getMessage());
+						JOptionPane.showMessageDialog(getParent(), "Problema: "
+								+ ite.getCause().getMessage());
 					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(getParent(), "Problema: " + e1.getMessage());
+					JOptionPane.showMessageDialog(getParent(), "Problema: "
+							+ e1.getMessage());
 				}
 			}
 		});
@@ -119,7 +125,8 @@ public class RightPanel extends JPanel {
 					new GraphsFrame(logFile);
 				} catch (Exception e1) {
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(getParent(), "Problema nel parsing del file");
+					JOptionPane.showMessageDialog(getParent(),
+							"Problema nel parsing del file");
 				}
 			}
 		});
@@ -128,8 +135,10 @@ public class RightPanel extends JPanel {
 		JButton browse = new JButton("Browse");
 		final JTextField l = new JTextField("Choose file");
 		l.setEditable(false);
-		l.setMinimumSize(new Dimension(200, (int) browse.getPreferredSize().getHeight()));
-		l.setMaximumSize(new Dimension(400, (int) browse.getPreferredSize().getHeight()));
+		l.setMinimumSize(new Dimension(200, (int) browse.getPreferredSize()
+				.getHeight()));
+		l.setMaximumSize(new Dimension(400, (int) browse.getPreferredSize()
+				.getHeight()));
 		l.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
 
 		final JFileChooser fc = new JFileChooser(new File("."));
@@ -156,12 +165,15 @@ public class RightPanel extends JPanel {
 		JButton browse2 = new JButton("Browse");
 		final JTextField l2 = new JTextField("Choose parameters file");
 		l2.setEditable(false);
-		l2.setMinimumSize(new Dimension(200, (int) browse.getPreferredSize().getHeight()));
-		l2.setMaximumSize(new Dimension(400, (int) browse.getPreferredSize().getHeight()));
+		l2.setMinimumSize(new Dimension(200, (int) browse.getPreferredSize()
+				.getHeight()));
+		l2.setMaximumSize(new Dimension(400, (int) browse.getPreferredSize()
+				.getHeight()));
 		l2.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
 
 		final JFileChooser fc2 = new JFileChooser(new File("."));
-		fc2.setFileFilter(new FileNameExtensionFilter("Parameters file", "properties"));
+		fc2.setFileFilter(new FileNameExtensionFilter("Parameters file",
+				"properties"));
 		browse2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -188,7 +200,7 @@ public class RightPanel extends JPanel {
 		this.add(analyze);
 		this.add(Box.createRigidArea(new Dimension(0, 20)));
 		this.add(graphs);
-		this.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
+		setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
 
 	}
 }

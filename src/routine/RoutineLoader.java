@@ -43,7 +43,7 @@ public class RoutineLoader {
 					public boolean accept(File dir, String name) {
 						return name.endsWith(".rou");
 					}
-				})) {
+				}))
 					try {
 						Routine r = parseFile(f);
 						if (!list.contains(r))
@@ -51,7 +51,6 @@ public class RoutineLoader {
 					} catch (IOException | FileFormatException e) {
 						e.printStackTrace();
 					}
-				}
 	}
 
 	/**
@@ -74,7 +73,7 @@ public class RoutineLoader {
 	 * sleep: 10000<br>
 	 * telemetry: 50<br>
 	 * sleep: 1000<br>
-	 *<br>
+	 * <br>
 	 * accelerate: 2000 6000 1200<br>
 	 * accelerate 6000 1000 -400<br>
 	 * # It is impossible for the AutoquadEsc32 to decelerate faster than -400 rpm/s
@@ -90,21 +89,24 @@ public class RoutineLoader {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	private static Routine parseFile(File file) throws IOException, FileFormatException {
+	private static Routine parseFile(File file) throws IOException,
+			FileFormatException {
 		assert file != null && file.getName().endsWith(".rou");
 
 		BufferedReader r = new BufferedReader(new FileReader(file));
 		String name = r.readLine();
 		if (name == null) {
 			r.close();
-			throw new FileFormatException("Non c'è nome nel file" + file.getName());
+			throw new FileFormatException("Non c'è nome nel file"
+					+ file.getName());
 		}
 
 		ArrayList<TelemetryParameter> params = new ArrayList<>();
 		String paramsLine = r.readLine();
 		if (paramsLine == null) {
 			r.close();
-			throw new FileFormatException("Non ci sono parametri nel file" + file.getName());
+			throw new FileFormatException("Non ci sono parametri nel file"
+					+ file.getName());
 		}
 		StringTokenizer st = new StringTokenizer(paramsLine, ",");
 		while (st.hasMoreTokens())
@@ -114,19 +116,21 @@ public class RoutineLoader {
 				params.add(p);
 			} catch (IllegalArgumentException e) {
 				r.close();
-				throw new FileFormatException("Errore nei parametri nel file" + file.getName(), e);
+				throw new FileFormatException("Errore nei parametri nel file"
+						+ file.getName(), e);
 			}
 
 		List<Instruction> instructions = new ArrayList<>();
 		String line;
-		while ((line = r.readLine()) != null) {
+		while ((line = r.readLine()) != null)
 			if (!line.isEmpty() && !line.startsWith("#")) {
 				st = new StringTokenizer(line);
 				String type = st.nextToken(":");
 				InstructionType t = InstructionType.parse(type);
 				if (t == null) {
 					r.close();
-					throw new FileFormatException("Istruzione non riconosciuta: " + line);
+					throw new FileFormatException(
+							"Istruzione non riconosciuta: " + line);
 				}
 
 				// some instructions need to parse some parameters
@@ -142,13 +146,15 @@ public class RoutineLoader {
 						break;
 					case START_TELEMETRY:
 						int frequency = Integer.parseInt(st.nextToken(": "));
-						instructions.add(Instruction.newStartTelemetry(frequency));
+						instructions.add(Instruction
+								.newStartTelemetry(frequency));
 						break;
 					case ACCELERATE:
 						int from = Integer.parseInt(st.nextToken(": "));
 						int to = Integer.parseInt(st.nextToken(": "));
 						double pace = Double.parseDouble(st.nextToken(": "));
-						instructions.add(Instruction.newAcceleration(from, to, pace));
+						instructions.add(Instruction.newAcceleration(from, to,
+								pace));
 						break;
 					case DIRECTION:
 						String direction = st.nextToken(": ");
@@ -172,10 +178,10 @@ public class RoutineLoader {
 					}
 				} catch (NumberFormatException e) {
 					r.close();
-					throw new FileFormatException("Errore alla linea: " + line, e);
+					throw new FileFormatException("Errore alla linea: " + line,
+							e);
 				}
 			}
-		}
 		r.close();
 		return new Routine(name, params, instructions);
 	}

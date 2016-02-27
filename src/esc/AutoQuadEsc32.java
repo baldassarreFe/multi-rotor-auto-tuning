@@ -1,5 +1,7 @@
 package esc;
 
+import gnu.io.SerialPort;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import gnu.io.SerialPort;
 import routine.Instruction;
 
 /**
@@ -42,7 +43,7 @@ public class AutoQuadEsc32 extends AbstractEsc {
 		 * @param telemetryFrequency
 		 */
 		public ReaderThread(int telemetryFrequency) {
-			this.setName("ReaderThread");
+			setName("ReaderThread");
 			period = 1.0 / telemetryFrequency;
 			// Se il pipedOutput non � stato collegato a un pipedInput
 			// fallisce
@@ -94,19 +95,23 @@ public class AutoQuadEsc32 extends AbstractEsc {
 				Double time = 0.0;
 
 				byte singleData;
-				while (shouldRead.get() == true && (singleData = (byte) input.read()) != -1) {
+				while (shouldRead.get() == true
+						&& (singleData = (byte) input.read()) != -1) {
 					inputBuffer.write(singleData);
 					// letto fine riga -> valueClass'è un dato da parsare
 					if (singleData == '\n') {
-						ByteArrayInputStream bin = new ByteArrayInputStream(inputBuffer.toByteArray());
-						BufferedReader reader = new BufferedReader(new InputStreamReader(bin, "UTF-8"));
+						ByteArrayInputStream bin = new ByteArrayInputStream(
+								inputBuffer.toByteArray());
+						BufferedReader reader = new BufferedReader(
+								new InputStreamReader(bin, "UTF-8"));
 						String line = reader.readLine();
 						String[] tokens = line.split("\\s{2,}");
 						TelemetryParameter p = null;
 						// se c'è almeno un token e
 						// se ha parsato la prima parte della stringa come
 						// parametro e questo parametro ci interessa
-						if (tokens.length != 0 && (p = TelemetryParameter.parse(tokens[0])) != null
+						if (tokens.length != 0
+								&& (p = TelemetryParameter.parse(tokens[0])) != null
 								&& telemetryParameters.contains(p)) {
 							Object value = null;
 							try {
@@ -116,11 +121,13 @@ public class AutoQuadEsc32 extends AbstractEsc {
 									value = Integer.parseInt(tokens[1]);
 								else if (p.valueClass == Double.class)
 									value = Double.parseDouble(tokens[1]);
-							} catch (NumberFormatException | ArrayIndexOutOfBoundsException ignore) {
+							} catch (NumberFormatException
+									| ArrayIndexOutOfBoundsException ignore) {
 								// c'è stato un errore di lettura, succede
 								// spesso con valori alti di telemetria
 								// metto comunque null nel bundle
-								System.out.println(line + " " + Arrays.toString(tokens));
+								System.out.println(line + " "
+										+ Arrays.toString(tokens));
 								ignore.printStackTrace();
 							} finally {
 								bundle.put(p, value);
@@ -182,7 +189,8 @@ public class AutoQuadEsc32 extends AbstractEsc {
 			throw new IllegalArgumentException("Cannot accelerate");
 
 		if (pace < -400)
-			System.out.println("WARNING: deceleration with a rate greater than 400 rpm/s cannot be achieved");
+			System.out
+					.println("WARNING: deceleration with a rate greater than 400 rpm/s cannot be achieved");
 
 		int deltaRpm = pace > 0 ? 1 : -1;
 		long deltaT = Math.round(deltaRpm / pace * 1000);
@@ -289,7 +297,8 @@ public class AutoQuadEsc32 extends AbstractEsc {
 			stopTelemetry();
 			break;
 		case DIRECTION:
-			int direction = ((String) instruction.parameters.get("direction")).equals("forward") ? 1 : -1;
+			int direction = ((String) instruction.parameters.get("direction"))
+					.equals("forward") ? 1 : -1;
 			setDirection(direction);
 		default:
 			instruction.parameters.clear();
@@ -379,7 +388,8 @@ public class AutoQuadEsc32 extends AbstractEsc {
 	 */
 	private AutoQuadEsc32 startTelemetry(int frequency) {
 		if (frequency < 0 || frequency > 30)
-			throw new IllegalArgumentException("frequenza non valida per la telemetry " + frequency);
+			throw new IllegalArgumentException(
+					"frequenza non valida per la telemetry " + frequency);
 		if (frequency == 0)
 			return stopTelemetry();
 

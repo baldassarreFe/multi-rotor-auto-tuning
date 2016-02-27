@@ -1,13 +1,13 @@
 package esc;
 
+import gnu.io.SerialPort;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.reflections.Reflections;
-
-import gnu.io.SerialPort;
 
 public class EscFactory {
 
@@ -20,7 +20,8 @@ public class EscFactory {
 	public static List<Class<? extends AbstractEsc>> getEscsList() {
 		// https://code.google.com/archive/p/reflections/
 		Reflections reflections = new Reflections("esc");
-		Set<Class<? extends AbstractEsc>> subTypes = reflections.getSubTypesOf(AbstractEsc.class);
+		Set<Class<? extends AbstractEsc>> subTypes = reflections
+				.getSubTypesOf(AbstractEsc.class);
 		return new ArrayList<>(subTypes);
 	}
 
@@ -40,11 +41,14 @@ public class EscFactory {
 	 * @throws NoSuchMethodException
 	 * @throws SecurityException
 	 */
-	public static AbstractEsc newInstanceOf(Class<? extends AbstractEsc> escImplementation, SerialPort port)
-			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+	public static AbstractEsc newInstanceOf(
+			Class<? extends AbstractEsc> escImplementation, SerialPort port)
+			throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException {
 		if (escImplementation == null || port == null)
 			throw new IllegalArgumentException();
-		return escImplementation.getConstructor(SerialPort.class).newInstance(port);
+		return escImplementation.getConstructor(SerialPort.class).newInstance(
+				port);
 	}
 }

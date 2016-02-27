@@ -1,11 +1,11 @@
 package controller;
 
-import analyzer.Analyzer;
-import esc.AbstractEsc;
 import routine.Routine;
 import view.AnalyzerFrame;
 import view.GraphTelemetryView;
 import view.MainFrame;
+import analyzer.Analyzer;
+import esc.AbstractEsc;
 
 public class Controller {
 
@@ -45,8 +45,9 @@ public class Controller {
 	}
 
 	/**
-	 * Ferma la routine e disconnette l'esc permettendo l'esecuzione di altre routines, si vedano
-	 * {@link AbstractEsc#stopAndDisconnect()} e {@link Routine#stopImmediately()}
+	 * Ferma la routine e disconnette l'esc permettendo l'esecuzione di altre
+	 * routines, si vedano {@link AbstractEsc#stopAndDisconnect()} e
+	 * {@link Routine#stopImmediately()}
 	 *
 	 */
 	public void stopRoutineAndDisconnectEsc() {

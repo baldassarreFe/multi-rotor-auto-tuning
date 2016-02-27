@@ -27,12 +27,6 @@ public enum InstructionType {
 
 	DIRECTION("DIRECTION");
 
-	private String commandName;
-
-	private InstructionType(String commandName) {
-		this.commandName = commandName;
-	}
-
 	/**
 	 * Returns the {@link InstructionType} corresponding with the string passed
 	 * as parameter, or null if none is found.
@@ -42,11 +36,16 @@ public enum InstructionType {
 	 * @return
 	 */
 	public static InstructionType parse(String type) {
-		for (InstructionType t : values()) {
+		for (InstructionType t : values())
 			if (type.trim().equalsIgnoreCase(t.commandName))
 				return t;
-		}
 		return null;
+	}
+
+	private String commandName;
+
+	private InstructionType(String commandName) {
+		this.commandName = commandName;
 	}
 
 	@Override

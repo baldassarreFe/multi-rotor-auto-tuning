@@ -30,11 +30,6 @@ import esc.TelemetryParameter;
  * the class autonomosly parse data from file and displays them in the graphs.
  */
 public class GraphsFrame extends JFrame {
-	private static final long serialVersionUID = 1801638182066987430L;
-	private String[] parameters;
-	private Map<String, XYSeries> dataSeries;
-	private BufferedReader reader;
-
 	/**
 	 * Thread that updates the graphs on his {@link GraphsFrame} with the values
 	 * parsed from the file given to the GraphFrame
@@ -71,6 +66,12 @@ public class GraphsFrame extends JFrame {
 		}
 	}
 
+	private static final long serialVersionUID = 1801638182066987430L;
+	private String[] parameters;
+	private Map<String, XYSeries> dataSeries;
+
+	private BufferedReader reader;
+
 	/**
 	 * Constructor of a {@link GraphsFrame}, receives the file containing the
 	 * data to display
@@ -79,10 +80,35 @@ public class GraphsFrame extends JFrame {
 	 * @throws IOException
 	 */
 	public GraphsFrame(File dataFile) throws IOException {
-		this.reader = new BufferedReader(new FileReader(dataFile));
+		reader = new BufferedReader(new FileReader(dataFile));
 		loadHeader();
 		initGraphics();
 		new Updater().start();
+	}
+
+	/**
+	 * Creazione dei grafici sulla base dei parametri contenuti in
+	 * {@link #parameters}
+	 */
+	private void initGraphics() {
+		setTitle("Data viewer");
+		setLayout(new GridLayout(2, (int) Math.ceil(parameters.length / 2.0)));
+		for (XYSeries xys : dataSeries.values()) {
+			JFreeChart chart = ChartFactory.createXYLineChart(xys
+					.getDescription(), null, null, new XYSeriesCollection(xys),
+					PlotOrientation.VERTICAL, true, true, false);
+			XYItemRenderer r = ((XYPlot) chart.getPlot()).getRenderer();
+			if (r instanceof XYLineAndShapeRenderer) {
+				XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
+				renderer.setBaseShapesVisible(true);
+				renderer.setBaseShapesFilled(true);
+			}
+			ChartPanel panel = new ChartPanel(chart);
+			this.add(panel);
+		}
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		pack();
+		setVisible(true);
 	}
 
 	/**
@@ -98,31 +124,5 @@ public class GraphsFrame extends JFrame {
 			if (Number.class.isAssignableFrom(TelemetryParameter
 					.parse(parameters[i]).valueClass))
 				dataSeries.put(parameters[i], new XYSeries(parameters[i]));
-	}
-
-	/**
-	 * Creazione dei grafici sulla base dei parametri contenuti in
-	 * {@link #parameters}
-	 */
-	private void initGraphics() {
-		this.setTitle("Data viewer");
-		this.setLayout(new GridLayout(2, (int) Math
-				.ceil(parameters.length / 2.0)));
-		for (XYSeries xys : dataSeries.values()) {
-			JFreeChart chart = ChartFactory.createXYLineChart(xys
-					.getDescription(), null, null, new XYSeriesCollection(xys),
-					PlotOrientation.VERTICAL, true, true, false);
-			XYItemRenderer r = ((XYPlot) chart.getPlot()).getRenderer();
-			if (r instanceof XYLineAndShapeRenderer) {
-				XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-				renderer.setBaseShapesVisible(true);
-				renderer.setBaseShapesFilled(true);
-			}
-			ChartPanel panel = new ChartPanel(chart);
-			this.add(panel);
-		}
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.pack();
-		this.setVisible(true);
 	}
 }

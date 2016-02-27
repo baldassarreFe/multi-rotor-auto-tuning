@@ -1,5 +1,12 @@
 package view;
 
+import esc.AbstractEsc;
+import esc.EscFactory;
+import gnu.io.CommPortIdentifier;
+import gnu.io.PortInUseException;
+import gnu.io.SerialPort;
+import gnu.io.UnsupportedCommOperationException;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -17,16 +24,10 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import controller.Controller;
-import esc.AbstractEsc;
-import esc.EscFactory;
-import gnu.io.CommPortIdentifier;
-import gnu.io.PortInUseException;
-import gnu.io.SerialPort;
-import gnu.io.UnsupportedCommOperationException;
 import routine.Routine;
 import routine.RoutineLoader;
 import serialPorts.PortSelector;
+import controller.Controller;
 
 /**
  * In LeftPanel are displayed all the options concerning routines and escs,
@@ -56,19 +57,21 @@ public class LeftPanel extends JPanel {
 	 * and {@link RoutineLoader#loadFrom(File...)}. Then adds a button START
 	 * which launches the selected routine on the selected esc from the
 	 * controller, opening another panel in which datas will be displayed in the
-	 * most appropriate form (see {@link Controller#startRoutine(Routine, AbstractEsc)}) .
+	 * most appropriate form (see
+	 * {@link Controller#startRoutine(Routine, AbstractEsc)}) .
 	 * 
-	 * @param cont,
-	 *            the controller needed to operate from the main frame.
+	 * @param cont
+	 *            , the controller needed to operate from the main frame.
 	 */
 	public LeftPanel(Controller cont) {
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		controller = cont;
 
 		ports = PortSelector.scanPorts();
 		portList = new JComboBox<>(ports.toArray(new CommPortIdentifier[] {}));
 		portList.setRenderer(new CustomPortRenderer());
-		portList.setMaximumSize(new Dimension(400, (int) portList.getPreferredSize().getHeight() + 10));
+		portList.setMaximumSize(new Dimension(400, (int) portList
+				.getPreferredSize().getHeight() + 10));
 		this.add(portList);
 
 		this.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -78,14 +81,17 @@ public class LeftPanel extends JPanel {
 		for (Class<? extends AbstractEsc> c : escs)
 			escList.addItem(c);
 		escList.setRenderer(new CustomClassRenderer());
-		escList.setMaximumSize(new Dimension(400, (int) escList.getPreferredSize().getHeight() + 10));
+		escList.setMaximumSize(new Dimension(400, (int) escList
+				.getPreferredSize().getHeight() + 10));
 		this.add(escList);
 
 		this.add(Box.createRigidArea(new Dimension(0, 20)));
 
 		RoutineLoader.loadFrom(new File("routines"));
-		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(new Routine[] {}));
-		routines.setMaximumSize(new Dimension(400, (int) routines.getPreferredSize().getHeight() + 10));
+		routines = new JComboBox<>(RoutineLoader.getRoutines().toArray(
+				new Routine[] {}));
+		routines.setMaximumSize(new Dimension(400, (int) routines
+				.getPreferredSize().getHeight() + 10));
 		this.add(routines);
 
 		this.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -98,13 +104,13 @@ public class LeftPanel extends JPanel {
 				AbstractEsc esc = getConnectedEsc();
 				if (esc == null)
 					return;
-				controller.startRoutine(r,esc);
+				controller.startRoutine(r, esc);
 			}
 		});
 
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.add(start);
-		this.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
+		setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
 	}
 
 	/**
@@ -127,30 +133,38 @@ public class LeftPanel extends JPanel {
 		try {
 			result = PortSelector.connect(portId);
 		} catch (PortInUseException e) {
-			JOptionPane.showMessageDialog(getParent(), "Failed to open " + portId.getName() + ": port is in use.");
+			JOptionPane.showMessageDialog(getParent(), "Failed to open "
+					+ portId.getName() + ": port is in use.");
 			return null;
 		} catch (UnsupportedCommOperationException e) {
-			JOptionPane.showMessageDialog(getParent(),
-					"Failed to set serial port parameters on " + portId.getName() + ": " + e.getMessage());
+			JOptionPane.showMessageDialog(
+					getParent(),
+					"Failed to set serial port parameters on "
+							+ portId.getName() + ": " + e.getMessage());
 			return null;
 		}
 
 		AbstractEsc esc = null;
 		try {
-			esc = EscFactory.newInstanceOf((Class<? extends AbstractEsc>) escList.getSelectedItem(), result);
+			esc = EscFactory.newInstanceOf(
+					(Class<? extends AbstractEsc>) escList.getSelectedItem(),
+					result);
 		} catch (InvocationTargetException ite) {
 			if (ite.getCause() instanceof IOException) {
 				ite.getCause().printStackTrace();
-				JOptionPane.showMessageDialog(getParent(), "Problema nella comunicazione con la porta");
+				JOptionPane.showMessageDialog(getParent(),
+						"Problema nella comunicazione con la porta");
 			} else { // eccezione generica generata dai costruttori delle future
-						// sottoclassi
+				// sottoclassi
 				ite.getCause().printStackTrace();
-				JOptionPane.showMessageDialog(getParent(), "Problema: " + ite.getCause().getMessage());
+				JOptionPane.showMessageDialog(getParent(), "Problema: "
+						+ ite.getCause().getMessage());
 			}
 			return null;
 		} catch (Exception e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(getParent(), "Problema: " + e1.getMessage());
+			JOptionPane.showMessageDialog(getParent(),
+					"Problema: " + e1.getMessage());
 			return null;
 		}
 

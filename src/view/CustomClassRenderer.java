@@ -9,10 +9,12 @@ import javax.swing.ListCellRenderer;
 
 /**
  * Class for displaying a {@link JComboBox} of {@link Class} using their method
- * {@link Class#getSimpleName()} to get the string to display inside a {@link JLabel}
+ * {@link Class#getSimpleName()} to get the string to display inside a
+ * {@link JLabel}
  *
  */
-public class CustomClassRenderer extends JLabel implements ListCellRenderer<Class<?>> {
+public class CustomClassRenderer extends JLabel implements
+		ListCellRenderer<Class<?>> {
 	private static final long serialVersionUID = 2385007885134918354L;
 
 	public CustomClassRenderer() {
@@ -22,7 +24,8 @@ public class CustomClassRenderer extends JLabel implements ListCellRenderer<Clas
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends Class<?>> list, Class<?> value, int index,
+	public Component getListCellRendererComponent(
+			JList<? extends Class<?>> list, Class<?> value, int index,
 			boolean isSelected, boolean cellHasFocus) {
 		if (isSelected) {
 			setBackground(list.getSelectionBackground());
@@ -34,7 +37,7 @@ public class CustomClassRenderer extends JLabel implements ListCellRenderer<Clas
 		// value non sarà mai null, tranne se la lista non contiene elementi
 		// in questo caso Swing fa il renderer di una cella vuota per la quale
 		// passa al renderer value=null
-		this.setText(value != null ? value.getSimpleName() : "No classes available");
+		setText(value != null ? value.getSimpleName() : "No classes available");
 		return this;
 	}
 
