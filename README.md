@@ -52,7 +52,7 @@ Tutte le analisi si possono utilizzare tramite questo applicativo devono estende
 
 ##### Avvio dell'analisi  
 Se sono stati riempiti correttamente i campi soprastanti questo pulsante permette di aprire una finestra di analisi dei dati. In questa finestra sarà possibile modificare i parametri caricati dal file, inserire quelli mancanti e avviare l'analisi. Si noti che questa finestra è generata automaticamente a partire dalla specifica implementazione di Analyzer che si vuole utilizzare, pertanto non è necessario modificare le classi grafiche nel momento in cui si vuole implementare un Analyzer.
-![Caricamento di parametri in una schermata di analisi](/assets/parametersLoading.png)  
+![Caricamento di parametri in una schermata di analisi](/assets/parameterLoading.png)  
 ![Risultati di un'analisi](/assets/analysisResults.png)  
     IMMAGINE (solo due parametri con sullo sfondo il .properties con 2 parametri, con i risultati e sullo sfondo il csv dei risultati intermedi)
 
@@ -93,9 +93,9 @@ Un esempio di file di routine valido è il seguente:
 ```
 ## Dependencies
 Il codice è scritto utilizzando Java 1.7, accompagnato dalle seguenti librerie:
-* RxTx rxtx.qbang.org
+* RxTx http://rxtx.qbang.org
 * JFreeChart www.jfree.org/jfreechart
-* Commons Math commons.apache.org/proper/commons-math
+* Commons Math http://commons.apache.org/proper/commons-math
 * Reflections https://code.google.com/archive/p/reflections
 
 [1] M. Bangura, H. Lim, H. Kim, and R. Mahony, "Aerodynamic power control for multirotor aerial vehicles", in *Robotics and Automation (ICRA), 2014 IEEE International Conference on*, May 2014, pp 529-536

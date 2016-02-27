@@ -78,8 +78,15 @@ public abstract class Analyzer {
 			// provo a loadare tutti i parameters richiesti dalla mappa leggendo
 			// il file
 			for (String s : parametersRequired.keySet()) {
-				Double value = Double.valueOf((String) properties.get(s));
-				parametersRequired.put(s, value);
+				try {
+					Double value = Double.valueOf((String) properties.get(s));
+					parametersRequired.put(s, value);
+				} catch (NullPointerException ignore) {
+					// means that the key is not present in the file, no problem
+				} catch (NumberFormatException e) {
+					// key is present in the fle, but the number is not valid
+					e.printStackTrace();
+				}
 			}
 		}
 	}
