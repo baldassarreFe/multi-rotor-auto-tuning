@@ -27,7 +27,7 @@ public class RoutineLoader {
 	 * Loads all the routines files (.rou) from the directories specified as
 	 * parameters, the routines that were parsed correctly can be found with
 	 * {@link #getRoutines()}. Routines are considerd equal and hence are not
-	 * duplicated in the list on the base of the {@link Routine#equals()}
+	 * duplicated in the list on the base of the {@link Routine#equals(Object)}
 	 * method.
 	 * 
 	 * @param directories

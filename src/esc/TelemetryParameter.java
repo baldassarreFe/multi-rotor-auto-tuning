@@ -7,13 +7,21 @@ package esc;
  * a class type that determines the kind of value associated with the parameter.
  */
 public enum TelemetryParameter {
-	// TODO non è corretto dal punto di vista della astrazione che ai telemetry
+	// TODO non ï¿½ corretto dal punto di vista della astrazione che ai telemetry
 	// parameter sia associata la stringa specifica dell'AutoQuadEsc32. Sarebbe
-	// più corretto che ogni implementazione di un ESC mantenga al suo interno
+	// piï¿½ corretto che ogni implementazione di un ESC mantenga al suo interno
 	// una tabella di conversione tra la sua telemetria interna e i telemetry
 	// parameter astratti.
 	// Tuttavia, pur lasciando qui le stringhe, ogni implementazione di un
-	// esc può decidere di ignorarle e gestire la telemetria a modo suo
+	// esc puï¿½ decidere di ignorarle e gestire la telemetria a modo suo.
+	// 
+	// Volendo cambiare questa implementazione bisogna anche cambiare il metodo
+	// parse() basato su queste stringhe che viene utilizzato nel parsing delle
+	// routines dai file .rou. L'ideale sarebbe spostare le stringhe specifiche
+	// dell'AutoQuadEsc32 all'interno del suo ReaderThread, lasciando che le
+	// altre implementazioni di AbstractEsc facciano le loro scelte a riguardo,
+	// e poi associare ad ogni TelemetryParameter una stringa generica (e non
+	// piÃ¹ specifica dell'AutoQuadEsc32) da utlizzare nei file .rou
 
 	INPUT_MODE("INPUT MODE", String.class),
 
