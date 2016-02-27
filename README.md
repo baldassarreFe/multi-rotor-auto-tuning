@@ -52,7 +52,7 @@ Tutte le analisi si possono utilizzare tramite questo applicativo devono estende
 
 ##### Avvio dell'analisi  
 Se sono stati riempiti correttamente i campi soprastanti questo pulsante permette di aprire una finestra di analisi dei dati. In questa finestra sarà possibile modificare i parametri caricati dal file, inserire quelli mancanti e avviare l'analisi. Si noti che questa finestra è generata automaticamente a partire dalla specifica implementazione di Analyzer che si vuole utilizzare, pertanto non è necessario modificare le classi grafiche nel momento in cui si vuole implementare un Analyzer.
-![Caricamento di parametri in una schermata di analisi](/assets/parametersLoading.png)  
+![Caricamento di parametri in una schermata di analisi](/assets/parameterLoading.png)  
 ![Risultati di un'analisi](/assets/analysisResults.png)  
     IMMAGINE (solo due parametri con sullo sfondo il .properties con 2 parametri, con i risultati e sullo sfondo il csv dei risultati intermedi)
 
