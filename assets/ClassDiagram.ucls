@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="esc.AutoQuadEsc32" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/esc/AutoQuadEsc32.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="396" width="421" x="3074" y="2163"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="esc.AbstractEsc" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/esc/AbstractEsc.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="360" width="434" x="3145" y="1763"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="esc.EscFactory" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/esc/EscFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="443" x="3222" y="589"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="esc.FileFormatException" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/esc/FileFormatException.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="298" x="1106" y="1763"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="esc.AutoQuadEsc32.ReaderThread" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/esc/AutoQuadEsc32.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="216" width="353" x="3074" y="2599"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="6" language="java" name="esc.TelemetryParameter" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/esc/TelemetryParameter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="456" width="294" x="3034" y="3065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="7" language="java" name="routine.InstructionType" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/routine/InstructionType.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="356" width="287" x="3663" y="3065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="8" language="java" name="routine.Routine" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/routine/Routine.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="296" width="433" x="3242" y="1101"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="routine.AccelerateRoutine" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/routine/AccelerateRoutine.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="96" width="186" x="3190" y="1467"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="routine.Instruction" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/routine/Instruction.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="376" width="350" x="3663" y="2599"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="routine.RoutineLoader" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/routine/RoutineLoader.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="219" x="3747" y="845"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="routine.ConstantSpeedRoutine" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/routine/ConstantSpeedRoutine.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="96" width="226" x="3437" y="1467"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="serialPorts.PortSelector" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/serialPorts/PortSelector.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="196" width="474" x="2708" y="589"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="view.GraphsFrame" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/GraphsFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="216" width="271" x="42" y="589"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="view.CustomClassRenderer" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/CustomClassRenderer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="670" x="819" y="589"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="view.CustomPortRenderer" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/CustomPortRenderer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="805" x="1863" y="589"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="view.SimpleTelemetryView" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/SimpleTelemetryView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="196" width="347" x="226" y="845"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="view.GraphTelemetryView" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/GraphTelemetryView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="216" width="369" x="2718" y="845"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="view.RightPanel" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/RightPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="236" width="416" x="779" y="293"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="view.GraphTelemetryView.Updater" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/GraphTelemetryView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="183" x="2809" y="1101"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="view.AnalyzerFrame" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/AnalyzerFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="216" width="309" x="1017" y="845"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="view.GraphsFrame.Updater" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/GraphsFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="116" width="123" x="42" y="845"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="view.LeftPanel" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/LeftPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="256" width="402" x="3222" y="293"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="view.MainFrame" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/MainFrame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="216" width="183" x="1529" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="view.SimpleTelemetryView.Updater" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/view/SimpleTelemetryView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="183" x="369" y="1101"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="controller.Controller" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/controller/Controller.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="176" width="294" x="1529" y="589"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="analyzer.Analyzer" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/analyzer/Analyzer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="277" width="322" x="944" y="1101"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="analyzer.AnalyzersFactory" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/analyzer/AnalyzersFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="384" x="374" y="589"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="analyzer.TirocinioAnalyzer" project="MultiRotorAutoTuning" 
+    file="/MultiRotorAutoTuning/src/analyzer/TirocinioAnalyzer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="256" width="451" x="634" y="1467"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="30">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="31" name="type"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="33">    
+    <bendpoint x="668" y="845"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="34">    
+    <bendpoint x="3714" y="1467"/>    
+    <bendpoint x="3714" y="1763"/>    
+    <bendpoint x="3714" y="2163"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="35" name="instructions"/>      
+      <multiplicity id="36" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="37">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <association id="38">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="39" name="esc"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="41">    
+    <bendpoint x="3043" y="1763"/>    
+    <bendpoint x="3043" y="2163"/>    
+    <bendpoint x="3043" y="2599"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="42">    
+    <bendpoint x="343" y="589"/>    
+    <bendpoint x="603" y="845"/>    
+    <bendpoint x="603" y="1101"/>    
+    <bendpoint x="603" y="1467"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="43">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="44" name="DISARM"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="46">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="47">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="48">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="49" name="list"/>      
+      <multiplicity id="50" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="51">    
+    <bendpoint x="3716" y="589"/>    
+    <bendpoint x="3716" y="845"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="52">    
+    <bendpoint x="3693" y="1467"/>    
+    <bendpoint x="3651" y="1763"/>    
+    <bendpoint x="3609" y="2163"/>    
+    <bendpoint x="3609" y="2599"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="53" name="params"/>      
+      <multiplicity id="54" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <bendpoint x="3159" y="845"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="56" name="routine"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="58">    
+    <bendpoint x="3672" y="1763"/>    
+    <bendpoint x="3672" y="2163"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <nesting id="59">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="25"/>  
+  </nesting>  
+  <generalization id="60">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <nesting id="61">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <association id="62">    
+    <bendpoint x="1538" y="293"/>    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="63" name="controller"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="66" name="ARM"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="69" name="exampleRoutine"/>      
+      <multiplicity id="70" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <bendpoint x="3406" y="1467"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="72" name="esc"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="74">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="75">    
+    <bendpoint x="3630" y="1763"/>    
+    <bendpoint x="3567" y="2163"/>    
+    <bendpoint x="3567" y="2599"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="76">    
+    <bendpoint x="582" y="1101"/>    
+    <bendpoint x="582" y="1467"/>    
+    <bendpoint x="582" y="1763"/>    
+    <bendpoint x="582" y="2163"/>    
+    <bendpoint x="582" y="2599"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="77" name="parameters"/>      
+      <multiplicity id="78" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="79">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="80">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="81">    
+    <bendpoint x="1115" y="1467"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="82">    
+    <bendpoint x="3735" y="1101"/>    
+    <bendpoint x="3735" y="1467"/>    
+    <bendpoint x="3693" y="1763"/>    
+    <bendpoint x="3651" y="2163"/>    
+    <bendpoint x="3632" y="2599"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="83">    
+    <bendpoint x="3138" y="845"/>    
+    <bendpoint x="3138" y="1101"/>    
+    <bendpoint x="3138" y="1467"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="84">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="85" name="controller"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="87">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="88" name="analyzer"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="90">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="91" name="STOP"/>      
+      <multiplicity id="92" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="93">    
+    <bendpoint x="1356" y="845"/>    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="94">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="95">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="96">    
+    <bendpoint x="4093" y="1101"/>    
+    <bendpoint x="4093" y="1467"/>    
+    <bendpoint x="4093" y="1763"/>    
+    <bendpoint x="4093" y="2163"/>    
+    <bendpoint x="4093" y="2599"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="97">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="98" name="STOP_TELEMETRY"/>      
+      <multiplicity id="99" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="100">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="22"/>  
+  </nesting>  
+  <dependency id="101">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="102">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <generalization id="103">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <dependency id="104">    
+    <bendpoint x="561" y="1467"/>    
+    <bendpoint x="561" y="1763"/>    
+    <bendpoint x="561" y="2163"/>    
+    <bendpoint x="561" y="2599"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="105">    
+    <bendpoint x="3546" y="2599"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="106">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="107">    
+    <bendpoint x="3022" y="1101"/>    
+    <bendpoint x="3022" y="1467"/>    
+    <bendpoint x="3022" y="1763"/>    
+    <bendpoint x="3022" y="2163"/>    
+    <bendpoint x="3022" y="2599"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="108" name="parameters"/>      
+      <multiplicity id="109" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="110">    
+    <bendpoint x="3525" y="2163"/>    
+    <bendpoint x="3525" y="2599"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="111" name="telemetryParameters"/>      
+      <multiplicity id="112" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="113">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="114">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="115" name="accelerateRoutine"/>      
+      <multiplicity id="116" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="117">    
+    <bendpoint x="3588" y="2163"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="118">    
+    <bendpoint x="3695" y="589"/>    
+    <bendpoint x="3453" y="845"/>    
+    <bendpoint x="3211" y="1101"/>    
+    <bendpoint x="3159" y="1467"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="119">    
+    <bendpoint x="3737" y="589"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="120">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <nesting id="121">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="20"/>  
+  </nesting>  
+  <dependency id="122">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <association id="123">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="124" name="reader"/>      
+      <multiplicity id="125" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="126">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="127">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="128" name="START"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="130">    
+    <bendpoint x="2930" y="1467"/>    
+    <bendpoint x="2930" y="1763"/>    
+    <bendpoint x="2930" y="2163"/>    
+    <bendpoint x="2930" y="2599"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="131">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="132" name="stopAll"/>      
+      <multiplicity id="133" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="134">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="135" name="controller"/>      
+      <multiplicity id="136" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="137">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="138" name="esc"/>      
+      <multiplicity id="139" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="140">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="141">    
+    <bendpoint x="195" y="845"/>    
+    <bendpoint x="195" y="1101"/>    
+    <bendpoint x="195" y="1467"/>    
+    <bendpoint x="195" y="1763"/>    
+    <bendpoint x="195" y="2163"/>    
+    <bendpoint x="195" y="2599"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="142">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="143">    
+    <bendpoint x="788" y="589"/>    
+    <bendpoint x="788" y="845"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="144">    
+    <bendpoint x="3117" y="845"/>    
+    <bendpoint x="3117" y="1101"/>    
+    <bendpoint x="3117" y="1467"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="145" name="esc"/>      
+      <multiplicity id="146" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="147">    
+    <bendpoint x="3159" y="1101"/>    
+    <bendpoint x="3096" y="1467"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <generalization id="148">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <dependency id="149">    
+    <bendpoint x="3457" y="2599"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="150">    
+    <bendpoint x="3609" y="1763"/>    
+    <bendpoint x="3630" y="2163"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="151">    
+    <bendpoint x="3756" y="1101"/>    
+    <bendpoint x="3756" y="1467"/>    
+    <bendpoint x="3756" y="1763"/>    
+    <bendpoint x="3756" y="2163"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
