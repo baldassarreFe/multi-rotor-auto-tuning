@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
@@ -202,6 +204,7 @@ public class GraphTelemetryView extends JFrame {
 				XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
 				renderer.setBaseShapesVisible(true);
 				renderer.setBaseShapesFilled(true);
+				renderer.setSeriesPaint(0, new Color((int)(Math.random() * 0x1000000)));
 			}
 			ChartPanel panel = new ChartPanel(chart);
 			graphPanel.add(panel);

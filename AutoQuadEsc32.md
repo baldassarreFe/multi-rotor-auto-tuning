@@ -43,7 +43,11 @@ accelerate: 2000 3000 50
 accelerate: 3000 2000 -400
 ```
 Per quanto riguarda la telemetria, si è scelto di utilizzare una frequenza di 30 Hz, che dopo alcune prove sperimentali risulta essere il limite superiore dettato dall'ESC.   
-Durante la sperimentazione e lo studio dei dati, si osserva che in questo modello di ESC vi è un limite alla decelerazione di circa -400 rpm/s. Infatti si nota che, se si impongono cambiamenti più rapidi, l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta. Per quanto riguarda l'accelerazione invece, questa sarà limitata superiormente dal valore per il quale l'esc utiliza una tensione pari a 15 V, ossia la tensione di alimentazione.  
+Durante la sperimentazione e lo studio dei dati, si osserva che in questo modello di ESC vi è un limite alla decelerazione di circa -400 rpm/s. Infatti si nota che, se si impongono cambiamenti più rapidi, l'esc pone a 0V i motor volts e non ottiene la decelerazione richiesta. Questo comportamento risulta evidente nei grafici sottostanti:  
+![rpm](rpm decelerazione.png)  
+![amps avg](amps avg decelerazione.png)  
+![motor volts](motor volts decelerazione.png)  
+Per quanto riguarda l'accelerazione invece, questa sarà limitata superiormente dal valore per il quale l'esc utiliza una tensione pari a 15 V, ossia la tensione di alimentazione.  
 Si osserva inoltre che i dati ottenuti durante un'accelerazione con valori molto bassi, con una frequenza di telemetria abbastanza elevata, sono significativamente scattered, ossia senza un andamento strettamente crescente come dovrebbe essere, ma con valori che oscillanti. Questo è probabilmente dettato dalla limitata accuratezza dell'analisi dell'ESC e dalla scelta implementativa della procedura di accelerazione in codice. 
 
 ## Risultati ottenuti

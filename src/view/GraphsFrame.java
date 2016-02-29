@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -102,6 +104,7 @@ public class GraphsFrame extends JFrame {
 				XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
 				renderer.setBaseShapesVisible(true);
 				renderer.setBaseShapesFilled(true);
+				renderer.setSeriesPaint(0, new Color((int)(Math.random() * 0x1000000)));
 			}
 			ChartPanel panel = new ChartPanel(chart);
 			this.add(panel);

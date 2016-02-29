@@ -1,4 +1,4 @@
-10 accelerazioni diverse tra 2000 e 3000
+30 accelerazioni diverse tra 2000 e 3000
 RPM, AMPS AVG, MOTOR VOLTS, INPUT MODE, ESC STATE, RUN MODE
 arm
 direction: backward
@@ -9,6 +9,52 @@ sleep: 10000
 telemetry: 30
 sleep: 1000
 
+# questa decelerazione serve nell'analisi per individuare
+# correttamente l'inizio della prima accelerazione
+accelerate: 3000 2000 -400
+
+accelerate: 2000 3000 10
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 20
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 30
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 40
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 50
+accelerate: 3000 2000 -400
+
+accelerate: 2000 3000 10
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 20
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 30
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 40
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 50
+accelerate: 3000 2000 -400
+
+accelerate: 2000 3000 10
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 20
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 30
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 40
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 50
+accelerate: 3000 2000 -400
+
+accelerate: 2000 3000 10
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 20
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 30
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 40
+accelerate: 3000 2000 -400
+accelerate: 2000 3000 50
 accelerate: 3000 2000 -400
 
 accelerate: 2000 3000 10

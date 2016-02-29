@@ -138,11 +138,14 @@ public class Routine implements Runnable {
 		if (esc == null)
 			throw new IllegalStateException("Routine has no ESC attached");
 		esc.setTelemetryParameters(params);
+		long start = System.nanoTime();
 		for (Instruction i : instructions)
 			if (isRunning.get() == true)
 				esc.executeInstruction(i);
 			else
-				return;
+				break;
+		long end = System.nanoTime();
+		System.out.println("Routine " + this + " terminata dopo: " + (end - start) * 1E-6 + " ms");
 	}
 
 	/**

@@ -64,8 +64,7 @@ public abstract class Analyzer {
 	 */
 	protected void loadParameters() {
 		if (!hasSuperBeenCalled)
-			throw new IllegalStateException(
-					"Implementation has not called the super constructor");
+			throw new IllegalStateException("Implementation has not called the super constructor");
 		if (propertyFile != null) {
 			Properties properties = new Properties();
 			try {
@@ -103,8 +102,7 @@ public abstract class Analyzer {
 	 */
 	protected void readDataFromFile() throws IOException, FileFormatException {
 		if (!hasSuperBeenCalled)
-			throw new IllegalStateException(
-					"Implementation has not called the super constructor");
+			throw new IllegalStateException("Implementation has not called the super constructor");
 		BufferedReader reader = new BufferedReader(new FileReader(dataFile));
 
 		// Le colonne richieste dalla routine sono specificate nel campo table,
@@ -118,16 +116,16 @@ public abstract class Analyzer {
 		if (table.size() != cont) {
 			// nel file non ci sono le colonne necessarie all'analisi
 			reader.close();
-			throw new FileFormatException(
-					"File formatting problem: unable to find some columns");
+			throw new FileFormatException("File formatting problem: unable to find some columns");
 		}
 
 		while ((line = reader.readLine()) != null) {
 			String[] tokens = line.split(",");
 			// se su una riga c'è anche solo un buco saltiamo la riga, si
-			// potrebbe migliorare,
+			// potrebbe migliorare (esempio saltando la riga solo se il buco è
+			// in una delle colonne necessarie all'analisi),
 			// ma per comodità nel fare la regressione è meglio fare così
-			if (tokens.length != table.size())
+			if (tokens.length != header.length)
 				continue;
 
 			for (int i = 0; i < tokens.length; i++)

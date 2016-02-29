@@ -35,8 +35,8 @@ Tutti gli ESC utilizzabili tramite questo programma devono estendere la classe a
 Le routines sono contenute in file .rou collocati nella cartella routines nel path in cui è stato eseguito il programma. Tutte le routines ben formate vengono automaticamente parsate all'avvio del programma e presentate in un menù a tendina. Per informazioni su come scrivere una routine si veda più avanti.
 
 ##### Avvio della routine
-Se sono stati riempiti correttamente i campi soprastanti questo pulsante permette di avviare la routine sull'ESC. I valori della telemetry specificati nella routine verranno visualizzati in una finestra di questo tipo: 
-IMMAGINE  
+Se sono stati riempiti correttamente i campi soprastanti questo pulsante permette di avviare la routine sull'ESC. I valori della telemetry specificati nella routine verranno visualizzati in una finestra di questo tipo:   
+![Grafici di una telemetria](/assets/runningTelemetry.png)  
 Inoltre vengono salvati in un file chiamato "Motor_data_yyyy-MM-dd_HH-mm-ss.csv" dove i campi del nome rappresentano la data e l'ora dell'esecuzione.
 
 ### Analisi dei dati
